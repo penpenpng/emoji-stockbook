@@ -8,7 +8,7 @@ import { property } from "lit/decorators.js";
 
 import { definePrivateComponent } from "../lib/private-component.js";
 
-export class EmojiButton extends LitElement implements EmojiButtonProps {
+class EmojiButton extends LitElement implements EmojiButtonProps {
   @property({ type: Object })
   emoji: Emoji | undefined;
 
