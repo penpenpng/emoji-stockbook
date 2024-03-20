@@ -38,6 +38,6 @@ export function isCustomEmoji(emoji: Emoji): emoji is CustomEmoji {
   return "src" in emoji;
 }
 
-export function isEmojiGroup(x: EmojiGroup | Emoji): x is EmojiGroup {
-  return "emojis" in x;
+export function isEmojiGroups(x: EmojiGroup[] | Emoji[]): x is EmojiGroup[] {
+  return x[0] && "emojis" in x[0];
 }

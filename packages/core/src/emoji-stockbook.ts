@@ -1,6 +1,8 @@
-import { LitElement, html, unsafeCSS } from "lit";
-import { customElement, property } from "lit/decorators.js";
 import type { StockbookData } from "@emoji-stockbook/types";
+import { LitElement, unsafeCSS } from "lit";
+import { customElement, property } from "lit/decorators.js";
+
+import { stockbookMain } from "./components/stockbook-main.js";
 import style from "./emoji-stockbook.css?inline";
 
 /**
@@ -21,7 +23,7 @@ export class EmojiStockbook extends LitElement {
   data: StockbookData = [];
 
   render() {
-    return html`<span>${JSON.stringify(this.data)}</span>`;
+    return stockbookMain({ data: this.data });
   }
 
   static styles = unsafeCSS(style);
