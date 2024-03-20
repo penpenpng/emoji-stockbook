@@ -1,14 +1,14 @@
 import {
   type Emoji,
-  isNativeEmoji,
   isCustomEmoji,
+  isNativeEmoji,
 } from "@emoji-stockbook/types";
-import { LitElement, html, nothing } from "lit";
+import { html, LitElement, nothing } from "lit";
 import { property } from "lit/decorators.js";
-import { privateCustomElement } from "../lib/private-custom-element";
 
-@privateCustomElement("emoji-button")
-export class EmojiButton extends LitElement {
+import { definePrivateComponent } from "../lib/private-component.js";
+
+export class EmojiButton extends LitElement implements EmojiButtonProps {
   @property({ type: Object })
   emoji: Emoji | undefined;
 
@@ -27,3 +27,12 @@ export class EmojiButton extends LitElement {
     }
   }
 }
+
+export interface EmojiButtonProps {
+  emoji?: Emoji;
+}
+
+export const emojiButton = definePrivateComponent<
+  EmojiButton,
+  EmojiButtonProps
+>(EmojiButton);
