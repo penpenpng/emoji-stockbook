@@ -16,5 +16,9 @@
   "author": "penpenpng",
   "devDependencies": {
     "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "emojilib": "^3.0.11",
+    "unicode-emoji-json": "^0.4.0"
   }
 }
