@@ -9,6 +9,13 @@
   </head>
   <body>
     <emoji-stockbook id="stockbook" />
+    <style>
+      #stockbook {
+        margin: 20px;
+        /* TODO: Move all CSS variables here to another package. */
+        --size: 15px;
+      }
+    </style>
     <script type="module">
       import { stockbookData } from "@emoji-stockbook/data";
 
