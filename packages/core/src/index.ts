@@ -1,1 +1,1 @@
-export { MyElement } from "./my-element";
+export { EmojiStockbook } from "./emoji-stockbook";
