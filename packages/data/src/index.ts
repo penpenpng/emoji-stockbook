@@ -1,6 +1,6 @@
-import dataByGroup from "unicode-emoji-json/data-by-group.json";
-import keywordsByEmoji from "emojilib";
 import type { EmojiGroup, NativeEmoji } from "@emoji-stockbook/types";
+import keywordsByEmoji from "emojilib";
+import dataByGroup from "unicode-emoji-json/data-by-group.json";
 
 // TODO: Generate at compile-time
 const stockbookData = Object.entries(dataByGroup).map(
