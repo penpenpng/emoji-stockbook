@@ -17,6 +17,8 @@ export interface NativeEmoji extends EmojiBase {
 export interface CustomEmoji extends EmojiBase {
   /** Sprite URL. */
   src: string;
+  /** Human-readable name. Only for a11y. */
+  name?: string;
 }
 
 export type Emoji = NativeEmoji | CustomEmoji;
@@ -27,3 +29,15 @@ export interface EmojiGroup {
 }
 
 export type StockbookData = EmojiGroup[] | Emoji[];
+
+export function isNativeEmoji(emoji: Emoji): emoji is NativeEmoji {
+  return "char" in emoji;
+}
+
+export function isCustomEmoji(emoji: Emoji): emoji is CustomEmoji {
+  return "src" in emoji;
+}
+
+export function isEmojiGroup(x: EmojiGroup | Emoji): x is EmojiGroup {
+  return "emojis" in x;
+}
