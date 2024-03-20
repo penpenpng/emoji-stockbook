@@ -8,7 +8,8 @@
   },
   "author": "penpenpng",
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "apps/demo"
   ],
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.56.0",
