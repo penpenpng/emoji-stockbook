@@ -1,5 +1,6 @@
 import { LitElement, css, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
+import type { StockbookData } from "@emoji-stockbook/types";
 
 /**
  * TODO: https://api-viewer.open-wc.org/docs/guide/writing-jsdoc/
@@ -13,21 +14,13 @@ export class EmojiStockbook extends LitElement {
   docsHint = "Click on the Vite and Lit logos to learn more";
 
   /**
-   * The number of times the button has been clicked.
+   * All native or custom emojis that user can choose.
    */
-  @property({ type: Number })
-  count = 0;
+  @property({ type: Object })
+  data: StockbookData = [];
 
   render() {
-    return html`
-      <button @click=${this._onClick} part="button">
-        count is ${this.count}
-      </button>
-    `;
-  }
-
-  private _onClick() {
-    this.count++;
+    return html`${JSON.stringify(this.data)}`;
   }
 
   static styles = css``;

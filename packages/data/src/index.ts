@@ -3,7 +3,7 @@ import keywordsByEmoji from "emojilib";
 import type { EmojiGroup, NativeEmoji } from "@emoji-stockbook/types";
 
 // TODO: Generate at compile-time
-const stockbookDataset = Object.entries(dataByGroup).map(
+const stockbookData = Object.entries(dataByGroup).map(
   ([groupName, emojis]): EmojiGroup => ({
     name: groupName,
     emojis: emojis.map((emoji): NativeEmoji => {
@@ -28,4 +28,4 @@ const stockbookDataset = Object.entries(dataByGroup).map(
   })
 );
 
-export { stockbookDataset };
+export { stockbookData };

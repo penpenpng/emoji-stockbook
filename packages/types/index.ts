@@ -26,4 +26,4 @@ export interface EmojiGroup {
   emojis: Emoji[];
 }
 
-export type StockbookDataset = EmojiGroup[] | Emoji[];
+export type StockbookData = EmojiGroup[] | Emoji[];
