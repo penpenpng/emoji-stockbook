@@ -1,3 +1,5 @@
+import "./accordion.js";
+
 import { type Emoji, EmojiGroup } from "@emoji-stockbook/types";
 import { html, LitElement } from "lit";
 import { property } from "lit/decorators.js";
@@ -13,9 +15,13 @@ class EmojiGroupSection extends LitElement implements EmojiGroupSectionProps {
   emojis: Emoji[] = [];
 
   render() {
-    return html`<span>${this.name}</span>${emojiGrid({
-        emojis: this.emojis,
-      })}`;
+    return html`<esb-accordion label=${this.name}>
+      <div slot="content">
+        ${emojiGrid({
+          emojis: this.emojis,
+        })}
+      </div>
+    </esb-accordion>`;
   }
 }
 
