@@ -4,7 +4,8 @@ import { property } from "lit/decorators.js";
 import { repeat } from "lit/directives/repeat.js";
 
 import { definePrivateComponent } from "../lib/private-component.js";
-import { emojiGrid, emojiGroupSection } from "./emoji-grid.js";
+import { emojiGrid } from "./emoji-grid.js";
+import { emojiGroupSection } from "./emoji-group-section.js";
 
 class StockbookMain extends LitElement implements StockbookMainProps {
   @property({ type: Object, attribute: false })
