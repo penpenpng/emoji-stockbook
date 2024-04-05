@@ -1,9 +1,8 @@
 import type { StockbookData } from "@emoji-stockbook/types";
-import { css, html, LitElement, unsafeCSS } from "lit";
+import { css, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 
 import { stockbookMain } from "./components/stockbook-main.js";
-import style from "./emoji-stockbook.css?inline";
 
 /**
  * TODO: https://api-viewer.open-wc.org/docs/guide/writing-jsdoc/
@@ -47,8 +46,6 @@ export class EmojiStockbook extends LitElement {
       ${vars}
     </style>`;
   }
-
-  static styles = unsafeCSS(style);
 }
 
 declare global {

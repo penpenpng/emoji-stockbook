@@ -3,10 +3,11 @@ import {
   isCustomEmoji,
   isNativeEmoji,
 } from "@emoji-stockbook/types";
-import { html, LitElement, nothing } from "lit";
+import { html, LitElement, nothing, unsafeCSS } from "lit";
 import { property } from "lit/decorators.js";
 
 import { definePrivateComponent } from "../lib/private-component.js";
+import styles from "./emoji-button.css?inline";
 
 class EmojiButton extends LitElement implements EmojiButtonProps {
   @property({ type: Object })
@@ -17,7 +18,7 @@ class EmojiButton extends LitElement implements EmojiButtonProps {
     if (!emoji) {
       return html`<button></button>`;
     } else if (isNativeEmoji(emoji)) {
-      return html`<button>${emoji.char}</button>`;
+      return html`<button><span>${emoji.char}</span></button>`;
     } else if (isCustomEmoji(emoji)) {
       return html`<button>
         <img alt=${emoji.name ?? emoji.shortcode} src=${emoji.src} />
@@ -26,6 +27,8 @@ class EmojiButton extends LitElement implements EmojiButtonProps {
       return nothing;
     }
   }
+
+  static styles = unsafeCSS(styles);
 }
 
 export interface EmojiButtonProps {

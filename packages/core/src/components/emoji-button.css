@@ -1,0 +1,26 @@
+/* Reset CSS */
+button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  // For a11y reason
+  /* outline: none; */
+  padding: 0;
+  appearance: none;
+}
+
+/* Styles */
+button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  font-size: 20px;
+}
+button:hover {
+  background-color: rgb(223, 223, 223);
+}
+button:active {
+  background-color: rgb(204, 204, 204);
+}
