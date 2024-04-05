@@ -3,10 +3,14 @@ import { html, LitElement, unsafeCSS } from "lit";
 import { property } from "lit/decorators.js";
 import { repeat } from "lit/directives/repeat.js";
 
-import { definePrivateComponent } from "../lib/private-component.js";
+import {
+  createFactory,
+  privateCustomElement,
+} from "../lib/private-component.js";
 import { emojiButton } from "./emoji-button.js";
 import style from "./emoji-grid.css?inline";
 
+@privateCustomElement("emoji-grid")
 class EmojiGrid extends LitElement implements EmojiGridProps {
   @property({ type: Array, attribute: false })
   emojis: Emoji[] = [];
@@ -28,6 +32,4 @@ export interface EmojiGridProps {
   emojis: Emoji[];
 }
 
-export const emojiGrid = definePrivateComponent<EmojiGrid, EmojiGridProps>(
-  EmojiGrid
-);
+export const emojiGrid = createFactory<EmojiGrid, EmojiGridProps>(EmojiGrid);

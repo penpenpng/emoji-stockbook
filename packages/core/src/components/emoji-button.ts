@@ -6,9 +6,13 @@ import {
 import { html, LitElement, nothing, unsafeCSS } from "lit";
 import { property } from "lit/decorators.js";
 
-import { definePrivateComponent } from "../lib/private-component.js";
+import {
+  createFactory,
+  privateCustomElement,
+} from "../lib/private-component.js";
 import styles from "./emoji-button.css?inline";
 
+@privateCustomElement("emoji-button")
 class EmojiButton extends LitElement implements EmojiButtonProps {
   @property({ type: Object })
   emoji: Emoji | undefined;
@@ -35,7 +39,6 @@ export interface EmojiButtonProps {
   emoji?: Emoji;
 }
 
-export const emojiButton = definePrivateComponent<
-  EmojiButton,
-  EmojiButtonProps
->(EmojiButton);
+export const emojiButton = createFactory<EmojiButton, EmojiButtonProps>(
+  EmojiButton
+);

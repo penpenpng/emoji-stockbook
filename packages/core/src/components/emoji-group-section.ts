@@ -4,9 +4,13 @@ import { type Emoji, EmojiGroup } from "@emoji-stockbook/types";
 import { html, LitElement } from "lit";
 import { property } from "lit/decorators.js";
 
-import { definePrivateComponent } from "../lib/private-component.js";
+import {
+  createFactory,
+  privateCustomElement,
+} from "../lib/private-component.js";
 import { emojiGrid } from "./emoji-grid.js";
 
+@privateCustomElement("emoji-group-section")
 class EmojiGroupSection extends LitElement implements EmojiGroupSectionProps {
   @property({ type: String })
   name = "";
@@ -27,7 +31,7 @@ class EmojiGroupSection extends LitElement implements EmojiGroupSectionProps {
 
 export type EmojiGroupSectionProps = EmojiGroup;
 
-export const emojiGroupSection = definePrivateComponent<
+export const emojiGroupSection = createFactory<
   EmojiGroupSection,
   EmojiGroupSectionProps
 >(EmojiGroupSection);

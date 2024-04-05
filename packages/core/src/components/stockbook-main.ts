@@ -3,10 +3,14 @@ import { LitElement, nothing } from "lit";
 import { property } from "lit/decorators.js";
 import { repeat } from "lit/directives/repeat.js";
 
-import { definePrivateComponent } from "../lib/private-component.js";
+import {
+  createFactory,
+  privateCustomElement,
+} from "../lib/private-component.js";
 import { emojiGrid } from "./emoji-grid.js";
 import { emojiGroupSection } from "./emoji-group-section.js";
 
+@privateCustomElement("stockbook-main")
 class StockbookMain extends LitElement implements StockbookMainProps {
   @property({ type: Object, attribute: false })
   data: StockbookData | undefined;
@@ -32,7 +36,6 @@ export interface StockbookMainProps {
   data?: StockbookData;
 }
 
-export const stockbookMain = definePrivateComponent<
-  StockbookMain,
-  StockbookMainProps
->(StockbookMain);
+export const stockbookMain = createFactory<StockbookMain, StockbookMainProps>(
+  StockbookMain
+);

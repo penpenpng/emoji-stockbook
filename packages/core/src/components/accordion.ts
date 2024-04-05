@@ -1,9 +1,10 @@
 import { html, LitElement } from "lit";
-import { customElement, property } from "lit/decorators.js";
+import { property } from "lit/decorators.js";
 
+import { privateCustomElement } from "../lib/private-component.js";
 import { randomId } from "../lib/random-id.js";
 
-@customElement("esb-accordion")
+@privateCustomElement("accordion")
 export class Accordion extends LitElement {
   @property({ type: String })
   label = "";
