@@ -1,11 +1,11 @@
 .grid {
   display: grid;
-  grid-template-columns: repeat(var(--col), var(--cell-size));
-  gap: var(--cell-gap);
+  grid-template-columns: repeat(var(--esb-col), var(--esb-cell-size));
+  gap: var(--esb-cell-gap);
 }
 
 .grid * {
   display: block;
-  width: var(--cell-size);
-  height: var(--cell-size);
+  width: var(--esb-cell-size);
+  height: var(--esb-cell-size);
 }
