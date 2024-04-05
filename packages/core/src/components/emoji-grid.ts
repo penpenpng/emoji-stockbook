@@ -1,17 +1,18 @@
 import { type Emoji, EmojiGroup } from "@emoji-stockbook/types";
-import { html, LitElement } from "lit";
+import { html, LitElement, unsafeCSS } from "lit";
 import { property } from "lit/decorators.js";
 import { repeat } from "lit/directives/repeat.js";
 
 import { definePrivateComponent } from "../lib/private-component.js";
 import { emojiButton } from "./emoji-button.js";
+import style from "./emoji-grid.css?inline";
 
 class EmojiGrid extends LitElement implements EmojiGridProps {
   @property({ type: Array, attribute: false })
   emojis: Emoji[] = [];
 
   render() {
-    return html`<div>
+    return html`<div class="grid">
       ${repeat(
         this.emojis,
         (emoji) => emoji.id ?? emoji.shortcode,
@@ -19,6 +20,8 @@ class EmojiGrid extends LitElement implements EmojiGridProps {
       )}
     </div>`;
   }
+
+  static styles = unsafeCSS(style);
 }
 
 export interface EmojiGridProps {

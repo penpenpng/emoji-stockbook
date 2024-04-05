@@ -1,0 +1,11 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(var(--col), var(--cell-size));
+  gap: var(--cell-gap);
+}
+
+.grid * {
+  display: block;
+  width: var(--cell-size);
+  height: var(--cell-size);
+}

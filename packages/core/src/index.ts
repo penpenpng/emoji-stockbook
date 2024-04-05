@@ -1,1 +1,1 @@
-export { EmojiStockbook } from "./emoji-stockbook";
+export { EmojiStockbook } from "./emoji-stockbook.js";
