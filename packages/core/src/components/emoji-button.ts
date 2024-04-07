@@ -1,44 +1,34 @@
-import {
-  type Emoji,
-  isCustomEmoji,
-  isNativeEmoji,
-} from "@emoji-stockbook/types";
-import { html, LitElement, nothing, unsafeCSS } from "lit";
+import { html, LitElement, unsafeCSS } from "lit";
 import { property } from "lit/decorators.js";
 
-import {
-  createFactory,
-  privateCustomElement,
-} from "../lib/private-component.js";
+import { privateCustomElement } from "../lib/private-component.js";
 import styles from "./emoji-button.css?inline";
 
-@privateCustomElement("emoji-button")
-class EmojiButton extends LitElement implements EmojiButtonProps {
-  @property({ type: Object })
-  emoji: Emoji | undefined;
+@privateCustomElement("native-emoji-button")
+export class NativeEmojiButton extends LitElement {
+  @property({ type: String })
+  char = "";
 
   render() {
-    const emoji = this.emoji;
-    if (!emoji) {
-      return html`<button></button>`;
-    } else if (isNativeEmoji(emoji)) {
-      return html`<button><span>${emoji.char}</span></button>`;
-    } else if (isCustomEmoji(emoji)) {
-      return html`<button>
-        <img alt=${emoji.name ?? emoji.shortcode} src=${emoji.src} />
-      </button>`;
-    } else {
-      return nothing;
-    }
+    return html`<button><span>${this.char}</span></button>`;
   }
 
   static styles = unsafeCSS(styles);
 }
 
-export interface EmojiButtonProps {
-  emoji?: Emoji;
-}
+@privateCustomElement("custom-emoji-button")
+export class CustomEmojiButton extends LitElement {
+  @property({ type: String })
+  src = "";
 
-export const emojiButton = createFactory<EmojiButton, EmojiButtonProps>(
-  EmojiButton
-);
+  @property({ type: String })
+  alt = "";
+
+  render() {
+    return html`<button>
+      <img alt=${this.alt} src=${this.src} />
+    </button>`;
+  }
+
+  static styles = unsafeCSS(styles);
+}

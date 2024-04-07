@@ -23,9 +23,7 @@ export class EmojiStockbook extends LitElement {
   cellGap = 4;
 
   setEmojiDataset(data: EmojiDataset) {
-    if (this.#paletteRef.value) {
-      this.#paletteRef.value.data = data;
-    }
+    this.#paletteRef.value?.setEmojiDataset(data);
   }
 
   #paletteRef = createRef<EmojiPalette>();
@@ -40,8 +38,7 @@ export class EmojiStockbook extends LitElement {
   render() {
     const styles = this.#renderDynamicStyles();
 
-    return html`<esb-emoji-palette ${ref(this.#paletteRef)}></esb-emoji-palette
-      >${styles}`;
+    return html`<esb-emoji-palette ${ref(this.#paletteRef)} />${styles}`;
   }
 
   /*

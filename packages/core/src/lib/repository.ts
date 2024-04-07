@@ -1,6 +1,6 @@
 import {
-  Emoji,
-  EmojiDataset,
+  type Emoji,
+  type EmojiDataset,
   isEmojiGroups,
   isNativeEmoji,
 } from "@emoji-stockbook/types";

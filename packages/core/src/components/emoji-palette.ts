@@ -1,6 +1,6 @@
 import { type EmojiDataset, isEmojiGroups } from "@emoji-stockbook/types";
 import { LitElement, nothing } from "lit";
-import { property } from "lit/decorators.js";
+import { state } from "lit/decorators.js";
 import { repeat } from "lit/directives/repeat.js";
 
 import { privateCustomElement } from "../lib/private-component.js";
@@ -9,13 +9,17 @@ import { emojiGroupSection } from "./emoji-group-section.js";
 
 @privateCustomElement("emoji-palette")
 export class EmojiPalette extends LitElement {
-  @property({ type: Object, attribute: false })
-  data: EmojiDataset | undefined;
+  @state()
+  private _data: EmojiDataset | undefined;
+
+  setEmojiDataset(data: EmojiDataset) {
+    this._data = data;
+  }
 
   render() {
-    console.log("palette render");
-    const data = this.data;
+    const data = this._data;
 
+    // TODO: performance
     if (!data || data.length <= 0) {
       return nothing;
     } else if (isEmojiGroups(data)) {
