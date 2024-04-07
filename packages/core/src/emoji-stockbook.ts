@@ -1,4 +1,5 @@
 import "./components/emoji-palette.js";
+import "./components/search-input.js";
 
 import type { EmojiDataset } from "@emoji-stockbook/types";
 import { css, html, LitElement, unsafeCSS } from "lit";
@@ -36,9 +37,11 @@ export class EmojiStockbook extends LitElement {
   width?: number;
 
   render() {
-    const styles = this.#renderDynamicStyles();
-
-    return html`<esb-emoji-palette ${ref(this.#paletteRef)} />${styles}`;
+    return html`<esb-search-input></esb-search-input>
+      <esb-emoji-palette ${ref(this.#paletteRef)}></esb-emoji-palette>
+      <style>
+        ${this.#dynamicStyle()}
+      </style>`;
   }
 
   /*
@@ -47,7 +50,7 @@ export class EmojiStockbook extends LitElement {
     Therefore, all style variables that have dependencies
     with col will be handled by JavaScript.
   */
-  #renderDynamicStyles() {
+  #dynamicStyle() {
     // --esb prefix means that the variable is private.
     const styles = css`
       :host {
@@ -66,10 +69,9 @@ export class EmojiStockbook extends LitElement {
         `
       : css``;
 
-    return html`<style>
-      ${styles}
-      ${widthCSS}
-    </style>`;
+    return css`
+      ${styles}${widthCSS}
+    `;
   }
 
   get #defaultWidth() {

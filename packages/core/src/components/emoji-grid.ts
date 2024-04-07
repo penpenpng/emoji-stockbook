@@ -23,11 +23,13 @@ class EmojiGrid extends LitElement implements EmojiGridProps {
         (emoji) => emoji.id ?? emoji.shortcode,
         (emoji) =>
           isNativeEmoji(emoji)
-            ? html`<esb-native-emoji-button char=${emoji.char} />`
+            ? html`<esb-native-emoji-button
+                char=${emoji.char}
+              ></esb-native-emoji-button>`
             : html`<esb-custom-emoji-button
                 alt=${emoji.name ?? emoji.shortcode}
                 src=${emoji.src}
-              />`
+              ></esb-custom-emoji-button>`
       )}
     </div>`;
   }
