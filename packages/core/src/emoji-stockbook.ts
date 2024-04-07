@@ -1,8 +1,11 @@
+import "./components/emoji-palette.js";
+
 import type { StockbookData } from "@emoji-stockbook/types";
 import { css, html, LitElement, unsafeCSS } from "lit";
 import { customElement, property } from "lit/decorators.js";
+import { createRef, ref } from "lit/directives/ref.js";
 
-import { stockbookMain } from "./components/stockbook-main.js";
+import type { EmojiPalette } from "./components/emoji-palette.js";
 import styles from "./emoji-stockbook.css?inline";
 
 /**
@@ -10,12 +13,6 @@ import styles from "./emoji-stockbook.css?inline";
  */
 @customElement("emoji-stockbook")
 export class EmojiStockbook extends LitElement {
-  /**
-   * All native or custom emojis that user can choose.
-   */
-  @property({ type: Object })
-  data: StockbookData = [];
-
   @property({ type: Number, attribute: "col" })
   col = 9;
 
@@ -25,6 +22,14 @@ export class EmojiStockbook extends LitElement {
   @property({ type: Number, attribute: "cell-gap" })
   cellGap = 4;
 
+  setEmojiDataset(data: StockbookData) {
+    if (this.#paletteRef.value) {
+      this.#paletteRef.value.data = data;
+    }
+  }
+
+  #paletteRef = createRef<EmojiPalette>();
+
   /**
    * Width of the component. If not given, CSS variable `--emoji-stockbook-width`
    * determines the width. If neither is given, implicit default width is used.
@@ -33,12 +38,10 @@ export class EmojiStockbook extends LitElement {
   width?: number;
 
   render() {
-    const main = stockbookMain({
-      data: this.data,
-    });
     const styles = this.#renderDynamicStyles();
 
-    return html`${main}${styles}`;
+    return html`<esb-emoji-palette ${ref(this.#paletteRef)}></esb-emoji-palette
+      >${styles}`;
   }
 
   /*

@@ -3,19 +3,17 @@ import { LitElement, nothing } from "lit";
 import { property } from "lit/decorators.js";
 import { repeat } from "lit/directives/repeat.js";
 
-import {
-  createFactory,
-  privateCustomElement,
-} from "../lib/private-component.js";
+import { privateCustomElement } from "../lib/private-component.js";
 import { emojiGrid } from "./emoji-grid.js";
 import { emojiGroupSection } from "./emoji-group-section.js";
 
-@privateCustomElement("stockbook-main")
-class StockbookMain extends LitElement implements StockbookMainProps {
+@privateCustomElement("emoji-palette")
+export class EmojiPalette extends LitElement {
   @property({ type: Object, attribute: false })
   data: StockbookData | undefined;
 
   render() {
+    console.log("palette render");
     const data = this.data;
 
     if (!data || data.length <= 0) {
@@ -31,11 +29,3 @@ class StockbookMain extends LitElement implements StockbookMainProps {
     }
   }
 }
-
-export interface StockbookMainProps {
-  data?: StockbookData;
-}
-
-export const stockbookMain = createFactory<StockbookMain, StockbookMainProps>(
-  StockbookMain
-);
