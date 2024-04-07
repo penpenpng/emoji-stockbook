@@ -25,6 +25,13 @@ export class EmojiStockbook extends LitElement {
   @property({ type: Number, attribute: "cell-gap" })
   cellGap = 4;
 
+  /**
+   * Width of the component. If not given, CSS variable `--emoji-stockbook-width`
+   * determines the width. If neither is given, implicit default width is used.
+   */
+  @property({ type: Number, attribute: "width" })
+  width?: number;
+
   render() {
     const main = stockbookMain({
       data: this.data,
@@ -41,24 +48,35 @@ export class EmojiStockbook extends LitElement {
     with col will be handled by JavaScript.
   */
   #renderDynamicStyles() {
-    const padding = 20;
-    const defaultWidth =
-      (this.cellSize + this.cellGap) * this.col - this.cellGap + padding * 2;
-
     // --esb prefix means that the variable is private.
     const styles = css`
       :host {
-        width: var(--emoji-stockbook-width, ${defaultWidth}px);
+        width: var(--emoji-stockbook-width, ${this.#defaultWidth}px);
 
         --esb-col: ${this.col};
         --esb-cell-size: ${this.cellSize}px;
         --esb-cell-gap: ${this.cellGap}px;
       }
     `;
+    const widthCSS = this.width
+      ? css`
+          :host {
+            width: ${this.width}px;
+          }
+        `
+      : css``;
 
     return html`<style>
       ${styles}
+      ${widthCSS}
     </style>`;
+  }
+
+  get #defaultWidth() {
+    const padding = 20;
+    return (
+      (this.cellSize + this.cellGap) * this.col - this.cellGap + padding * 2
+    );
   }
 
   static styles = unsafeCSS(styles);
