@@ -1,6 +1,6 @@
 import "./components/emoji-palette.js";
 
-import type { StockbookData } from "@emoji-stockbook/types";
+import type { EmojiDataset } from "@emoji-stockbook/types";
 import { css, html, LitElement, unsafeCSS } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { createRef, ref } from "lit/directives/ref.js";
@@ -22,7 +22,7 @@ export class EmojiStockbook extends LitElement {
   @property({ type: Number, attribute: "cell-gap" })
   cellGap = 4;
 
-  setEmojiDataset(data: StockbookData) {
+  setEmojiDataset(data: EmojiDataset) {
     if (this.#paletteRef.value) {
       this.#paletteRef.value.data = data;
     }

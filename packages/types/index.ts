@@ -28,7 +28,7 @@ export interface EmojiGroup {
   emojis: Emoji[];
 }
 
-export type StockbookData = EmojiGroup[] | Emoji[];
+export type EmojiDataset = EmojiGroup[] | Emoji[];
 
 export function isNativeEmoji(emoji: Emoji): emoji is NativeEmoji {
   return "char" in emoji;

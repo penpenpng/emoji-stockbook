@@ -1,19 +1,19 @@
 import {
   Emoji,
+  EmojiDataset,
   isEmojiGroups,
   isNativeEmoji,
-  StockbookData,
 } from "@emoji-stockbook/types";
 
 export class EmojiRepository {
-  #data: StockbookDataModel = { kind: "emojis", emojis: [] };
+  #data: EmojiDatasetModel = { kind: "emojis", emojis: [] };
   #map: Record<string, EmojiModel> = {};
 
-  constructor(data: StockbookData) {
+  constructor(data: EmojiDataset) {
     this.setData(data);
   }
 
-  setData(data: StockbookData) {
+  setData(data: EmojiDataset) {
     const map: Record<string, EmojiModel> = {};
 
     if (isEmojiGroups(data)) {
@@ -66,7 +66,7 @@ export class EmojiRepository {
     return emojiModels;
   }
 
-  getAll(): StockbookDataModel {
+  getAll(): EmojiDatasetModel {
     return this.#data;
   }
 
@@ -96,7 +96,7 @@ function modelize(emoji: Emoji): EmojiModel {
 }
 
 export type EmojiModel = Readonly<Emoji & { id: string }>;
-export type StockbookDataModel =
+export type EmojiDatasetModel =
   | {
       kind: "groups";
       groups: EmojiGroupModel[];

@@ -1,4 +1,4 @@
-import { isEmojiGroups, type StockbookData } from "@emoji-stockbook/types";
+import { type EmojiDataset, isEmojiGroups } from "@emoji-stockbook/types";
 import { LitElement, nothing } from "lit";
 import { property } from "lit/decorators.js";
 import { repeat } from "lit/directives/repeat.js";
@@ -10,7 +10,7 @@ import { emojiGroupSection } from "./emoji-group-section.js";
 @privateCustomElement("emoji-palette")
 export class EmojiPalette extends LitElement {
   @property({ type: Object, attribute: false })
-  data: StockbookData | undefined;
+  data: EmojiDataset | undefined;
 
   render() {
     console.log("palette render");
