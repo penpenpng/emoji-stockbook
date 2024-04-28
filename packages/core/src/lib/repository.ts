@@ -5,8 +5,35 @@ import {
   isNativeEmoji,
 } from "@emoji-stockbook/types";
 
+export class Stockbook {
+  #repo = new EmojiRepository();
+
+  constructor() {
+    this.#palette = this.#repo.getAll();
+  }
+
+  setRepositoryData(data: EmojiDataset) {
+    this.#repo.setData(data);
+  }
+
+  search(query: string): Readonly<PaletteModel> {
+    return (this.palette = {
+      kind: "emojis",
+      emojis: this.#repo.search(query),
+    });
+  }
+
+  #palette: PaletteModel;
+  private set palette(v: PaletteModel) {
+    this.#palette = v;
+  }
+  get palette(): Readonly<PaletteModel> {
+    return this.#palette;
+  }
+}
+
 export class EmojiRepository {
-  #data: EmojiDatasetModel = { kind: "emojis", emojis: [] };
+  #data: PaletteModel = { kind: "emojis", emojis: [] };
   #map: Record<string, EmojiModel> = {};
 
   setData(data: EmojiDataset) {
@@ -62,7 +89,7 @@ export class EmojiRepository {
     return emojiModels;
   }
 
-  getAll(): EmojiDatasetModel {
+  getAll(): PaletteModel {
     return this.#data;
   }
 
@@ -93,7 +120,7 @@ function modelize(emoji: Emoji): EmojiModel {
 
 export type EmojiModel = Readonly<Emoji & { id: string }>;
 // TODO: Readonly
-export type EmojiDatasetModel =
+export type PaletteModel =
   | {
       kind: "groups";
       groups: EmojiGroupModel[];
