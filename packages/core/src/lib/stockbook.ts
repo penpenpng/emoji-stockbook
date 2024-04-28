@@ -7,91 +7,97 @@ import {
 
 export class Stockbook {
   #repo = new EmojiRepository();
-
-  constructor() {
-    this.#palette = this.#repo.getAll();
-  }
+  #query = "";
+  #defaultPalette: PaletteModel = {
+    kind: "emojis",
+    emojis: [],
+  };
 
   setRepositoryData(data: EmojiDataset) {
-    this.#repo.setData(data);
-    this.#palette = this.#repo.getAll();
+    if (isEmojiGroups(data)) {
+      const groups = data.map((group) => ({
+        ...group,
+        emojis: group.emojis.map(modelize),
+      }));
+
+      this.#defaultPalette = {
+        kind: "groups",
+        groups,
+      };
+      this.#repo.setData(this.#defaultPalette.groups.flatMap((g) => g.emojis));
+    } else {
+      this.#defaultPalette = {
+        kind: "emojis",
+        emojis: data.map(modelize),
+      };
+      this.#repo.setData(this.#defaultPalette.emojis);
+    }
+
+    if (this.#query) {
+      this.search(this.#query);
+    } else {
+      this.palette = this.#defaultPalette;
+    }
   }
 
   search(query: string): Readonly<PaletteModel> {
-    return (this.palette = {
-      kind: "emojis",
-      emojis: this.#repo.search(query),
-    });
+    this.#query = query;
+
+    if (query) {
+      return (this.palette = {
+        kind: "emojis",
+        emojis: this.#repo.search(query),
+      });
+    } else {
+      return (this.palette = this.#defaultPalette);
+    }
   }
 
-  #palette: PaletteModel;
+  #palette: PaletteModel = {
+    kind: "emojis",
+    emojis: [],
+  };
   private set palette(v: PaletteModel) {
     this.#palette = v;
+    this.#paletteSubscriber.forEach((f) => f(this.#palette));
   }
   get palette(): Readonly<PaletteModel> {
     return this.#palette;
   }
+
+  #paletteSubscriber: Subscriber<PaletteModel>[] = [];
+  subscribePalette(callback: Subscriber<PaletteModel>): Unsubscribe {
+    callback(this.palette);
+    this.#paletteSubscriber.push(callback);
+
+    return () => {
+      this.#paletteSubscriber = this.#paletteSubscriber.filter(
+        (f) => f !== callback
+      );
+    };
+  }
 }
 
 class EmojiRepository {
-  #data: PaletteModel = { kind: "emojis", emojis: [] };
   #map: Record<string, EmojiModel> = {};
 
-  setData(data: EmojiDataset) {
+  setData(emojis: EmojiModel[]) {
     const map: Record<string, EmojiModel> = {};
-
-    if (isEmojiGroups(data)) {
-      const groups: EmojiGroupModel[] = [];
-
-      for (const { name, emojis } of data) {
-        const emojiModels = EmojiRepository.#modelizeWithMemoizing(emojis, map);
-
-        groups.push({
-          name,
-          emojis: emojiModels,
-        });
+    for (const emoji of emojis) {
+      // memoize
+      if (map[emoji.id]) {
+        console.warn(
+          `Emoji IDs are duplicated: ${emoji.id}\nThis may lead to unexpected behavior.`
+        );
       }
-
-      this.#data = {
-        kind: "groups",
-        groups,
-      };
-    } else {
-      const emojiModels = EmojiRepository.#modelizeWithMemoizing(data, map);
-
-      this.#data = {
-        kind: "emojis",
-        emojis: emojiModels,
-      };
+      map[emoji.id] = emoji;
     }
 
     this.#map = map;
   }
 
-  static #modelizeWithMemoizing(
-    emojis: Emoji[],
-    map: Record<string, EmojiModel>
-  ): EmojiModel[] {
-    const emojiModels: EmojiModel[] = [];
-
-    for (const emoji of emojis) {
-      const emojiModel = modelize(emoji);
-      emojiModels.push(emojiModel);
-
-      // memoize
-      if (map[emojiModel.id]) {
-        console.warn(
-          `Emoji IDs are duplicated: ${emojiModel.id}\nThis may lead to unexpected behavior.`
-        );
-      }
-      map[emojiModel.id] = emojiModel;
-    }
-
-    return emojiModels;
-  }
-
-  getAll(): PaletteModel {
-    return this.#data;
+  getAll(): EmojiModel[] {
+    return Object.values(this.#map);
   }
 
   getById(id: string): EmojiModel | undefined {
@@ -135,3 +141,6 @@ export type EmojiGroupModel = {
   name: string;
   emojis: EmojiModel[];
 };
+
+export type Subscriber<T> = (v: T) => void;
+export type Unsubscribe = () => void;

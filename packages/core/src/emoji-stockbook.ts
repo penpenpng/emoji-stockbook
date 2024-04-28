@@ -2,13 +2,13 @@ import "./components/emoji-palette.js";
 import "./components/search-input.js";
 
 import type { EmojiDataset } from "@emoji-stockbook/types";
+import { provide } from "@lit/context";
 import { css, html, LitElement, unsafeCSS } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { createRef, ref } from "lit/directives/ref.js";
 
-import type { EmojiPalette } from "./components/emoji-palette.js";
 import styles from "./emoji-stockbook.css?inline";
-import { EmojiRepository, Stockbook } from "./lib/stockbook.js";
+import { stockbookContext } from "./lib/context.js";
+import { Stockbook } from "./lib/stockbook.js";
 
 /**
  * TODO: https://api-viewer.open-wc.org/docs/guide/writing-jsdoc/
@@ -25,12 +25,11 @@ export class EmojiStockbook extends LitElement {
   cellGap = 4;
 
   setEmojiDataset(data: EmojiDataset) {
-    this.#stockbook.setRepositoryData(data);
-    this.#paletteRef.value?.setEmojiDataset(this.#stockbook.palette);
+    this.stockbook.setRepositoryData(data);
   }
 
-  #stockbook = new Stockbook();
-  #paletteRef = createRef<EmojiPalette>();
+  @provide({ context: stockbookContext })
+  stockbook = new Stockbook();
 
   /**
    * Width of the component. If not given, CSS variable `--emoji-stockbook-width`
@@ -41,7 +40,7 @@ export class EmojiStockbook extends LitElement {
 
   render() {
     return html`<esb-search-input></esb-search-input>
-      <esb-emoji-palette ${ref(this.#paletteRef)}></esb-emoji-palette>
+      <esb-emoji-palette></esb-emoji-palette>
       <style>
         ${this.#dynamicStyle()}
       </style>`;

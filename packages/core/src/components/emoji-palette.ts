@@ -1,23 +1,17 @@
 import { LitElement, nothing } from "lit";
-import { state } from "lit/decorators.js";
 import { repeat } from "lit/directives/repeat.js";
 
+import { PaletteConsumerController } from "../lib/context.js";
 import { privateCustomElement } from "../lib/private-component.js";
-import type { PaletteModel } from "../lib/stockbook.js";
 import { emojiGrid } from "./emoji-grid.js";
 import { emojiGroupSection } from "./emoji-group-section.js";
 
 @privateCustomElement("emoji-palette")
 export class EmojiPalette extends LitElement {
-  @state()
-  private _data: PaletteModel | undefined;
-
-  setEmojiDataset(data: PaletteModel) {
-    this._data = data;
-  }
+  palette = new PaletteConsumerController(this);
 
   render() {
-    const data = this._data;
+    const data = this.palette.value;
     if (!data) {
       return nothing;
     }
