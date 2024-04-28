@@ -7,7 +7,7 @@ import {
   createFactory,
   privateCustomElement,
 } from "../lib/private-component.js";
-import { EmojiGroupModel, EmojiModel } from "../lib/repository.js";
+import { EmojiGroupModel, EmojiModel } from "../lib/stockbook.js";
 import { emojiGrid } from "./emoji-grid.js";
 
 @privateCustomElement("emoji-group-section")

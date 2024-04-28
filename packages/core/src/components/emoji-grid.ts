@@ -9,7 +9,7 @@ import {
   createFactory,
   privateCustomElement,
 } from "../lib/private-component.js";
-import type { EmojiModel } from "../lib/repository.js";
+import type { EmojiModel } from "../lib/stockbook.js";
 import style from "./emoji-grid.css?inline";
 
 @privateCustomElement("emoji-grid")

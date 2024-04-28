@@ -3,7 +3,7 @@ import { state } from "lit/decorators.js";
 import { repeat } from "lit/directives/repeat.js";
 
 import { privateCustomElement } from "../lib/private-component.js";
-import type { PaletteModel } from "../lib/repository.js";
+import type { PaletteModel } from "../lib/stockbook.js";
 import { emojiGrid } from "./emoji-grid.js";
 import { emojiGroupSection } from "./emoji-group-section.js";
 

@@ -8,7 +8,7 @@ import { createRef, ref } from "lit/directives/ref.js";
 
 import type { EmojiPalette } from "./components/emoji-palette.js";
 import styles from "./emoji-stockbook.css?inline";
-import { EmojiRepository } from "./lib/repository.js";
+import { EmojiRepository, Stockbook } from "./lib/stockbook.js";
 
 /**
  * TODO: https://api-viewer.open-wc.org/docs/guide/writing-jsdoc/
@@ -25,12 +25,11 @@ export class EmojiStockbook extends LitElement {
   cellGap = 4;
 
   setEmojiDataset(data: EmojiDataset) {
-    // TODO
-    const repo = new EmojiRepository();
-    repo.setData(data);
-    this.#paletteRef.value?.setEmojiDataset(repo.getAll());
+    this.#stockbook.setRepositoryData(data);
+    this.#paletteRef.value?.setEmojiDataset(this.#stockbook.palette);
   }
 
+  #stockbook = new Stockbook();
   #paletteRef = createRef<EmojiPalette>();
 
   /**
