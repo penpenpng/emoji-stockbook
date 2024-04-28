@@ -13,7 +13,7 @@ export const privateCustomElement = (tagName: string) =>
 /** Create a short-hand function to render an element using complex property. */
 export const createFactory =
   <E extends LitElement & Props, Props extends object>(Element: new () => E) =>
-  (props: Props): E => {
+  (props: Readonly<Props>): E => {
     const el = new Element();
     for (const [propName, value] of Object.entries(props)) {
       // justified by `E extends Props`

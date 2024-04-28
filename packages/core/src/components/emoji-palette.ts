@@ -1,35 +1,36 @@
-import { type EmojiDataset, isEmojiGroups } from "@emoji-stockbook/types";
 import { LitElement, nothing } from "lit";
 import { state } from "lit/decorators.js";
 import { repeat } from "lit/directives/repeat.js";
 
 import { privateCustomElement } from "../lib/private-component.js";
+import type { EmojiDatasetModel } from "../lib/repository.js";
 import { emojiGrid } from "./emoji-grid.js";
 import { emojiGroupSection } from "./emoji-group-section.js";
 
 @privateCustomElement("emoji-palette")
 export class EmojiPalette extends LitElement {
   @state()
-  private _data: EmojiDataset | undefined;
+  private _data: EmojiDatasetModel | undefined;
 
-  setEmojiDataset(data: EmojiDataset) {
+  setEmojiDataset(data: EmojiDatasetModel) {
     this._data = data;
   }
 
   render() {
     const data = this._data;
+    if (!data) {
+      return nothing;
+    }
 
     // TODO: performance
-    if (!data || data.length <= 0) {
-      return nothing;
-    } else if (isEmojiGroups(data)) {
+    if (data.kind === "groups") {
       return repeat(
-        data,
+        data.groups,
         (_, idx) => idx,
         (group) => emojiGroupSection(group)
       );
     } else {
-      return emojiGrid({ emojis: data });
+      return emojiGrid({ emojis: data.emojis });
     }
   }
 }

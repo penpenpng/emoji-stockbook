@@ -9,12 +9,13 @@ import {
   createFactory,
   privateCustomElement,
 } from "../lib/private-component.js";
+import type { EmojiModel } from "../lib/repository.js";
 import style from "./emoji-grid.css?inline";
 
 @privateCustomElement("emoji-grid")
 class EmojiGrid extends LitElement implements EmojiGridProps {
   @property({ type: Array, attribute: false })
-  emojis: Emoji[] = [];
+  emojis: EmojiModel[] = [];
 
   render() {
     return html`<div class="grid">

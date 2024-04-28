@@ -1,6 +1,5 @@
 import "./accordion.js";
 
-import { type Emoji, EmojiGroup } from "@emoji-stockbook/types";
 import { html, LitElement } from "lit";
 import { property } from "lit/decorators.js";
 
@@ -8,6 +7,7 @@ import {
   createFactory,
   privateCustomElement,
 } from "../lib/private-component.js";
+import { EmojiGroupModel, EmojiModel } from "../lib/repository.js";
 import { emojiGrid } from "./emoji-grid.js";
 
 @privateCustomElement("emoji-group-section")
@@ -16,7 +16,7 @@ class EmojiGroupSection extends LitElement implements EmojiGroupSectionProps {
   name = "";
 
   @property({ type: Array, attribute: false })
-  emojis: Emoji[] = [];
+  emojis: EmojiModel[] = [];
 
   render() {
     return html`<esb-accordion label=${this.name}>
@@ -29,7 +29,7 @@ class EmojiGroupSection extends LitElement implements EmojiGroupSectionProps {
   }
 }
 
-export type EmojiGroupSectionProps = EmojiGroup;
+export type EmojiGroupSectionProps = EmojiGroupModel;
 
 export const emojiGroupSection = createFactory<
   EmojiGroupSection,

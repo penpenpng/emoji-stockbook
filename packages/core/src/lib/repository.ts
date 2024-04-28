@@ -9,10 +9,6 @@ export class EmojiRepository {
   #data: EmojiDatasetModel = { kind: "emojis", emojis: [] };
   #map: Record<string, EmojiModel> = {};
 
-  constructor(data: EmojiDataset) {
-    this.setData(data);
-  }
-
   setData(data: EmojiDataset) {
     const map: Record<string, EmojiModel> = {};
 
@@ -96,6 +92,7 @@ function modelize(emoji: Emoji): EmojiModel {
 }
 
 export type EmojiModel = Readonly<Emoji & { id: string }>;
+// TODO: Readonly
 export type EmojiDatasetModel =
   | {
       kind: "groups";
@@ -103,9 +100,10 @@ export type EmojiDatasetModel =
     }
   | {
       kind: "emojis";
-      emojis: ReadonlyArray<EmojiModel>;
+      emojis: EmojiModel[];
     };
-export type EmojiGroupModel = Readonly<{
+// TODO: Readonly
+export type EmojiGroupModel = {
   name: string;
-  emojis: ReadonlyArray<EmojiModel>;
-}>;
+  emojis: EmojiModel[];
+};
