@@ -1,19 +1,16 @@
 import "./emoji-button.js";
 
-import { type Emoji, isNativeEmoji } from "@emoji-stockbook/types";
+import { isNativeEmoji } from "@emoji-stockbook/types";
 import { html, LitElement, unsafeCSS } from "lit";
 import { property } from "lit/decorators.js";
 import { repeat } from "lit/directives/repeat.js";
 
-import {
-  createFactory,
-  privateCustomElement,
-} from "../lib/private-component.js";
+import { privateCustomElement } from "../lib/private-component.js";
 import type { EmojiModel } from "../lib/stockbook.js";
 import style from "./emoji-grid.css?inline";
 
 @privateCustomElement("emoji-grid")
-class EmojiGrid extends LitElement implements EmojiGridProps {
+export class EmojiGrid extends LitElement {
   @property({ type: Array, attribute: false })
   emojis: EmojiModel[] = [];
 
@@ -37,9 +34,3 @@ class EmojiGrid extends LitElement implements EmojiGridProps {
 
   static styles = unsafeCSS(style);
 }
-
-export interface EmojiGridProps {
-  emojis: Emoji[];
-}
-
-export const emojiGrid = createFactory<EmojiGrid, EmojiGridProps>(EmojiGrid);

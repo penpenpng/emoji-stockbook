@@ -1,10 +1,11 @@
-import { LitElement, nothing } from "lit";
+import "../components/emoji-group-section.js";
+import "../components/emoji-grid.js";
+
+import { html, LitElement, nothing } from "lit";
 import { repeat } from "lit/directives/repeat.js";
 
 import { PaletteConsumerController } from "../lib/context.js";
 import { privateCustomElement } from "../lib/private-component.js";
-import { emojiGrid } from "./emoji-grid.js";
-import { emojiGroupSection } from "./emoji-group-section.js";
 
 @privateCustomElement("emoji-palette")
 export class EmojiPalette extends LitElement {
@@ -16,15 +17,18 @@ export class EmojiPalette extends LitElement {
       return nothing;
     }
 
-    // TODO: performance
     if (data.kind === "groups") {
       return repeat(
         data.groups,
         (_, idx) => idx,
-        (group) => emojiGroupSection(group)
+        (group) =>
+          html`<esb-emoji-group-section
+            .name=${group.name}
+            .emojis=${group.emojis}
+          ></esb-emoji-group-section>`
       );
     } else {
-      return emojiGrid({ emojis: data.emojis });
+      return html`<esb-emoji-grid .emojis=${data.emojis}></esb-emoji-grid>`;
     }
   }
 }
