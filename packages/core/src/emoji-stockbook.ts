@@ -24,12 +24,12 @@ export class EmojiStockbook extends LitElement {
   @property({ type: Number, attribute: "cell-gap" })
   cellGap = 4;
 
+  @provide({ context: stockbookContext })
+  stockbook = new Stockbook();
+
   setEmojiDataset(data: EmojiDataset) {
     this.stockbook.setRepositoryData(data);
   }
-
-  @provide({ context: stockbookContext })
-  stockbook = new Stockbook();
 
   /**
    * Width of the component. If not given, CSS variable `--emoji-stockbook-width`

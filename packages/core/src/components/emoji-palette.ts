@@ -1,4 +1,3 @@
-import "../components/emoji-group-section.js";
 import "../components/emoji-grid.js";
 
 import { html, LitElement, nothing } from "lit";
@@ -17,18 +16,24 @@ export class EmojiPalette extends LitElement {
       return nothing;
     }
 
-    if (data.kind === "groups") {
-      return repeat(
-        data.groups,
-        (_, idx) => idx,
-        (group) =>
-          html`<esb-emoji-group-section
-            .name=${group.name}
-            .emojis=${group.emojis}
-          ></esb-emoji-group-section>`
-      );
-    } else {
-      return html`<esb-emoji-grid .emojis=${data.emojis}></esb-emoji-grid>`;
-    }
+    const sections =
+      data.kind === "groups"
+        ? data.groups
+        : [
+            {
+              name: "",
+              emojis: data.emojis,
+            },
+          ];
+
+    return repeat(
+      sections,
+      (_, idx) => idx,
+      (group) =>
+        html`<esb-emoji-grid
+          .name=${group.name}
+          .emojis=${group.emojis}
+        ></esb-emoji-grid>`
+    );
   }
 }

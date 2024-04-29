@@ -6,9 +6,6 @@ import { randomId } from "../lib/random-id.js";
 
 @privateCustomElement("accordion")
 export class Accordion extends LitElement {
-  @property({ type: String })
-  label = "";
-
   @property({ type: Boolean, reflect: true })
   expanded = true;
 
@@ -23,7 +20,9 @@ export class Accordion extends LitElement {
           aria-controls=${this.#contentId}
           aria-expanded=${this.expanded ? "true" : "false"}
         >
-          <button @click=${this.toggle}>${this.label}</button>
+          <button @click=${this.toggle}>
+            <slot name="label"></slot>
+          </button>
         </h3>
         <div
           id=${this.#contentId}
