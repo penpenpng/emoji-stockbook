@@ -1,33 +1,29 @@
-import { html, LitElement, unsafeCSS } from "lit";
+import { isNativeEmoji } from "@emoji-stockbook/types";
+import { html, LitElement, nothing, unsafeCSS } from "lit";
 import { property } from "lit/decorators.js";
 
 import { privateCustomElement } from "../lib/private-component.js";
+import type { EmojiModel } from "../lib/stockbook.js";
 import styles from "./emoji-button.css?inline";
 
-@privateCustomElement("native-emoji-button")
-export class NativeEmojiButton extends LitElement {
-  @property({ type: String })
-  char = "";
+@privateCustomElement("emoji-button")
+export class EmojiButton extends LitElement {
+  @property({ type: String, attribute: false })
+  emoji?: EmojiModel;
 
   render() {
-    return html`<button><span>${this.char}</span></button>`;
-  }
+    const emoji = this.emoji;
+    if (!emoji) {
+      return nothing;
+    }
 
-  static styles = unsafeCSS(styles);
-}
-
-@privateCustomElement("custom-emoji-button")
-export class CustomEmojiButton extends LitElement {
-  @property({ type: String })
-  src = "";
-
-  @property({ type: String })
-  alt = "";
-
-  render() {
-    return html`<button>
-      <img alt=${this.alt} src=${this.src} />
-    </button>`;
+    if (isNativeEmoji(emoji)) {
+      return html`<button><span>${emoji.char}</span></button>`;
+    } else {
+      return html`<button>
+        <img alt=${emoji.name ?? emoji.shortcode} src=${emoji.src} />
+      </button>`;
+    }
   }
 
   static styles = unsafeCSS(styles);

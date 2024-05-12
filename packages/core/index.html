@@ -8,7 +8,8 @@
     <script type="module" src="/src/index.ts"></script>
   </head>
   <body>
-    <emoji-stockbook id="stockbook" />
+    <button id="button">toggle</button>
+    <div id="container"></div>
     <style>
       #stockbook {
         margin: 20px;
@@ -17,7 +18,23 @@
     <script type="module">
       import { stockbookData } from "@emoji-stockbook/data";
 
-      document.getElementById("stockbook").setEmojiDataset(stockbookData);
+      function createStockbook() {
+        const el = document.createElement("emoji-stockbook");
+        el.setEmojiDataset(stockbookData);
+        return el;
+      }
+
+      let shown = false;
+      document.getElementById("button").addEventListener("click", () => {
+        shown = !shown;
+
+        const container = document.getElementById("container");
+        if (shown) {
+          container.appendChild(createStockbook());
+        } else {
+          container.innerHTML = "";
+        }
+      });
     </script>
   </body>
 </html>
