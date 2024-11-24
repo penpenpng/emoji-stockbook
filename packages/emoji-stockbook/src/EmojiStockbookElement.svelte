@@ -1,37 +1,45 @@
 <svelte:options
   customElement={{
     tag: "emoji-stockbook",
-    props: {
-      dataset: { reflect: false, type: "Array" },
-      visible: { reflect: true, type: "Boolean", attribute: "visible" },
-    },
+    props: {},
   }}
 />
 
 <script lang="ts">
-  import type { Emoji, EmojiGroup } from "@emoji-stockbook/types";
   import { createEmojiStockbookContext } from "./lib/emoji-stockbook.svelte";
   import EmojiStockbook from "./components/EmojiStockbook.svelte";
-
-  interface Props {
-    visible: boolean;
-  }
-  let { visible = $bindable(false) }: Props = $props();
+  import type { NormalizedEmoji } from "./types";
+  import { tick } from "svelte";
 
   const stockbook = createEmojiStockbookContext();
 
-  export const show = () => {
-    visible = true;
+  export const show = stockbook.show.bind(stockbook);
+  export const hide = stockbook.hide.bind(stockbook);
+  export const setEmojiDataset = stockbook.setEmojiDataset.bind(stockbook);
+
+  const dispatch = (type: string, detail?: unknown) => {
+    $host().dispatchEvent(
+      new CustomEvent(type, {
+        detail,
+      })
+    );
   };
-  export const close = () => {
-    visible = false;
-    stockbook.resetState();
-  };
-  export const setEmojiDataset = (dataset: Emoji[] | EmojiGroup[]) => {
-    stockbook.setEmojiDataset(dataset);
-  };
+
+  stockbook.event.emitter.on("input", (emoji: NormalizedEmoji) => {
+    dispatch("input", { emoji });
+  });
+
+  stockbook.event.emitter.on("show", async () => {
+    await tick();
+    dispatch("show");
+  });
+
+  stockbook.event.emitter.on("hide", async () => {
+    await tick();
+    dispatch("hide");
+  });
 </script>
 
-{#if visible}
+{#if stockbook.visible}
   <EmojiStockbook />
 {/if}

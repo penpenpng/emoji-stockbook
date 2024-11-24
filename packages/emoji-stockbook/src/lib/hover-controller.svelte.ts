@@ -1,6 +1,6 @@
-import type { IHoverManagaer } from "../types";
+import type { IHoverController } from "../types";
 
-export class HoverController implements IHoverManagaer {
+export class HoverController implements IHoverController {
   hoveredContentId = $state<string>();
 
   setHover(contentId: string): void {

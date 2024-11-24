@@ -1,10 +1,13 @@
 <script lang="ts">
   import type { NormalizedEmoji } from "../types";
+  import { getEmojiStockbookContext } from "../lib/emoji-stockbook.svelte";
 
   let { emoji }: { emoji: NormalizedEmoji } = $props();
+
+  const stockbook = getEmojiStockbookContext();
 </script>
 
-<button>
+<button onclick={() => stockbook.onClickEmojiButton(emoji)}>
   {#if "char" in emoji}
     <!-- native emoji -->
     {emoji.char}
