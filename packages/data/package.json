@@ -1,0 +1,24 @@
+{
+  "name": "@emoji-stockbook/data",
+  "version": "0.0.1",
+  "description": "",
+  "main": "./dist/index.js",
+  "exports": {
+    ".": {
+      "module": "./dist/index.js",
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc"
+  },
+  "author": "penpenpng",
+  "devDependencies": {
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "emojilib": "^3.0.11",
+    "unicode-emoji-json": "^0.4.0"
+  }
+}
