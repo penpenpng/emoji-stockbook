@@ -13,7 +13,6 @@
     stockbook.addEventListener("hide", console.log);
     stockbook.addEventListener("initialized", () => {
       visible = true;
-      console.log($state.snapshot(stockbook.show));
       stockbook.setEmojiDataset(stockbookData);
       stockbook.show();
     });

@@ -11,11 +11,16 @@
   import { onMount, tick } from "svelte";
   import { setupRepository, useRepository } from "./lib/use-repository";
   import { setupEventEmitter, useEventEmitter } from "./lib/use-event-emitter";
-  import { setupSearchFeature } from "./lib/use-search-feature.svelte";
+  import {
+    setupSearchFeature,
+    useSearchFeature,
+  } from "./lib/use-search-feature.svelte";
   import { setupVisibility, useVisibility } from "./lib/use-visibility.svelte";
-  import { useInitializer } from "./lib/use-initializer";
   import type { Emoji, EmojiGroup } from "@emoji-stockbook/types";
-  import { setupContentRegion } from "./lib/use-content-region.svelte";
+  import {
+    setupContentRegion,
+    useContentRegion,
+  } from "./lib/use-content-region.svelte";
 
   setupRepository();
   setupSearchFeature();
@@ -23,12 +28,18 @@
   setupEventEmitter();
   setupContentRegion();
 
-  const { initialize } = useInitializer();
   const visibility = useVisibility();
   const repo = useRepository();
   const emitter = useEventEmitter();
+  const searchFeature = useSearchFeature();
+  const contentRegion = useContentRegion();
 
-  const dispatch = (type: string, detail?: unknown) => {
+  const resetComponentState = () => {
+    contentRegion.reset();
+    searchFeature.leaveSearchMode();
+  };
+
+  const dispatchComponentEvent = (type: string, detail?: unknown) => {
     $host().dispatchEvent(
       new CustomEvent(type, {
         detail,
@@ -37,25 +48,25 @@
   };
 
   emitter.on("input", (emoji: NormalizedEmoji) => {
-    dispatch("input", { emoji });
+    dispatchComponentEvent("input", { emoji });
   });
 
   emitter.on("show", async () => {
     await tick();
-    dispatch("show");
+    dispatchComponentEvent("show");
   });
 
   emitter.on("hide", async () => {
     await tick();
-    dispatch("hide");
-    initialize();
+    dispatchComponentEvent("hide");
+    resetComponentState();
   });
 
   let initialized = false;
 
   onMount(() => {
     initialized = true;
-    dispatch("initialized");
+    dispatchComponentEvent("initialized");
   });
 
   export const isInitialized = () => initialized;
@@ -64,7 +75,7 @@
   export const hide = () => visibility.hide();
   export const setEmojiDataset = (dataset: Emoji[] | EmojiGroup[]) => {
     repo.setEmojiDataset(dataset);
-    initialize();
+    resetComponentState();
   };
 </script>
 
