@@ -5,7 +5,7 @@ import { useRepository } from "./use-repository";
 
 class State {
   searching = $state(false);
-  result = $state<NormalizedEmoji[]>([]);
+  result = $state.raw<NormalizedEmoji[]>([]);
   lastQuery = "";
 }
 

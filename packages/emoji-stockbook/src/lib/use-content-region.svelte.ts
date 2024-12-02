@@ -4,7 +4,7 @@ import { customElementScopedValue } from "./custom-element-scoped-value";
 import { useRepository } from "./use-repository";
 
 class State {
-  defaultGroups = $state<NormalizedEmojiGroup[]>([]);
+  defaultGroups = $state.raw<NormalizedEmojiGroup[]>([]);
   contentType = $state<ContentType>("flat");
 }
 
