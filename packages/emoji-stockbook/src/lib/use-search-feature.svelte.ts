@@ -1,5 +1,5 @@
 import { isNativeEmoji } from "@emoji-stockbook/types";
-import type { NormalizedEmoji, NormalizedEmojiGroup } from "../types";
+import type { NormalizedEmoji } from "../types";
 import { customElementScopedValue } from "./custom-element-scoped-value";
 import { useRepository } from "./use-repository";
 

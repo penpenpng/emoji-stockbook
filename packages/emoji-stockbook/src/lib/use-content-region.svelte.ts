@@ -13,13 +13,7 @@ const [setupContentRegion, useState] = customElementScopedValue(
 );
 export { setupContentRegion };
 
-export interface UseContentRegion {
-  readonly contentType: ContentType;
-  readonly groups: NormalizedEmojiGroup[];
-  reset: () => void;
-}
-
-export const useContentRegion = (): UseContentRegion => {
+export const useContentRegion = () => {
   const state = useState();
   const repo = useRepository();
   const searchFeature = useSearchFeature();
