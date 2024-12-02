@@ -9,35 +9,56 @@
   const rootProps = useCustomElementProperty();
 
   let rows = $derived(chunk(emojis, rootProps.col));
-  let rowGroups = $derived(chunk(rows, 2));
+  const rowGroupSize = 2;
+  let rowGroups = $derived(chunk(rows, rowGroupSize));
+  let gridElement = $state<HTMLElement>();
+
+  const moveFocus = (rowIndex: number, colIndex: number) => {
+    console.log("move to", rowIndex, colIndex);
+    gridElement
+      .querySelector<HTMLButtonElement>(
+        `[aria-rowindex="${rowIndex}"] > [aria-colindex="${colIndex}"] button`
+      )
+      ?.focus();
+  };
 </script>
 
-<div role="grid" aria-colcount={rootProps.col} class="grid">
-  {#each rowGroups as rowGroupProps (rowGroupProps[0][0].id)}
-    {@render rowGroup(rowGroupProps)}
+<div
+  bind:this={gridElement}
+  role="grid"
+  aria-colcount={rootProps.col}
+  class="grid"
+>
+  {#each rowGroups as rowGroupProps, idx (rowGroupProps[0][0].id)}
+    {@render rowGroup(rowGroupProps, idx + 1)}
   {/each}
 </div>
 
-{#snippet rowGroup(props: NormalizedEmoji[][])}
+{#snippet rowGroup(props: NormalizedEmoji[][], rowGroupIndex: number)}
   <!-- `role="rowgroup"` is not needed. -->
   <div class="row-group">
     {#each props as rowProps, idx (rowProps[0].id)}
-      {@render row(rowProps, idx)}
+      {@const rowIndex = rowGroupIndex * rowGroupSize + idx + 1}
+      {@render row(rowProps, rowIndex)}
     {/each}
   </div>
 {/snippet}
 
 {#snippet row(props: NormalizedEmoji[], rowIndex: number)}
-  <div role="row" class="row">
+  <div role="row" aria-rowindex={rowIndex} class="row">
     {#each props as emoji, idx (emoji.id)}
-      {@render cell(emoji, idx)}
+      {@const colIndex = idx + 1}
+      {@render cell(emoji, rowIndex, colIndex)}
     {/each}
   </div>
 {/snippet}
 
-{#snippet cell(emoji: NormalizedEmoji, colIndex: number)}
-  <div role="gridcell" class="cell">
-    <EmojiButton {emoji} />
+{#snippet cell(emoji: NormalizedEmoji, rowIndex: number, colIndex: number)}
+  <div role="gridcell" aria-colindex={colIndex} class="cell">
+    <EmojiButton
+      {emoji}
+      onarrowdown={() => moveFocus(rowIndex + 1, colIndex)}
+    />
   </div>
 {/snippet}
 

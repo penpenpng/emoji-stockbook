@@ -3,7 +3,10 @@
   import { useCustomElementVisibility } from "../lib/use-custom-element-visibility";
   import type { NormalizedEmoji } from "../types";
 
-  let { emoji }: { emoji: NormalizedEmoji } = $props();
+  let {
+    emoji,
+    onarrowdown,
+  }: { emoji: NormalizedEmoji; onarrowdown?: () => void } = $props();
 
   const { hide } = useCustomElementVisibility();
   const dispatch = useCustomElementEventDispatcher();
@@ -12,9 +15,18 @@
     dispatch("pick", emoji);
     hide();
   };
+
+  const onkeydown = (event: KeyboardEvent) => {
+    switch (event.key) {
+      case "ArrowDown":
+        onarrowdown?.();
+        event.preventDefault();
+        break;
+    }
+  };
 </script>
 
-<button {onclick}>
+<button {onclick} {onkeydown}>
   {#if "char" in emoji}
     <!-- native emoji -->
     {emoji.char}
