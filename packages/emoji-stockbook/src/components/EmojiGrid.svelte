@@ -75,9 +75,13 @@
         focus([rowIndex + 1, emojis.length % colCount]) ||
         focus("next-component")}
       onArrowRight={() =>
-        focus([rowIndex, colIndex + 1]) || focus([rowIndex + 1, 1])}
+        focus([rowIndex, colIndex + 1]) ||
+        focus([rowIndex + 1, 1]) ||
+        focus("next-component")}
       onArrowLeft={() =>
-        focus([rowIndex, colIndex - 1]) || focus([rowIndex - 1, colCount - 1])}
+        focus([rowIndex, colIndex - 1]) ||
+        focus([rowIndex - 1, colCount - 1]) ||
+        focus("prev-component")}
     />
   </div>
 {/snippet}
