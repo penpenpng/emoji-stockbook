@@ -5,24 +5,42 @@
 
   let {
     emoji,
-    onarrowdown,
-  }: { emoji: NormalizedEmoji; onarrowdown?: () => void } = $props();
+    ...callbacks
+  }: {
+    emoji: NormalizedEmoji;
+    onArrowUp?: () => void;
+    onArrowDown?: () => void;
+    onArrowRight?: () => void;
+    onArrowLeft?: () => void;
+  } = $props();
 
-  const { hide } = useCustomElementVisibility();
+  const visibility = useCustomElementVisibility();
   const dispatch = useCustomElementEventDispatcher();
 
   const onclick = () => {
     dispatch("pick", emoji);
-    hide();
+    visibility.hide();
   };
 
   const onkeydown = (event: KeyboardEvent) => {
     switch (event.key) {
-      case "ArrowDown":
-        onarrowdown?.();
-        event.preventDefault();
+      case "ArrowUp":
+        callbacks.onArrowUp?.();
         break;
+      case "ArrowDown":
+        callbacks.onArrowDown?.();
+        break;
+      case "ArrowRight":
+        callbacks.onArrowRight?.();
+        break;
+      case "ArrowLeft":
+        callbacks.onArrowLeft?.();
+        break;
+      default:
+        return;
     }
+
+    event.preventDefault();
   };
 </script>
 

@@ -8,27 +8,36 @@
 
   const rootProps = useCustomElementProperty();
 
-  let rows = $derived(chunk(emojis, rootProps.col));
-  const rowGroupSize = 2;
-  let rowGroups = $derived(chunk(rows, rowGroupSize));
+  const rowGroupCount = 2;
+  let colCount = $derived(rootProps.col);
+  let rows = $derived(chunk(emojis, colCount));
+  let rowGroups = $derived(chunk(rows, rowGroupCount));
   let gridElement = $state<HTMLElement>();
 
-  const moveFocus = (rowIndex: number, colIndex: number) => {
-    console.log("move to", rowIndex, colIndex);
-    gridElement
-      .querySelector<HTMLButtonElement>(
+  type FocusMotion =
+    | [rowIndex: number, colIndex: number]
+    | "next-component"
+    | "prev-component";
+
+  const focus = (motion: FocusMotion): boolean => {
+    if (motion === "next-component") {
+      return false;
+    } else if (motion === "prev-component") {
+      return false;
+    } else {
+      const [rowIndex, colIndex] = motion;
+      const nextTarget = gridElement.querySelector<HTMLButtonElement>(
         `[aria-rowindex="${rowIndex}"] > [aria-colindex="${colIndex}"] button`
-      )
-      ?.focus();
+      );
+
+      nextTarget?.focus();
+
+      return !!nextTarget;
+    }
   };
 </script>
 
-<div
-  bind:this={gridElement}
-  role="grid"
-  aria-colcount={rootProps.col}
-  class="grid"
->
+<div bind:this={gridElement} role="grid" aria-colcount={colCount} class="grid">
   {#each rowGroups as rowGroupProps, idx (rowGroupProps[0][0].id)}
     {@render rowGroup(rowGroupProps, idx + 1)}
   {/each}
@@ -38,7 +47,7 @@
   <!-- `role="rowgroup"` is not needed. -->
   <div class="row-group">
     {#each props as rowProps, idx (rowProps[0].id)}
-      {@const rowIndex = rowGroupIndex * rowGroupSize + idx + 1}
+      {@const rowIndex = rowGroupIndex * rowGroupCount + idx + 1}
       {@render row(rowProps, rowIndex)}
     {/each}
   </div>
@@ -57,7 +66,16 @@
   <div role="gridcell" aria-colindex={colIndex} class="cell">
     <EmojiButton
       {emoji}
-      onarrowdown={() => moveFocus(rowIndex + 1, colIndex)}
+      onArrowUp={() =>
+        focus([rowIndex - 1, colIndex]) || focus("prev-component")}
+      onArrowDown={() =>
+        focus([rowIndex + 1, colIndex]) ||
+        focus([rowIndex + 1, emojis.length % colCount]) ||
+        focus("next-component")}
+      onArrowRight={() =>
+        focus([rowIndex, colIndex + 1]) || focus([rowIndex + 1, 1])}
+      onArrowLeft={() =>
+        focus([rowIndex, colIndex - 1]) || focus([rowIndex - 1, colCount - 1])}
     />
   </div>
 {/snippet}

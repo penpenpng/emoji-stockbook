@@ -8,16 +8,3 @@ export type NormalizedEmojiGroup = Readonly<{
   name: string;
   emojis: NormalizedEmoji[];
 }>;
-
-export type CursorPosition = {
-  groupIndex: number;
-  col: number;
-  row: number;
-};
-export type CursorDirection =
-  | "up"
-  | "down"
-  | "right"
-  | "left"
-  | "next"
-  | "prev";
