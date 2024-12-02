@@ -1,6 +1,7 @@
 <script lang="ts">
   import EmojiButton from "./EmojiButton.svelte";
   import type { NormalizedEmoji } from "../types";
+  import { useCustomElementProperty } from "../lib/use-custom-element-property";
 
   let { emojis }: { emojis: NormalizedEmoji[] } = $props();
 </script>

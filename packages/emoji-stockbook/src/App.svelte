@@ -5,7 +5,9 @@
   import { onMount } from "svelte";
 
   let visible = $state(false);
-  let stockbook = $state<EmojiStockbook>();
+  let col = $state(6);
+
+  let stockbook = $state<EmojiStockbook & HTMLElement>();
 
   onMount(() => {
     stockbook.addEventListener("input", console.log);
@@ -26,8 +28,10 @@
     >set data</button
   >
   <button onclick={() => stockbook.setEmojiDataset([])}>unset data</button>
+  <button onclick={() => (col = 4)}>col 4</button>
+  <button onclick={() => (col = 6)}>col 6</button>
 
-  <emoji-stockbook bind:this={stockbook} {visible}></emoji-stockbook>
+  <emoji-stockbook bind:this={stockbook} {col}></emoji-stockbook>
 </main>
 
 <style>

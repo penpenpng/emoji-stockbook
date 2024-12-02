@@ -1,5 +1,6 @@
+import { tick } from "svelte";
 import { customElementScopedValue } from "./custom-element-scoped-value";
-import { useEventEmitter } from "./use-event-emitter";
+import { useCustomElementEventDispatcher } from "./use-custom-element-event-dispatcher";
 
 class State {
   visible = $state(false);
@@ -10,7 +11,7 @@ export { setupVisibility };
 
 export const useVisibility = () => {
   const state = useState();
-  const emitter = useEventEmitter();
+  const dispatch = useCustomElementEventDispatcher();
 
   return new (class {
     readonly visible = $derived(state.visible);
@@ -20,7 +21,9 @@ export const useVisibility = () => {
       }
 
       state.visible = true;
-      emitter.emit("show");
+      tick().then(() => {
+        dispatch("show");
+      });
     }
     hide() {
       if (!state.visible) {
@@ -28,7 +31,9 @@ export const useVisibility = () => {
       }
 
       state.visible = false;
-      emitter.emit("hide");
+      tick().then(() => {
+        dispatch("hide");
+      });
     }
   })();
 };

@@ -1,36 +1,66 @@
 <svelte:options
   customElement={{
     tag: "emoji-stockbook",
-    props: {},
+    props: {
+      col: { reflect: true, type: "Number", attribute: "col" },
+    },
   }}
 />
 
 <script lang="ts">
   import EmojiStockbook from "./components/EmojiStockbook.svelte";
-  import type { NormalizedEmoji } from "./types";
-  import { onMount, tick } from "svelte";
+  import { onMount } from "svelte";
   import { setupRepository, useRepository } from "./lib/use-repository";
-  import { setupEventEmitter, useEventEmitter } from "./lib/use-event-emitter";
+  import {
+    setupCustomElementEventDispatcher,
+    useCustomElementEventDispatcher,
+    type ComponentEventDispatcher,
+  } from "./lib/use-custom-element-event-dispatcher";
   import {
     setupSearchFeature,
     useSearchFeature,
   } from "./lib/use-search-feature.svelte";
-  import { setupVisibility, useVisibility } from "./lib/use-visibility.svelte";
+  import {
+    setupVisibility,
+    useVisibility,
+  } from "./lib/use-custom-element-visibility.svelte";
   import type { Emoji, EmojiGroup } from "@emoji-stockbook/types";
   import {
     setupContentRegion,
     useContentRegion,
   } from "./lib/use-content-region.svelte";
+  import {
+    setupCustomElementProperty,
+    type IEmojiStockbookProperty,
+  } from "./lib/use-custom-element-property";
 
+  let { col = 6 }: { col: number } = $props();
+
+  class EmojiStockbookProperty implements IEmojiStockbookProperty {
+    col = $derived(col);
+  }
+
+  const dispatchComponentEvent: ComponentEventDispatcher = (
+    type: string,
+    detail?: unknown
+  ) => {
+    $host().dispatchEvent(
+      new CustomEvent(type, {
+        detail,
+      })
+    );
+  };
+
+  setupCustomElementProperty(new EmojiStockbookProperty());
+  setupCustomElementEventDispatcher(dispatchComponentEvent);
   setupRepository();
   setupSearchFeature();
   setupVisibility();
-  setupEventEmitter();
   setupContentRegion();
 
   const visibility = useVisibility();
   const repo = useRepository();
-  const emitter = useEventEmitter();
+  const dispatch = useCustomElementEventDispatcher();
   const searchFeature = useSearchFeature();
   const contentRegion = useContentRegion();
 
@@ -39,36 +69,19 @@
     searchFeature.leaveSearchMode();
   };
 
-  const dispatchComponentEvent = (type: string, detail?: unknown) => {
-    $host().dispatchEvent(
-      new CustomEvent(type, {
-        detail,
-      })
-    );
-  };
-
-  emitter.on("input", (emoji: NormalizedEmoji) => {
-    dispatchComponentEvent("input", { emoji });
-  });
-
-  emitter.on("show", async () => {
-    await tick();
-    dispatchComponentEvent("show");
-  });
-
-  emitter.on("hide", async () => {
-    await tick();
-    dispatchComponentEvent("hide");
-    resetComponentState();
-  });
-
   let initialized = false;
 
   onMount(() => {
     initialized = true;
-    dispatchComponentEvent("initialized");
+    dispatch("initialized");
   });
 
+  $host().addEventListener("hide", () => {
+    resetComponentState();
+  });
+
+  // TODO: mounted まで使えないのをどうにかできないか
+  // https://svelte.dev/docs/svelte/custom-elements#Component-options の extend が役に立つかもしれない
   export const isInitialized = () => initialized;
   export const isVisible = () => visibility.visible;
   export const show = () => visibility.show();

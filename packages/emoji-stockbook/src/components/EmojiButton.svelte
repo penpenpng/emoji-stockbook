@@ -1,15 +1,15 @@
 <script lang="ts">
-  import { useEventEmitter } from "../lib/use-event-emitter";
-  import { useVisibility } from "../lib/use-visibility.svelte";
+  import { useCustomElementEventDispatcher } from "../lib/use-custom-element-event-dispatcher";
+  import { useVisibility } from "../lib/use-custom-element-visibility.svelte";
   import type { NormalizedEmoji } from "../types";
 
   let { emoji }: { emoji: NormalizedEmoji } = $props();
 
   const { hide } = useVisibility();
-  const emitter = useEventEmitter();
+  const dispatch = useCustomElementEventDispatcher();
 
   const onclick = () => {
-    emitter.emit("input", emoji);
+    dispatch("input", emoji);
     hide();
   };
 </script>
