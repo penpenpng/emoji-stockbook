@@ -21,7 +21,6 @@
 
     /* Customizable */
     height: var(--emoji-stockbook-height, 450px);
-    --col: 8;
     --cell-size: 32px;
     --cell-gap: 4px;
   }
