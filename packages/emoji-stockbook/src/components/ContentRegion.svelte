@@ -11,7 +11,7 @@
 {#each contentRegion.groups as group (group.id)}
   <FoldableSection
     title={group.name}
-    disabled={searchFeature.isSearchMode}
+    disabled={searchFeature.searching}
     expanded
   >
     {#snippet content()}

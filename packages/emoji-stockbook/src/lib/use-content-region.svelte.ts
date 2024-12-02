@@ -27,7 +27,15 @@ export const useContentRegion = (): UseContentRegion => {
   return new (class {
     readonly contentType = $derived(state.contentType);
     readonly groups = $derived<NormalizedEmojiGroup[]>(
-      searchFeature.isSearchMode ? searchFeature.groups : state.defaultGroups,
+      searchFeature.searching
+        ? [
+            {
+              id: -1,
+              emojis: searchFeature.result,
+              name: "Search Result",
+            },
+          ]
+        : state.defaultGroups,
     );
     reset() {
       state.contentType = repo.isGroupedExplicitly() ? "grouped" : "flat";

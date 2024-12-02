@@ -22,14 +22,18 @@
 
 <section>
   {#if title}
-    <button
-      id={invokerId}
-      aria-controls={ifEnabled(contentId)}
-      aria-expanded={ifEnabled(expanded ? "true" : "false")}
-      onclick={ifEnabled(() => (expanded = !expanded))}
-    >
+    {#if disabled}
       <h3>{title}</h3>
-    </button>
+    {:else}
+      <button
+        id={invokerId}
+        aria-controls={contentId}
+        aria-expanded={expanded ? "true" : "false"}
+        onclick={() => (expanded = !expanded)}
+      >
+        <h3>{title}</h3>
+      </button>
+    {/if}
   {/if}
 
   <div

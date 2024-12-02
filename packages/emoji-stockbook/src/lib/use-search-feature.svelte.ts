@@ -3,16 +3,9 @@ import type { NormalizedEmoji, NormalizedEmojiGroup } from "../types";
 import { customElementScopedValue } from "./custom-element-scoped-value";
 import { useRepository } from "./use-repository";
 
-export interface ISearchFeature {
-  readonly isSearchMode: boolean;
-  readonly groups: NormalizedEmojiGroup[];
-  searchEmojis(query: string): void;
-  leaveSearchMode(): void;
-}
-
 class State {
-  isSearchMode = $state(false);
-  searchResult = $state<NormalizedEmoji[]>([]);
+  searching = $state(false);
+  result = $state<NormalizedEmoji[]>([]);
   lastQuery = "";
 }
 
@@ -26,17 +19,11 @@ export const useSearchFeature = () => {
   const repo = useRepository();
 
   return new (class {
-    readonly isSearchMode = $derived(state.isSearchMode);
-    readonly groups = $derived<NormalizedEmojiGroup[]>([
-      {
-        id: -1,
-        emojis: state.searchResult,
-        name: "Search Result",
-      },
-    ]);
+    readonly searching = $derived(state.searching);
+    readonly result = $derived(state.result);
     leaveSearchMode() {
-      state.isSearchMode = false;
-      state.searchResult = repo.getAllEmojis();
+      state.searching = false;
+      state.result = repo.getAllEmojis();
       state.lastQuery = "";
     }
     searchEmojis(query: string) {
@@ -48,12 +35,12 @@ export const useSearchFeature = () => {
       const lastQuery = state.lastQuery;
       state.lastQuery = query;
 
-      state.isSearchMode = true;
+      state.searching = true;
 
       if (query.startsWith(lastQuery)) {
-        state.searchResult = narrowResult(state.searchResult, query);
+        state.result = narrowResult(state.result, query);
       } else {
-        state.searchResult = narrowResult(repo.getAllEmojis(), query);
+        state.result = narrowResult(repo.getAllEmojis(), query);
       }
     }
   })();
