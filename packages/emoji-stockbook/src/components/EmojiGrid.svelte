@@ -12,12 +12,7 @@
   let rowGroups = $derived(chunk(rows, 2));
 </script>
 
-<div
-  role="grid"
-  aria-colcount={rootProps.col}
-  class="grid"
-  onblur={console.log}
->
+<div role="grid" aria-colcount={rootProps.col} class="grid">
   {#each rowGroups as rowGroupProps (rowGroupProps[0][0].id)}
     {@render rowGroup(rowGroupProps)}
   {/each}

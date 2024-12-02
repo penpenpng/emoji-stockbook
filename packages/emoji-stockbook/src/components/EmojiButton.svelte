@@ -9,7 +9,7 @@
   const dispatch = useCustomElementEventDispatcher();
 
   const onclick = () => {
-    dispatch("input", emoji);
+    dispatch("pick", emoji);
     hide();
   };
 </script>
