@@ -8,7 +8,7 @@
 
   const rootProps = useCustomElementProperty();
 
-  const rowGroupCount = 2;
+  const rowGroupCount = 20;
   let colCount = $derived(rootProps.col);
   let rows = $derived(chunk(emojis, colCount));
   let rowGroups = $derived(chunk(rows, rowGroupCount));
@@ -21,8 +21,10 @@
 
   const focus = (motion: FocusMotion): boolean => {
     if (motion === "next-component") {
+      // TODO
       return false;
     } else if (motion === "prev-component") {
+      // TODO
       return false;
     } else {
       const [rowIndex, colIndex] = motion;

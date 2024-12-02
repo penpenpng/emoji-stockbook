@@ -5,14 +5,21 @@ import { useEmojiRepository } from "../use-emoji-repository/index";
 export interface ISearchFeature {
   readonly searching: boolean;
   readonly result: NormalizedEmoji[];
-  leaveSearchMode(): void;
+  readonly suggestions: Suggestion[];
+  reset(): void;
   searchEmojis(query: string);
+}
+
+interface Suggestion {
+  shortcode: string;
+  content: string;
 }
 
 class State {
   searching = $state(false);
   result = $state.raw<NormalizedEmoji[]>([]);
   lastQuery = "";
+  suggestions = $state.raw<Suggestion[]>([]);
 }
 
 export class SearchFeature implements ISearchFeature {
@@ -21,16 +28,23 @@ export class SearchFeature implements ISearchFeature {
 
   readonly searching = $derived.by(() => this.state.searching);
   readonly result = $derived.by(() => this.state.result);
+  readonly suggestions = $derived.by(() => this.state.suggestions);
 
-  leaveSearchMode() {
+  reset() {
+    const allEmojis = this.repo.getAllEmojis();
+
     this.state.searching = false;
-    this.state.result = this.repo.getAllEmojis();
+    this.state.result = allEmojis;
     this.state.lastQuery = "";
+    this.state.suggestions = allEmojis.map((emoji) => ({
+      shortcode: emoji.shortcode,
+      content: isNativeEmoji(emoji) ? emoji.char : "",
+    }));
   }
 
   searchEmojis(query: string) {
     if (query === "") {
-      this.leaveSearchMode();
+      this.reset();
       return;
     }
 

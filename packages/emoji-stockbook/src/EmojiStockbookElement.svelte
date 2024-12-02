@@ -56,7 +56,7 @@
 
   const resetComponentState = () => {
     contentRegion.reset();
-    searchFeature.leaveSearchMode();
+    searchFeature.reset();
   };
 
   let initialized = false;
