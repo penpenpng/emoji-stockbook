@@ -1,15 +1,17 @@
 <script lang="ts">
+  import { useContentRegion } from "../lib/use-content-region.svelte";
+  import { useSearchFeature } from "../lib/use-search-feature.svelte";
   import EmojiGrid from "./EmojiGrid.svelte";
   import FoldableSection from "./FoldableSection.svelte";
-  import { getEmojiStockbookContext } from "../lib/emoji-stockbook.svelte";
 
-  const stockbook = getEmojiStockbookContext();
+  const contentRegion = useContentRegion();
+  const searchFeature = useSearchFeature();
 </script>
 
-{#each stockbook.groups as group (group.id)}
+{#each contentRegion.groups as group (group.id)}
   <FoldableSection
     title={group.name}
-    disabled={stockbook.search.isSearchMode}
+    disabled={searchFeature.isSearchMode}
     expanded
   >
     {#snippet content()}

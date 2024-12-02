@@ -2,15 +2,25 @@ import {
   type Emoji,
   type EmojiGroup,
   isEmojiGroups,
-  isNativeEmoji,
 } from "@emoji-stockbook/types";
-import type {
-  IRepository,
-  NormalizedEmoji,
-  NormalizedEmojiGroup,
-} from "../types";
+import type { NormalizedEmoji, NormalizedEmojiGroup } from "../types";
+import { customElementScopedValue } from "./custom-element-scoped-value";
 
-export class Repository implements IRepository {
+export interface IRepository {
+  setEmojiDataset(dataset: Emoji[] | EmojiGroup[]): void;
+  isGroupedExplicitly(): boolean;
+  getAllEmojiGroups(): NormalizedEmojiGroup[];
+  getEmojiGroupByIndex(index: number): NormalizedEmojiGroup | undefined;
+  getAllEmojis(): NormalizedEmoji[];
+  getEmojiById(id: string): NormalizedEmoji | undefined;
+}
+
+const [setupRepository, useRepository] = customElementScopedValue(
+  (): IRepository => new Repository(),
+);
+export { setupRepository, useRepository };
+
+class Repository implements IRepository {
   private isGrouped = false;
   private emojis: Record<string, NormalizedEmoji> = {};
   private groups: NormalizedEmojiGroup[] = [];

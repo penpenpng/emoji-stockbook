@@ -1,13 +1,20 @@
 <script lang="ts">
+  import { useEventEmitter } from "../lib/use-event-emitter";
+  import { useVisibility } from "../lib/use-visibility.svelte";
   import type { NormalizedEmoji } from "../types";
-  import { getEmojiStockbookContext } from "../lib/emoji-stockbook.svelte";
 
   let { emoji }: { emoji: NormalizedEmoji } = $props();
 
-  const stockbook = getEmojiStockbookContext();
+  const { hide } = useVisibility();
+  const emitter = useEventEmitter();
+
+  const onclick = () => {
+    emitter.emit("input", emoji);
+    hide();
+  };
 </script>
 
-<button onclick={() => stockbook.onClickEmojiButton(emoji)}>
+<button {onclick}>
   {#if "char" in emoji}
     <!-- native emoji -->
     {emoji.char}

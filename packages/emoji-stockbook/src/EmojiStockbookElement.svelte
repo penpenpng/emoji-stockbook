@@ -6,16 +6,27 @@
 />
 
 <script lang="ts">
-  import { createEmojiStockbookContext } from "./lib/emoji-stockbook.svelte";
   import EmojiStockbook from "./components/EmojiStockbook.svelte";
   import type { NormalizedEmoji } from "./types";
   import { tick } from "svelte";
+  import { setupRepository, useRepository } from "./lib/use-repository";
+  import { setupEventEmitter, useEventEmitter } from "./lib/use-event-emitter";
+  import { setupSearchFeature } from "./lib/use-search-feature.svelte";
+  import { setupVisibility, useVisibility } from "./lib/use-visibility.svelte";
+  import { useInitializer } from "./lib/use-initializer";
+  import type { Emoji, EmojiGroup } from "@emoji-stockbook/types";
+  import { setupContentRegion } from "./lib/use-content-region.svelte";
 
-  const stockbook = createEmojiStockbookContext();
+  setupRepository();
+  setupSearchFeature();
+  setupVisibility();
+  setupEventEmitter();
+  setupContentRegion();
 
-  export const show = stockbook.show.bind(stockbook);
-  export const hide = stockbook.hide.bind(stockbook);
-  export const setEmojiDataset = stockbook.setEmojiDataset.bind(stockbook);
+  const { initialize } = useInitializer();
+  const visibility = useVisibility();
+  const repo = useRepository();
+  const emitter = useEventEmitter();
 
   const dispatch = (type: string, detail?: unknown) => {
     $host().dispatchEvent(
@@ -25,21 +36,31 @@
     );
   };
 
-  stockbook.event.emitter.on("input", (emoji: NormalizedEmoji) => {
+  emitter.on("hide", async () => {});
+
+  emitter.on("input", (emoji: NormalizedEmoji) => {
     dispatch("input", { emoji });
   });
 
-  stockbook.event.emitter.on("show", async () => {
+  emitter.on("show", async () => {
     await tick();
     dispatch("show");
   });
 
-  stockbook.event.emitter.on("hide", async () => {
+  emitter.on("hide", async () => {
     await tick();
     dispatch("hide");
+    initialize();
   });
+
+  export const show = visibility.show.bind(visibility);
+  export const hide = visibility.hide.bind(visibility);
+  export const setEmojiDataset = (dataset: Emoji[] | EmojiGroup[]) => {
+    repo.setEmojiDataset(dataset);
+    initialize();
+  };
 </script>
 
-{#if stockbook.visible}
+{#if visibility.visible}
   <EmojiStockbook />
 {/if}

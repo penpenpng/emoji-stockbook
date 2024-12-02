@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { getEmojiStockbookContext } from "../lib/emoji-stockbook.svelte";
+  import { useSearchFeature } from "../lib/use-search-feature.svelte";
 
-  const stockbook = getEmojiStockbookContext();
+  const searchFeature = useSearchFeature();
 
   let query = $state("");
 </script>
@@ -10,12 +10,12 @@
   type="text"
   bind:value={query}
   oninput={() => {
-    stockbook.search.searchEmojis(query);
+    searchFeature.searchEmojis(query);
   }}
 />
 <button
   onclick={() => {
     query = "";
-    stockbook.search.leaveSearchMode();
+    searchFeature.leaveSearchMode();
   }}>Clear</button
 >
