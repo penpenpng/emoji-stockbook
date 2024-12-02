@@ -36,8 +36,6 @@
     );
   };
 
-  emitter.on("hide", async () => {});
-
   emitter.on("input", (emoji: NormalizedEmoji) => {
     dispatch("input", { emoji });
   });

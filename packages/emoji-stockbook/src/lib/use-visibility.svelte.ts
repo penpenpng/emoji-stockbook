@@ -15,10 +15,18 @@ export const useVisibility = () => {
   return new (class {
     readonly visible = $derived(state.visible);
     show() {
+      if (state.visible) {
+        return;
+      }
+
       state.visible = true;
       emitter.emit("show");
     }
     hide() {
+      if (!state.visible) {
+        return;
+      }
+
       state.visible = false;
       emitter.emit("hide");
     }
