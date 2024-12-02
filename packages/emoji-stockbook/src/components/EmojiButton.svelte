@@ -1,11 +1,11 @@
 <script lang="ts">
   import { useCustomElementEventDispatcher } from "../lib/use-custom-element-event-dispatcher";
-  import { useVisibility } from "../lib/use-custom-element-visibility.svelte";
+  import { useCustomElementVisibility } from "../lib/use-custom-element-visibility";
   import type { NormalizedEmoji } from "../types";
 
   let { emoji }: { emoji: NormalizedEmoji } = $props();
 
-  const { hide } = useVisibility();
+  const { hide } = useCustomElementVisibility();
   const dispatch = useCustomElementEventDispatcher();
 
   const onclick = () => {

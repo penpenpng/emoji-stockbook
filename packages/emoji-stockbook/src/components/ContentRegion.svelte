@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { useContentRegion } from "../lib/use-content-region.svelte";
-  import { useSearchFeature } from "../lib/use-search-feature.svelte";
+  import { useContentRegion } from "../lib/use-content-region";
+  import { useSearchFeature } from "../lib/use-search-feature";
   import EmojiGrid from "./EmojiGrid.svelte";
   import FoldableSection from "./FoldableSection.svelte";
 

@@ -1,9 +1,9 @@
 import { getContext, setContext } from "svelte";
 
-export type CustomElementScopedValue<T, P = void> = [
-  setup: (param: P) => void,
-  use: () => T,
-];
+export interface CustomElementScopedValue<T, P = void> {
+  (): T;
+  setup: (param: P) => void;
+}
 
 export const customElementScopedValue = <T, P = void>(
   factory: (param: P) => T,
@@ -15,5 +15,5 @@ export const customElementScopedValue = <T, P = void>(
   };
   const use = (): T => getContext(key);
 
-  return [setup, use];
+  return Object.assign(use, { setup });
 };

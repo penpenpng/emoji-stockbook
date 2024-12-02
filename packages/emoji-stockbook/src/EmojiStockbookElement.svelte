@@ -10,31 +10,21 @@
 <script lang="ts">
   import EmojiStockbook from "./components/EmojiStockbook.svelte";
   import { onMount } from "svelte";
-  import { setupRepository, useRepository } from "./lib/use-repository";
+  import { useEmojiRepository } from "./lib/use-emoji-repository";
   import {
-    setupCustomElementEventDispatcher,
     useCustomElementEventDispatcher,
     type ComponentEventDispatcher,
   } from "./lib/use-custom-element-event-dispatcher";
-  import {
-    setupSearchFeature,
-    useSearchFeature,
-  } from "./lib/use-search-feature.svelte";
-  import {
-    setupVisibility,
-    useVisibility,
-  } from "./lib/use-custom-element-visibility.svelte";
+  import { useSearchFeature } from "./lib/use-search-feature";
+  import { useCustomElementVisibility } from "./lib/use-custom-element-visibility";
   import type { Emoji, EmojiGroup } from "@emoji-stockbook/types";
+  import { useContentRegion } from "./lib/use-content-region";
   import {
-    setupContentRegion,
-    useContentRegion,
-  } from "./lib/use-content-region.svelte";
-  import {
-    setupCustomElementProperty,
+    useCustomElementProperty,
     type IEmojiStockbookProperty,
   } from "./lib/use-custom-element-property";
 
-  let { col = 6 }: { col: number } = $props();
+  let { col = 8 }: { col: number } = $props();
 
   class EmojiStockbookProperty implements IEmojiStockbookProperty {
     col = $derived(col);
@@ -51,15 +41,15 @@
     );
   };
 
-  setupCustomElementProperty(new EmojiStockbookProperty());
-  setupCustomElementEventDispatcher(dispatchComponentEvent);
-  setupRepository();
-  setupSearchFeature();
-  setupVisibility();
-  setupContentRegion();
+  useCustomElementProperty.setup(new EmojiStockbookProperty());
+  useCustomElementEventDispatcher.setup(dispatchComponentEvent);
+  useEmojiRepository.setup();
+  useSearchFeature.setup();
+  useCustomElementVisibility.setup();
+  useContentRegion.setup();
 
-  const visibility = useVisibility();
-  const repo = useRepository();
+  const visibility = useCustomElementVisibility();
+  const repo = useEmojiRepository();
   const dispatch = useCustomElementEventDispatcher();
   const searchFeature = useSearchFeature();
   const contentRegion = useContentRegion();

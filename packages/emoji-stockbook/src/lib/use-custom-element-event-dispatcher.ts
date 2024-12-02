@@ -8,6 +8,6 @@ export interface ComponentEventDispatcher {
   (type: "input", emoji: NormalizedEmoji): void;
 }
 
-const [setupCustomElementEventDispatcher, useCustomElementEventDispatcher] =
-  customElementScopedValue((dispatch: ComponentEventDispatcher) => dispatch);
-export { setupCustomElementEventDispatcher, useCustomElementEventDispatcher };
+export const useCustomElementEventDispatcher = customElementScopedValue(
+  (dispatch: ComponentEventDispatcher) => dispatch,
+);

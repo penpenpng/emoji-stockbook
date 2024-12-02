@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { useSearchFeature } from "../lib/use-search-feature.svelte";
+  import { useSearchFeature } from "../lib/use-search-feature";
 
   const searchFeature = useSearchFeature();
 

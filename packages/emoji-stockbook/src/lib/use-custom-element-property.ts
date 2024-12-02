@@ -4,6 +4,6 @@ export interface IEmojiStockbookProperty {
   readonly col: number;
 }
 
-const [setupCustomElementProperty, useCustomElementProperty] =
-  customElementScopedValue((value: IEmojiStockbookProperty) => value);
-export { setupCustomElementProperty, useCustomElementProperty };
+export const useCustomElementProperty = customElementScopedValue(
+  (value: IEmojiStockbookProperty) => value,
+);

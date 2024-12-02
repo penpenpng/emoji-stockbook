@@ -3,10 +3,9 @@ import {
   type EmojiGroup,
   isEmojiGroups,
 } from "@emoji-stockbook/types";
-import type { NormalizedEmoji, NormalizedEmojiGroup } from "../types";
-import { customElementScopedValue } from "./custom-element-scoped-value";
+import type { NormalizedEmoji, NormalizedEmojiGroup } from "../../types";
 
-export interface IRepository {
+export interface IEmojiRepository {
   setEmojiDataset(dataset: Emoji[] | EmojiGroup[]): void;
   isGroupedExplicitly(): boolean;
   getAllEmojiGroups(): NormalizedEmojiGroup[];
@@ -15,12 +14,7 @@ export interface IRepository {
   getEmojiById(id: string): NormalizedEmoji | undefined;
 }
 
-const [setupRepository, useRepository] = customElementScopedValue(
-  (): IRepository => new Repository(),
-);
-export { setupRepository, useRepository };
-
-class Repository implements IRepository {
+export class EmojiRepository implements IEmojiRepository {
   private isGrouped = false;
   private emojis: Record<string, NormalizedEmoji> = {};
   private groups: NormalizedEmojiGroup[] = [];
