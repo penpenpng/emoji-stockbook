@@ -5,7 +5,7 @@ export interface ComponentEventDispatcher {
   (type: "initialized"): void;
   (type: "show"): void;
   (type: "hide"): void;
-  (type: "input", emoji: NormalizedEmoji): void;
+  (type: "pick", emoji: NormalizedEmoji): void;
 }
 
 export const useCustomElementEventDispatcher = customElementScopedValue(

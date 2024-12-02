@@ -12,7 +12,12 @@
   let rowGroups = $derived(chunk(rows, 2));
 </script>
 
-<div role="grid" aria-colcount={rootProps.col} class="grid">
+<div
+  role="grid"
+  aria-colcount={rootProps.col}
+  class="grid"
+  onblur={console.log}
+>
   {#each rowGroups as rowGroupProps (rowGroupProps[0][0].id)}
     {@render rowGroup(rowGroupProps)}
   {/each}
@@ -21,19 +26,23 @@
 {#snippet rowGroup(props: NormalizedEmoji[][])}
   <!-- `role="rowgroup"` is not needed. -->
   <div class="row-group">
-    {#each props as rowProps (rowProps[0].id)}
-      {@render row(rowProps)}
+    {#each props as rowProps, idx (rowProps[0].id)}
+      {@render row(rowProps, idx)}
     {/each}
   </div>
 {/snippet}
 
-{#snippet row(props: NormalizedEmoji[])}
+{#snippet row(props: NormalizedEmoji[], rowIndex: number)}
   <div role="row" class="row">
-    {#each props as emoji (emoji.id)}
-      <div role="gridcell" class="cell">
-        <EmojiButton {emoji} />
-      </div>
+    {#each props as emoji, idx (emoji.id)}
+      {@render cell(emoji, idx)}
     {/each}
+  </div>
+{/snippet}
+
+{#snippet cell(emoji: NormalizedEmoji, colIndex: number)}
+  <div role="gridcell" class="cell">
+    <EmojiButton {emoji} />
   </div>
 {/snippet}
 
