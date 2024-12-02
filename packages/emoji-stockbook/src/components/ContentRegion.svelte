@@ -14,7 +14,7 @@
     disabled={searchFeature.searching}
     expanded
   >
-    {#snippet content()}
+    {#snippet children()}
       <EmojiGrid emojis={group.emojis} />
     {/snippet}
   </FoldableSection>

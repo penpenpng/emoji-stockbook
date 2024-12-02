@@ -4,12 +4,12 @@
   let {
     title = "",
     expanded = $bindable(true),
-    content,
+    children,
     disabled = false,
   }: {
     title?: string;
     expanded: boolean;
-    content: Snippet;
+    children?: Snippet;
     disabled?: boolean;
   } = $props();
 
@@ -17,7 +17,7 @@
   const invokerId = getRandomId();
   const contentId = getRandomId();
 
-  const ifEnabled = <T,>(v: T) => (disabled ? undefined : v);
+  const ifEnabled = <T,>(v: T) => (disabled || !children ? undefined : v);
 </script>
 
 <section>
@@ -42,6 +42,6 @@
     aria-labelledby={ifEnabled(invokerId)}
     hidden={ifEnabled(!expanded)}
   >
-    {@render content()}
+    {@render children?.()}
   </div>
 </section>
