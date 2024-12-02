@@ -11,6 +11,12 @@
     stockbook.addEventListener("input", console.log);
     stockbook.addEventListener("show", console.log);
     stockbook.addEventListener("hide", console.log);
+    stockbook.addEventListener("initialized", () => {
+      visible = true;
+      console.log($state.snapshot(stockbook.show));
+      stockbook.setEmojiDataset(stockbookData);
+      stockbook.show();
+    });
   });
 </script>
 
@@ -20,6 +26,7 @@
   <button onclick={() => stockbook.setEmojiDataset(stockbookData)}
     >set data</button
   >
+  <button onclick={() => stockbook.setEmojiDataset([])}>unset data</button>
 
   <emoji-stockbook bind:this={stockbook} {visible}></emoji-stockbook>
 </main>

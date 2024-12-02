@@ -8,7 +8,7 @@
 <script lang="ts">
   import EmojiStockbook from "./components/EmojiStockbook.svelte";
   import type { NormalizedEmoji } from "./types";
-  import { tick } from "svelte";
+  import { onMount, tick } from "svelte";
   import { setupRepository, useRepository } from "./lib/use-repository";
   import { setupEventEmitter, useEventEmitter } from "./lib/use-event-emitter";
   import { setupSearchFeature } from "./lib/use-search-feature.svelte";
@@ -51,8 +51,17 @@
     initialize();
   });
 
-  export const show = visibility.show.bind(visibility);
-  export const hide = visibility.hide.bind(visibility);
+  let initialized = false;
+
+  onMount(() => {
+    initialized = true;
+    dispatch("initialized");
+  });
+
+  export const isInitialized = () => initialized;
+  export const isVisible = () => visibility.visible;
+  export const show = () => visibility.show();
+  export const hide = () => visibility.hide();
   export const setEmojiDataset = (dataset: Emoji[] | EmojiGroup[]) => {
     repo.setEmojiDataset(dataset);
     initialize();
