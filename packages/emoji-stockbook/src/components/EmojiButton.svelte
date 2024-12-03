@@ -1,10 +1,11 @@
 <script lang="ts">
   import { useCustomElementEventDispatcher } from "../lib/use-custom-element-event-dispatcher";
   import { useCustomElementVisibility } from "../lib/use-custom-element-visibility";
+  import { useSkintoneFeature } from "../lib/use-skintone-feature";
   import type { NormalizedEmoji } from "../types";
 
   let {
-    emoji,
+    emoji: nakedEmoji,
     ...callbacks
   }: {
     emoji: NormalizedEmoji;
@@ -15,7 +16,10 @@
   } = $props();
 
   const visibility = useCustomElementVisibility();
+  const skintoneFeature = useSkintoneFeature();
   const dispatch = useCustomElementEventDispatcher();
+
+  let emoji = $derived(skintoneFeature.applySkintone(nakedEmoji));
 
   const onclick = () => {
     dispatch("pick", emoji);

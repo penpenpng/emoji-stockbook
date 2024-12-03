@@ -19,6 +19,7 @@
   import { useCustomElementVisibility } from "./lib/use-custom-element-visibility";
   import type { EmojiRepositoryDataset } from "@emoji-stockbook/types";
   import { useContentRegion } from "./lib/use-content-region";
+  import { useSkintoneFeature } from "./lib/use-skintone-feature";
   import {
     useCustomElementProperty,
     type IEmojiStockbookProperty,
@@ -47,16 +48,19 @@
   useSearchFeature.setup();
   useCustomElementVisibility.setup();
   useContentRegion.setup();
+  useSkintoneFeature.setup();
 
   const visibility = useCustomElementVisibility();
   const repo = useEmojiRepository();
   const dispatch = useCustomElementEventDispatcher();
   const searchFeature = useSearchFeature();
   const contentRegion = useContentRegion();
+  const skintoneFeatuer = useSkintoneFeature();
 
   const resetComponentState = () => {
     contentRegion.reset();
     searchFeature.reset();
+    skintoneFeatuer.reset();
   };
 
   let initialized = false;

@@ -38,5 +38,11 @@ const data: EmojiGroup[] = Object.entries(dataByGroup).map(
 
 export const stockbookData: EmojiRepositoryDataset = {
   data,
-  skintones: [],
+  skintones: [
+    { char: "\u{1f3fb}", alt: "Light skin" },
+    { char: "\u{1f3fc}", alt: "Medium light skin" },
+    { char: "\u{1f3fd}", alt: "Medium skin" },
+    { char: "\u{1f3fe}", alt: "Medium dark skin" },
+    { char: "\u{1f3ff}", alt: "Dark skin" },
+  ],
 };

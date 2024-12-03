@@ -1,11 +1,11 @@
-import type { NormalizedEmoji } from "../types";
+import type { PickedEmoji } from "../types";
 import { customElementScopedValue } from "./custom-element-scoped-value";
 
 export interface ComponentEventDispatcher {
   (type: "initialized"): void;
   (type: "show"): void;
   (type: "hide"): void;
-  (type: "pick", emoji: NormalizedEmoji): void;
+  (type: "pick", emoji: PickedEmoji): void;
 }
 
 export const useCustomElementEventDispatcher = customElementScopedValue(

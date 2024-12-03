@@ -1,9 +1,10 @@
-import {
-  type Emoji,
-  type EmojiGroup,
-  type EmojiRepositoryDataset,
-  isEmojiGroups,
+import type {
+  Emoji,
+  EmojiGroup,
+  EmojiRepositoryDataset,
+  Skintone,
 } from "@emoji-stockbook/types";
+import { isEmojiGroups } from "@emoji-stockbook/types";
 import type { NormalizedEmoji, NormalizedEmojiGroup } from "../../types";
 
 export interface IEmojiRepository {
@@ -13,14 +14,16 @@ export interface IEmojiRepository {
   getEmojiGroupByIndex(index: number): NormalizedEmojiGroup | undefined;
   getAllEmojis(): NormalizedEmoji[];
   getEmojiById(id: string): NormalizedEmoji | undefined;
+  getSkintones(): Skintone[];
 }
 
 export class EmojiRepository implements IEmojiRepository {
   private isGrouped = false;
   private emojis: Record<string, NormalizedEmoji> = {};
   private groups: NormalizedEmojiGroup[] = [];
+  private skintones: Skintone[] = [];
 
-  setEmojiDataset({ data }: EmojiRepositoryDataset): void {
+  setEmojiDataset({ data, skintones }: EmojiRepositoryDataset): void {
     this.isGrouped = isEmojiGroups(data);
 
     const groups = normalize(data);
@@ -38,7 +41,9 @@ export class EmojiRepository implements IEmojiRepository {
         emojis[emoji.id] = emoji;
       }
     }
+
     this.emojis = emojis;
+    this.skintones = skintones;
   }
   isGroupedExplicitly(): boolean {
     return this.isGrouped;
@@ -54,6 +59,9 @@ export class EmojiRepository implements IEmojiRepository {
   }
   getEmojiById(id: string): NormalizedEmoji | undefined {
     return this.emojis[id];
+  }
+  getSkintones(): Skintone[] {
+    return this.skintones;
   }
 }
 

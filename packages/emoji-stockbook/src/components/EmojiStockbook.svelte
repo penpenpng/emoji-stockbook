@@ -1,9 +1,11 @@
 <script lang="ts">
   import ContentRegion from "./ContentRegion.svelte";
   import SearchInput from "./SearchInput.svelte";
+  import SkintoneSelector from "./SkintoneSelector.svelte";
 </script>
 
 <div class="host">
+  <SkintoneSelector />
   <SearchInput />
   <ContentRegion />
 </div>

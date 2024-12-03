@@ -1,6 +1,6 @@
 export interface EmojiRepositoryDataset {
   data: Emoji[] | EmojiGroup[];
-  skintones: string[];
+  skintones: Skintone[];
 }
 
 export interface EmojiBase {
@@ -43,4 +43,9 @@ export function isCustomEmoji(emoji: Emoji): emoji is CustomEmoji {
 
 export function isEmojiGroups(x: EmojiGroup[] | Emoji[]): x is EmojiGroup[] {
   return x[0] && "emojis" in x[0];
+}
+
+export interface Skintone {
+  char: string;
+  alt: string;
 }

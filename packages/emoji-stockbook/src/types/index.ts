@@ -1,10 +1,24 @@
-import type { Emoji } from "@emoji-stockbook/types";
+import type { CustomEmoji, NativeEmoji } from "@emoji-stockbook/types";
 
 export type ContentType = "flat" | "grouped";
 
-export type NormalizedEmoji = Readonly<Emoji & { id: string }>;
-export type NormalizedEmojiGroup = Readonly<{
+export interface NormalizedNativeEmoji extends NativeEmoji {
+  id: string;
+}
+export interface NormalizedCustomEmoji extends CustomEmoji {
+  id: string;
+}
+export type NormalizedEmoji = NormalizedNativeEmoji | NormalizedCustomEmoji;
+
+export interface NormalizedEmojiGroup {
   id: number;
   name: string;
   emojis: NormalizedEmoji[];
-}>;
+}
+
+export interface SkintoneAppliedNativeEmoji extends NormalizedNativeEmoji {
+  id: string;
+  appliedSkintone: string | null;
+  naked: string;
+}
+export type PickedEmoji = SkintoneAppliedNativeEmoji | NormalizedCustomEmoji;

@@ -12,9 +12,15 @@
   let stockbook = $state<EmojiStockbook & HTMLElement>();
 
   onMount(() => {
-    stockbook.addEventListener("input", console.log);
-    stockbook.addEventListener("show", console.log);
-    stockbook.addEventListener("hide", console.log);
+    stockbook.addEventListener("pick", (ev: CustomEvent) => {
+      console.log("picked:", ev.detail);
+    });
+    stockbook.addEventListener("show", () => {
+      console.log("custom element shown");
+    });
+    stockbook.addEventListener("hide", () => {
+      console.log("custom element hidden");
+    });
     stockbook.addEventListener("initialized", () => {
       visible = true;
       stockbook.setEmojiDataset(stockbookData);
