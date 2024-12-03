@@ -1,3 +1,8 @@
+export interface EmojiRepositoryDataset {
+  data: Emoji[] | EmojiGroup[];
+  skintones: string[];
+}
+
 export interface EmojiBase {
   /** It MUST be unique across EmojiGroups. If omitted, shortcode is assumed to be the ID. */
   id?: string;

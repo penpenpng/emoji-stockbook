@@ -1,12 +1,13 @@
 import {
   type Emoji,
   type EmojiGroup,
+  type EmojiRepositoryDataset,
   isEmojiGroups,
 } from "@emoji-stockbook/types";
 import type { NormalizedEmoji, NormalizedEmojiGroup } from "../../types";
 
 export interface IEmojiRepository {
-  setEmojiDataset(dataset: Emoji[] | EmojiGroup[]): void;
+  setEmojiDataset(dataset: EmojiRepositoryDataset): void;
   isGroupedExplicitly(): boolean;
   getAllEmojiGroups(): NormalizedEmojiGroup[];
   getEmojiGroupByIndex(index: number): NormalizedEmojiGroup | undefined;
@@ -19,10 +20,10 @@ export class EmojiRepository implements IEmojiRepository {
   private emojis: Record<string, NormalizedEmoji> = {};
   private groups: NormalizedEmojiGroup[] = [];
 
-  setEmojiDataset(dataset: Emoji[] | EmojiGroup[]): void {
-    this.isGrouped = isEmojiGroups(dataset);
+  setEmojiDataset({ data }: EmojiRepositoryDataset): void {
+    this.isGrouped = isEmojiGroups(data);
 
-    const groups = normalize(dataset);
+    const groups = normalize(data);
     this.groups = groups;
 
     const emojis: Record<string, NormalizedEmoji> = {};

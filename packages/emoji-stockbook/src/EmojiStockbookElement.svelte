@@ -17,7 +17,7 @@
   } from "./lib/use-custom-element-event-dispatcher";
   import { useSearchFeature } from "./lib/use-search-feature";
   import { useCustomElementVisibility } from "./lib/use-custom-element-visibility";
-  import type { Emoji, EmojiGroup } from "@emoji-stockbook/types";
+  import type { EmojiRepositoryDataset } from "@emoji-stockbook/types";
   import { useContentRegion } from "./lib/use-content-region";
   import {
     useCustomElementProperty,
@@ -76,7 +76,7 @@
   export const isVisible = () => visibility.visible;
   export const show = () => visibility.show();
   export const hide = () => visibility.hide();
-  export const setEmojiDataset = (dataset: Emoji[] | EmojiGroup[]) => {
+  export const setEmojiDataset = (dataset: EmojiRepositoryDataset) => {
     repo.setEmojiDataset(dataset);
     resetComponentState();
   };

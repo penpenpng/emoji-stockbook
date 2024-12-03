@@ -4,6 +4,8 @@
   import EmojiStockbook from "./EmojiStockbookElement.svelte";
   import { onMount } from "svelte";
 
+  console.log({ stockbookData });
+
   let visible = $state(false);
   let col = $state(8);
 
