@@ -27,3 +27,9 @@ export type I18nResource = Record<
   string /* language code */,
   Record<string /* key */, string /* value */>
 >;
+
+export interface HistoryRecord {
+  emojiId: string;
+  count: number;
+  updatedAt: number;
+}
