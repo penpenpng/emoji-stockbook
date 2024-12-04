@@ -1,0 +1,36 @@
+import { useCustomElementProperty } from "../use-custom-element-property";
+import { useLangResolver } from "./lang-resolver.svelte";
+import resourceEn from "../locales/en.json";
+import type { I18nResource } from "../../types";
+
+export const useTranslation = () => {
+  const props = useCustomElementProperty();
+  const langResolver = useLangResolver();
+
+  let i18n = $derived(props.i18n);
+  let lang = $derived(langResolver.lang);
+
+  const t = (key: string) => {
+    let value = $derived(getTranslation(i18n, lang)[key]);
+    return value;
+  };
+
+  return { t };
+};
+
+function getTranslation(
+  resource: I18nResource,
+  lang: string,
+): Record<string, string> {
+  if (resource[lang]) {
+    return resource[lang];
+  }
+
+  for (const rkey of Object.keys(resource)) {
+    if (rkey.toLowerCase().slice(0, 2) === lang.toLowerCase().slice(0, 2)) {
+      return resource[rkey];
+    }
+  }
+
+  return resourceEn;
+}

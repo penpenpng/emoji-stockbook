@@ -10,7 +10,7 @@
 
   let visible = $state(false);
   let col = $state(8);
-  let lang = $state("en");
+  let lang = $state(null);
 
   let stockbook = $state<EmojiStockbook & HTMLElement>();
 

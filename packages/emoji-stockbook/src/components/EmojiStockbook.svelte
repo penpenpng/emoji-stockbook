@@ -3,9 +3,16 @@
   import SearchInput from "./SearchInput.svelte";
   import SkintoneSelector from "./SkintoneSelector.svelte";
   import FoldableController from "./FoldableController.svelte";
+
+  import { useTranslation } from "../lib/use-translation";
+
+  const { t } = useTranslation();
 </script>
 
 <div class="host">
+  <div>
+    {t("hello")}
+  </div>
   <FoldableController />
   <SkintoneSelector />
   <SearchInput />

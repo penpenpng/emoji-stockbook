@@ -27,6 +27,7 @@
     useCustomElementProperty,
     type IEmojiStockbookProperty,
   } from "./lib/use-custom-element-property";
+  import { useLangResolver } from "./lib/use-translation";
   import type { I18nResource } from "./types";
 
   let {
@@ -60,6 +61,7 @@
   useContentRegion.setup();
   useSkintoneFeature.setup();
   useFoldables.setup();
+  useLangResolver.setup();
 
   const visibility = useCustomElementVisibility();
   const repo = useEmojiRepository();
