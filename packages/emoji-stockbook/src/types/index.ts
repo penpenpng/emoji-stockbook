@@ -22,3 +22,8 @@ export interface SkintoneAppliedNativeEmoji extends NormalizedNativeEmoji {
   naked: string;
 }
 export type PickedEmoji = SkintoneAppliedNativeEmoji | NormalizedCustomEmoji;
+
+export type I18nResource = Record<
+  string /* language code */,
+  Record<string /* key */, string /* value */>
+>;

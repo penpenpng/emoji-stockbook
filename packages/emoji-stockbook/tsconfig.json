@@ -16,6 +16,10 @@
     "isolatedModules": true,
     "moduleDetection": "force"
   },
-  "include": ["packages/emoji-stockbook/src/**/*.ts", "packages/emoji-stockbook/src/**/*.js", "packages/emoji-stockbook/src/**/*.svelte"],
+  "include": [
+    "packages/emoji-stockbook/src/**/*.ts",
+    "packages/emoji-stockbook/src/**/*.js",
+    "packages/emoji-stockbook/src/**/*.svelte"
+  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

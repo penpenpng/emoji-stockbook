@@ -3,6 +3,8 @@
     tag: "emoji-stockbook",
     props: {
       col: { reflect: true, type: "Number", attribute: "col" },
+      i18n: { reflect: false, type: "Object", attribute: "i18n" },
+      lang: { reflect: true, type: "String", attribute: "lang" },
     },
   }}
 />
@@ -25,11 +27,18 @@
     useCustomElementProperty,
     type IEmojiStockbookProperty,
   } from "./lib/use-custom-element-property";
+  import type { I18nResource } from "./types";
 
-  let { col = 8 }: { col: number } = $props();
+  let {
+    col = 8,
+    i18n = {},
+    lang,
+  }: { col: number; i18n: I18nResource; lang?: string } = $props();
 
   class EmojiStockbookProperty implements IEmojiStockbookProperty {
     col = $derived(col);
+    i18n = $derived(i18n);
+    lang = $derived(lang);
   }
 
   const dispatchComponentEvent: ComponentEventDispatcher = (
