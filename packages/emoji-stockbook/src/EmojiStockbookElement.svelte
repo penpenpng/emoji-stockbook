@@ -20,6 +20,7 @@
   import type { EmojiRepositoryDataset } from "@emoji-stockbook/types";
   import { useContentRegion } from "./lib/use-content-region";
   import { useSkintoneFeature } from "./lib/use-skintone-feature";
+  import { useFoldables } from "./lib/use-foldables";
   import {
     useCustomElementProperty,
     type IEmojiStockbookProperty,
@@ -49,6 +50,7 @@
   useCustomElementVisibility.setup();
   useContentRegion.setup();
   useSkintoneFeature.setup();
+  useFoldables.setup();
 
   const visibility = useCustomElementVisibility();
   const repo = useEmojiRepository();

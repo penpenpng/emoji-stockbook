@@ -2,9 +2,11 @@
   import ContentRegion from "./ContentRegion.svelte";
   import SearchInput from "./SearchInput.svelte";
   import SkintoneSelector from "./SkintoneSelector.svelte";
+  import FoldableController from "./FoldableController.svelte";
 </script>
 
 <div class="host">
+  <FoldableController />
   <SkintoneSelector />
   <SearchInput />
   <ContentRegion />

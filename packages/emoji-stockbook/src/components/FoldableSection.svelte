@@ -1,5 +1,6 @@
 <script lang="ts">
-  import type { Snippet } from "svelte";
+  import { onMount, type Snippet } from "svelte";
+  import { useFoldables } from "../lib/use-foldables";
 
   let {
     title = "",
@@ -18,6 +19,25 @@
   const contentId = getRandomId();
 
   const ifEnabled = <T,>(v: T) => (disabled || !children ? undefined : v);
+
+  const foldables = useFoldables();
+
+  onMount(() => {
+    const operator = {
+      open() {
+        expanded = true;
+      },
+      close() {
+        expanded = false;
+      },
+    };
+
+    foldables.registerFoldable(operator);
+
+    return () => {
+      foldables.unregisterFoldable(operator);
+    };
+  });
 </script>
 
 <section>
