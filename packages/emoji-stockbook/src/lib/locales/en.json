@@ -1,3 +1,5 @@
 {
-  "hello": "world"
+  "hello": "world",
+  "shortcut.title.frequently-used": "Frequently Used",
+  "shortcut.title.recently-used": "Recently Used"
 }

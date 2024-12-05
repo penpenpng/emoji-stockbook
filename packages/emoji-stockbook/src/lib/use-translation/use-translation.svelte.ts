@@ -7,11 +7,11 @@ export const useTranslation = () => {
   const props = useCustomElementProperty();
   const langResolver = useLangResolver();
 
-  let i18n = $derived(props.i18n);
-  let lang = $derived(langResolver.lang);
+  const i18n = $derived(props.i18n);
+  const lang = $derived(langResolver.lang);
 
-  const t = (key: string) => {
-    let value = $derived(getTranslation(i18n, lang)[key]);
+  const t = (key: string): string => {
+    const value = $derived(getTranslation(i18n, lang)[key] ?? key);
     return value;
   };
 

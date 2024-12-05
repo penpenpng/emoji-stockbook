@@ -28,8 +28,23 @@ export type I18nResource = Record<
   Record<string /* key */, string /* value */>
 >;
 
+export interface IHistoryManager {
+  updateHistory(emojiId: string): void;
+  getHistory(): HistoryRecord[];
+  clearHistory(): void;
+}
+
 export interface HistoryRecord {
   emojiId: string;
   count: number;
   updatedAt: number;
+}
+
+export type ShortcutSectionMode = "recently-used" | "frequently-used";
+
+export interface ShortcutSectionConfig {
+  history: IHistoryManager;
+  maxRows?: number;
+  mode?: ShortcutSectionMode;
+  title?: string;
 }

@@ -4,14 +4,15 @@
   import { useCustomElementProperty } from "../lib/use-custom-element-property";
   import { chunk } from "../lib/array";
 
-  let { emojis }: { emojis: NormalizedEmoji[] } = $props();
+  const { emojis }: { emojis: NormalizedEmoji[] } = $props();
 
   const rootProps = useCustomElementProperty();
 
   const rowGroupCount = 20;
-  let colCount = $derived(rootProps.col);
-  let rows = $derived(chunk(emojis, colCount));
-  let rowGroups = $derived(chunk(rows, rowGroupCount));
+  const colCount = $derived(rootProps.col);
+  const rows = $derived(chunk(emojis, colCount));
+  const rowGroups = $derived(chunk(rows, rowGroupCount));
+
   let gridElement = $state<HTMLElement>();
 
   type FocusMotion =

@@ -4,6 +4,28 @@ export const chunk = <T>(array: T[], size: number): T[][] => {
   );
 };
 
-export const remove = <T>(array: T[], value: T): T[] => {
-  return array.filter((e) => e !== value);
+export const remove = <T>(array: T[], value: T): void => {
+  for (let idx = 0; idx < array.length; idx++) {
+    if (array[idx] === value) {
+      array.splice(idx, 1);
+      idx--;
+    }
+  }
+};
+
+export const put = <T>(
+  array: T[],
+  selector: number | ((e: T) => boolean),
+  value: T,
+): void => {
+  if (typeof selector === "number") {
+    array[selector] = value;
+    return;
+  }
+
+  for (const idx in array) {
+    if (selector(array[idx])) {
+      array[idx] = value;
+    }
+  }
 };

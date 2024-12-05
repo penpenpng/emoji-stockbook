@@ -1,3 +1,5 @@
 {
-  "hello": "世界"
+  "hello": "世界",
+  "shortcut.title.frequently-used": "よく使う絵文字",
+  "shortcut.title.recently-used": "最近使った絵文字"
 }

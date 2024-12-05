@@ -5,6 +5,7 @@
       col: { reflect: true, type: "Number", attribute: "col" },
       i18n: { reflect: false, type: "Object", attribute: "i18n" },
       lang: { reflect: true, type: "String", attribute: "lang" },
+      shortcut: { reflect: false, type: "Object", attribute: "shortcut" },
     },
   }}
 />
@@ -23,24 +24,34 @@
   import { useContentRegion } from "./lib/use-content-region";
   import { useSkintoneFeature } from "./lib/use-skintone-feature";
   import { useFoldables } from "./lib/use-foldables";
+  import { useShortcutFeature } from "./lib/use-shortcut-feature";
   import {
     useCustomElementProperty,
     type IEmojiStockbookProperty,
   } from "./lib/use-custom-element-property";
   import { useLangResolver } from "./lib/use-translation";
-  import type { I18nResource } from "./types";
+  import type { I18nResource, ShortcutSectionConfig } from "./types";
 
-  let {
+  const {
     col = 8,
     i18n = {},
     lang,
-  }: { col: number; i18n: I18nResource; lang?: string } = $props();
+    shortcut = null,
+  }: {
+    col: number;
+    i18n: I18nResource;
+    lang?: string;
+    shortcut: ShortcutSectionConfig | null;
+  } = $props();
 
   class EmojiStockbookProperty implements IEmojiStockbookProperty {
     col = $derived(col);
     i18n = $derived(i18n);
     lang = $derived(lang);
+    shortcut = $derived(shortcut);
   }
+
+  useCustomElementProperty.setup(new EmojiStockbookProperty());
 
   const dispatchComponentEvent: ComponentEventDispatcher = (
     type: string,
@@ -53,8 +64,8 @@
     );
   };
 
-  useCustomElementProperty.setup(new EmojiStockbookProperty());
   useCustomElementEventDispatcher.setup(dispatchComponentEvent);
+
   useEmojiRepository.setup();
   useSearchFeature.setup();
   useCustomElementVisibility.setup();
@@ -62,18 +73,21 @@
   useSkintoneFeature.setup();
   useFoldables.setup();
   useLangResolver.setup();
+  useShortcutFeature.setup();
 
   const visibility = useCustomElementVisibility();
   const repo = useEmojiRepository();
   const dispatch = useCustomElementEventDispatcher();
   const searchFeature = useSearchFeature();
   const contentRegion = useContentRegion();
-  const skintoneFeatuer = useSkintoneFeature();
+  const skintoneFeature = useSkintoneFeature();
+  const shortcutFeature = useShortcutFeature();
 
   const resetComponentState = () => {
     contentRegion.reset();
     searchFeature.reset();
-    skintoneFeatuer.reset();
+    skintoneFeature.reset();
+    shortcutFeature.reset();
   };
 
   let initialized = false;
