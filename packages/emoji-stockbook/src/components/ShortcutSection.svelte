@@ -6,6 +6,8 @@
   const shortcutFeature = useShortcutFeature();
 </script>
 
+<button onclick={() => shortcutFeature.clearHistory()}>forget</button>
+
 <FoldableSection title={shortcutFeature.title} expanded>
   {#snippet children()}
     <EmojiGrid emojis={shortcutFeature.emojis} />

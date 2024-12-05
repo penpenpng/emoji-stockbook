@@ -3,6 +3,7 @@
   import { stockbookData } from "@emoji-stockbook/data";
   import EmojiStockbook from "./EmojiStockbookElement.svelte";
   import { onMount } from "svelte";
+  import { LocalStorageHistoryManager } from "./lib/history-manager";
   import en from "./lib/locales/en.json";
   import ja from "./lib/locales/ja.json";
 
@@ -30,6 +31,9 @@
       stockbook.show();
     });
     stockbook.i18n = { en, ja };
+    stockbook.shortcut = {
+      history: new LocalStorageHistoryManager(),
+    };
   });
 </script>
 

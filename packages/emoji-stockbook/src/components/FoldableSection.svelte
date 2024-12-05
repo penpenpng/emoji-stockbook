@@ -2,7 +2,7 @@
   import { onMount, type Snippet } from "svelte";
   import { useFoldables } from "../lib/use-foldables";
 
-  const {
+  let {
     title = "",
     expanded = $bindable(true),
     children,

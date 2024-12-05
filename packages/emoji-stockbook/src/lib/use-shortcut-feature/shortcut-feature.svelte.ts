@@ -7,6 +7,7 @@ export interface IShortcutFeature {
   readonly title: string;
   readonly emojis: NormalizedEmoji[];
   readonly maxRows: number;
+  clearHistory(): void;
   reset(): void;
 }
 
@@ -53,7 +54,12 @@ export class ShortcutFeature implements IShortcutFeature {
 
   readonly maxRows = $derived.by(() => this.config?.maxRows ?? 0);
 
-  reset() {
+  clearHistory(): void {
+    this.config?.history.clearHistory();
+    this.reset();
+  }
+
+  reset(): void {
     const config = this.config;
 
     if (!config) {
