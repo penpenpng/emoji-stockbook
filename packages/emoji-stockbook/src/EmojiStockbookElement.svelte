@@ -36,12 +36,12 @@
     col = 8,
     i18n = {},
     lang,
-    shortcut = null,
+    shortcut = true,
   }: {
     col: number;
     i18n: I18nResource;
     lang?: string;
-    shortcut: ShortcutSectionConfig | null;
+    shortcut: ShortcutSectionConfig | boolean;
   } = $props();
 
   class EmojiStockbookProperty implements IEmojiStockbookProperty {

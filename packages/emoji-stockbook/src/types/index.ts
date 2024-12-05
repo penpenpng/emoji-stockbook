@@ -43,7 +43,7 @@ export interface HistoryRecord {
 export type ShortcutSectionMode = "recently-used" | "frequently-used";
 
 export interface ShortcutSectionConfig {
-  history: IHistoryManager;
+  history?: IHistoryManager;
   maxRows?: number;
   mode?: ShortcutSectionMode;
   title?: string;

@@ -5,7 +5,7 @@ export interface IEmojiStockbookProperty {
   readonly col: number;
   readonly i18n: I18nResource;
   readonly lang?: string;
-  readonly shortcut: ShortcutSectionConfig | null;
+  readonly shortcut: ShortcutSectionConfig | boolean;
 }
 
 export const useCustomElementProperty = customElementScopedValue(

@@ -2,6 +2,7 @@ import type { NormalizedEmoji } from "../../types";
 import { useCustomElementProperty } from "../use-custom-element-property";
 import { useTranslation } from "../use-translation";
 import { useEmojiRepository } from "../use-emoji-repository";
+import { LocalStorageHistoryManager } from "../history-manager";
 
 export interface IShortcutFeature {
   readonly title: string;
@@ -23,11 +24,23 @@ export class ShortcutFeature implements IShortcutFeature {
       return null;
     }
 
-    return {
-      ...shortcut,
-      maxRows: shortcut.maxRows ?? 2,
-      mode: shortcut.mode ?? "frequently-used",
+    const defaultConfig = {
+      title: undefined,
+      history: new LocalStorageHistoryManager(),
+      maxRows: 2,
+      mode: "frequently-used",
     };
+
+    if (shortcut === true) {
+      return defaultConfig;
+    } else {
+      return {
+        ...shortcut,
+        history: shortcut.history ?? defaultConfig.history,
+        maxRows: shortcut.maxRows ?? defaultConfig.maxRows,
+        mode: shortcut.mode ?? defaultConfig.mode,
+      };
+    }
   });
 
   readonly title = $derived.by(() => {
