@@ -19,16 +19,10 @@
     stockbook.addEventListener("pick", (ev: CustomEvent) => {
       console.log("picked:", ev.detail);
     });
-    stockbook.addEventListener("show", () => {
-      console.log("custom element shown");
-    });
-    stockbook.addEventListener("hide", () => {
-      console.log("custom element hidden");
-    });
+
     stockbook.addEventListener("initialized", () => {
       visible = true;
       stockbook.setEmojiDataset(stockbookData);
-      stockbook.show();
     });
     stockbook.i18n = { en, ja };
     stockbook.shortcut = {
@@ -38,8 +32,6 @@
 </script>
 
 <main>
-  <button onclick={() => stockbook.show()}>show</button>
-  <button onclick={() => stockbook.hide()}>hide</button>
   <button onclick={() => stockbook.setEmojiDataset(stockbookData)}
     >set data</button
   >

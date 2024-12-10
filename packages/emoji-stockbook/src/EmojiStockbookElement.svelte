@@ -19,7 +19,6 @@
     type ComponentEventDispatcher,
   } from "./lib/use-custom-element-event-dispatcher";
   import { useSearchFeature } from "./lib/use-search-feature";
-  import { useCustomElementVisibility } from "./lib/use-custom-element-visibility";
   import type { EmojiRepositoryDataset } from "@emoji-stockbook/types";
   import { useContentRegion } from "./lib/use-content-region";
   import { useSkintoneFeature } from "./lib/use-skintone-feature";
@@ -68,14 +67,12 @@
 
   useEmojiRepository.setup();
   useSearchFeature.setup();
-  useCustomElementVisibility.setup();
   useContentRegion.setup();
   useSkintoneFeature.setup();
   useFoldables.setup();
   useLangResolver.setup();
   useShortcutFeature.setup();
 
-  const visibility = useCustomElementVisibility();
   const repo = useEmojiRepository();
   const dispatch = useCustomElementEventDispatcher();
   const searchFeature = useSearchFeature();
@@ -97,22 +94,13 @@
     dispatch("initialized");
   });
 
-  $host().addEventListener("hide", () => {
-    resetComponentState();
-  });
-
   // TODO: mounted まで使えないのをどうにかできないか
   // https://svelte.dev/docs/svelte/custom-elements#Component-options の extend が役に立つかもしれない
   export const isInitialized = () => initialized;
-  export const isVisible = () => visibility.visible;
-  export const show = () => visibility.show();
-  export const hide = () => visibility.hide();
   export const setEmojiDataset = (dataset: EmojiRepositoryDataset) => {
     repo.setEmojiDataset(dataset);
     resetComponentState();
   };
 </script>
 
-{#if visibility.visible}
-  <EmojiStockbook />
-{/if}
+<EmojiStockbook />

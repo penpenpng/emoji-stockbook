@@ -1,7 +1,6 @@
 <script lang="ts">
   import { useCustomElementEventDispatcher } from "../lib/use-custom-element-event-dispatcher";
   import { useCustomElementProperty } from "../lib/use-custom-element-property";
-  import { useCustomElementVisibility } from "../lib/use-custom-element-visibility";
   import { useSkintoneFeature } from "../lib/use-skintone-feature";
   import type { NormalizedEmoji } from "../types";
 
@@ -16,7 +15,6 @@
     onArrowLeft?: () => void;
   } = $props();
 
-  const visibility = useCustomElementVisibility();
   const skintoneFeature = useSkintoneFeature();
   const rootProps = useCustomElementProperty();
   const dispatch = useCustomElementEventDispatcher();
@@ -25,7 +23,6 @@
 
   const onclick = () => {
     dispatch("pick", emoji);
-    visibility.hide();
     rootProps.shortcut?.history.updateHistory(emoji.id);
   };
 
