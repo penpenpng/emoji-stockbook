@@ -9,7 +9,6 @@
 
   console.log({ stockbookData });
 
-  let visible = $state(false);
   let col = $state(8);
   let lang = $state(null);
 
@@ -21,7 +20,6 @@
     });
 
     stockbook.addEventListener("initialized", () => {
-      visible = true;
       stockbook.setEmojiDataset(stockbookData);
     });
     stockbook.i18n = { en, ja };

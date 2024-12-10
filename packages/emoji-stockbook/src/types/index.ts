@@ -1,7 +1,5 @@
 import type { CustomEmoji, NativeEmoji } from "@emoji-stockbook/types";
 
-export type ContentType = "flat" | "grouped";
-
 export interface NormalizedNativeEmoji extends NativeEmoji {
   id: string;
 }

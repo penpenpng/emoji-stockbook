@@ -9,7 +9,6 @@ import type { NormalizedEmoji, NormalizedEmojiGroup } from "../../types";
 
 export interface IEmojiRepository {
   setEmojiDataset(dataset: EmojiRepositoryDataset): void;
-  isGroupedExplicitly(): boolean;
   getAllEmojiGroups(): NormalizedEmojiGroup[];
   getEmojiGroupByIndex(index: number): NormalizedEmojiGroup | undefined;
   getAllEmojis(): NormalizedEmoji[];
@@ -18,14 +17,11 @@ export interface IEmojiRepository {
 }
 
 export class EmojiRepository implements IEmojiRepository {
-  private isGrouped = false;
   private emojis: Record<string, NormalizedEmoji> = {};
   private groups: NormalizedEmojiGroup[] = [];
   private skintones: Skintone[] = [];
 
   setEmojiDataset({ data, skintones }: EmojiRepositoryDataset): void {
-    this.isGrouped = isEmojiGroups(data);
-
     const groups = normalize(data);
     this.groups = groups;
 
@@ -44,9 +40,6 @@ export class EmojiRepository implements IEmojiRepository {
 
     this.emojis = emojis;
     this.skintones = skintones;
-  }
-  isGroupedExplicitly(): boolean {
-    return this.isGrouped;
   }
   getAllEmojiGroups(): NormalizedEmojiGroup[] {
     return this.groups;
