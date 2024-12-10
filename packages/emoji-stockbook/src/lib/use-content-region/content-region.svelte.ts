@@ -1,16 +1,14 @@
-import type { ContentType, NormalizedEmojiGroup } from "../../types";
+import type { NormalizedEmojiGroup } from "../../types";
 import { useSearchFeature } from "../use-search-feature/index";
 import { useEmojiRepository } from "../use-emoji-repository/index";
 
 export interface IContentRegion {
-  readonly contentType: ContentType;
   readonly groups: NormalizedEmojiGroup[];
   reset(): void;
 }
 
 class State {
   defaultGroups = $state.raw<NormalizedEmojiGroup[]>([]);
-  contentType = $state<ContentType>("flat");
 }
 
 export class ContentRegion implements IContentRegion {
@@ -18,7 +16,6 @@ export class ContentRegion implements IContentRegion {
   private searchFeature = useSearchFeature();
   private repo = useEmojiRepository();
 
-  readonly contentType = $derived.by(() => this.state.contentType);
   readonly groups = $derived.by(() => {
     if (this.searchFeature.searching) {
       return [
@@ -34,9 +31,6 @@ export class ContentRegion implements IContentRegion {
   });
 
   reset() {
-    this.state.contentType = this.repo.isGroupedExplicitly()
-      ? "grouped"
-      : "flat";
     this.state.defaultGroups = this.repo.getAllEmojiGroups();
   }
 }
