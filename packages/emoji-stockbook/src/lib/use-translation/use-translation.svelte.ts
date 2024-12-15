@@ -1,7 +1,11 @@
 import { useCustomElementProperty } from "../use-custom-element-property";
 import { useLangResolver } from "./lang-resolver.svelte";
 import resourceEn from "../locales/en.json";
-import type { I18nResource } from "../../types";
+
+export type I18nResource = Record<
+  string /* language code */,
+  Record<string /* key */, string /* value */>
+>;
 
 export const useTranslation = () => {
   const props = useCustomElementProperty();

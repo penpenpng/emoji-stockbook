@@ -1,5 +1,16 @@
-import type { IHistoryManager, HistoryRecord } from "../types";
 import { put } from "./array";
+
+export interface IHistoryManager {
+  updateHistory(emojiId: string): void;
+  getHistory(): HistoryRecord[];
+  clearHistory(): void;
+}
+
+export interface HistoryRecord {
+  emojiId: string;
+  count: number;
+  updatedAt: number;
+}
 
 export class LocalStorageHistoryManager implements IHistoryManager {
   constructor(private localStorageKey: string = "_emoji-stockbook") {}

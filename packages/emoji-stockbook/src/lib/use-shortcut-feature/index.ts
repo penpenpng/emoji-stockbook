@@ -4,6 +4,8 @@ import {
   ShortcutFeature,
 } from "./shortcut-feature.svelte";
 
+export type { IShortcutFeature };
+
 export const useShortcutFeature = customElementScopedValue(
   (): IShortcutFeature => new ShortcutFeature(),
 );

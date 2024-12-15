@@ -4,6 +4,8 @@ import {
   SkintoneFeature,
 } from "./skintone-feature.svelte";
 
+export type { ISkintoneFeature };
+
 export const useSkintoneFeature = customElementScopedValue(
   (): ISkintoneFeature => new SkintoneFeature(),
 );

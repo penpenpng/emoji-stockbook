@@ -20,29 +20,3 @@ export interface SkintoneAppliedNativeEmoji extends NormalizedNativeEmoji {
   naked: string;
 }
 export type PickedEmoji = SkintoneAppliedNativeEmoji | NormalizedCustomEmoji;
-
-export type I18nResource = Record<
-  string /* language code */,
-  Record<string /* key */, string /* value */>
->;
-
-export interface IHistoryManager {
-  updateHistory(emojiId: string): void;
-  getHistory(): HistoryRecord[];
-  clearHistory(): void;
-}
-
-export interface HistoryRecord {
-  emojiId: string;
-  count: number;
-  updatedAt: number;
-}
-
-export type ShortcutSectionMode = "recently-used" | "frequently-used";
-
-export interface ShortcutSectionConfig {
-  history?: IHistoryManager;
-  maxRows?: number;
-  mode?: ShortcutSectionMode;
-  title?: string;
-}

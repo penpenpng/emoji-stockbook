@@ -1,2 +1,2 @@
-export { useLangResolver } from "./lang-resolver.svelte";
-export { useTranslation } from "./use-translation.svelte";
+export { useLangResolver, type ILangResolver } from "./lang-resolver.svelte";
+export { useTranslation, type I18nResource } from "./use-translation.svelte";
