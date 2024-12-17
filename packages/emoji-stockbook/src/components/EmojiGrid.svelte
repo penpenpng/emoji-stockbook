@@ -1,17 +1,17 @@
 <script lang="ts">
   import EmojiButton from "./EmojiButton.svelte";
-  import type { NormalizedEmoji } from "../types";
+  import type { Emoji } from "../types";
   import { useCustomElementProperty } from "../lib/use-custom-element-property";
-  import { chunk } from "../lib/array";
+  import { UArray } from "../lib/utils";
 
-  const { emojis }: { emojis: NormalizedEmoji[] } = $props();
+  const { emojis }: { emojis: Emoji[] } = $props();
 
   const rootProps = useCustomElementProperty();
 
   const rowGroupCount = 20;
   const colCount = $derived(rootProps.col);
-  const rows = $derived(chunk(emojis, colCount));
-  const rowGroups = $derived(chunk(rows, rowGroupCount));
+  const rows = $derived(UArray.chunk(emojis, colCount));
+  const rowGroups = $derived(UArray.chunk(rows, rowGroupCount));
 
   let gridElement = $state<HTMLElement>();
 
@@ -46,7 +46,7 @@
   {/each}
 </div>
 
-{#snippet rowGroup(props: NormalizedEmoji[][], rowGroupIndex: number)}
+{#snippet rowGroup(props: Emoji[][], rowGroupIndex: number)}
   <!-- `role="rowgroup"` is not needed. -->
   <div class="row-group">
     {#each props as rowProps, idx (rowProps[0].id)}
@@ -56,7 +56,7 @@
   </div>
 {/snippet}
 
-{#snippet row(props: NormalizedEmoji[], rowIndex: number)}
+{#snippet row(props: Emoji[], rowIndex: number)}
   <div role="row" aria-rowindex={rowIndex} class="row">
     {#each props as emoji, idx (emoji.id)}
       {@const colIndex = idx + 1}
@@ -65,7 +65,7 @@
   </div>
 {/snippet}
 
-{#snippet cell(emoji: NormalizedEmoji, rowIndex: number, colIndex: number)}
+{#snippet cell(emoji: Emoji, rowIndex: number, colIndex: number)}
   <div role="gridcell" aria-colindex={colIndex} class="cell">
     <EmojiButton
       {emoji}

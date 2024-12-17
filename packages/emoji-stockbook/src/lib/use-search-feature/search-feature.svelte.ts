@@ -1,10 +1,9 @@
-import { isNativeEmoji } from "@emoji-stockbook/types";
-import type { NormalizedEmoji } from "../../types";
+import type { Emoji } from "../../types";
 import { useEmojiRepository } from "../use-emoji-repository/index";
 
 export interface ISearchFeature {
   readonly searching: boolean;
-  readonly result: NormalizedEmoji[];
+  readonly result: Emoji[];
   readonly suggestions: Suggestion[];
   reset(): void;
   searchEmojis(query: string);
@@ -17,7 +16,7 @@ interface Suggestion {
 
 class State {
   searching = $state(false);
-  result = $state.raw<NormalizedEmoji[]>([]);
+  result = $state.raw<Emoji[]>([]);
   lastQuery = "";
   suggestions = $state.raw<Suggestion[]>([]);
 }
@@ -61,11 +60,8 @@ export class SearchFeature implements ISearchFeature {
   }
 }
 
-function narrowResult(
-  emojis: NormalizedEmoji[],
-  query: string,
-): NormalizedEmoji[] {
-  const result: NormalizedEmoji[] = [];
+function narrowResult(emojis: Emoji[], query: string): Emoji[] {
+  const result: Emoji[] = [];
 
   for (const emoji of emojis) {
     if (

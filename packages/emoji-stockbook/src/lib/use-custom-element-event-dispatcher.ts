@@ -3,8 +3,6 @@ import { customElementScopedValue } from "./custom-element-scoped-value";
 
 export interface ComponentEventDispatcher {
   (type: "initialized"): void;
-  (type: "show"): void;
-  (type: "hide"): void;
   (type: "pick", emoji: PickedEmoji): void;
 }
 

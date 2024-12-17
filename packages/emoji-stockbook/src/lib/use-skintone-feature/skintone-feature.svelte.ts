@@ -1,18 +1,20 @@
-import type { Skintone } from "@emoji-stockbook/types";
-import { useEmojiRepository } from "../use-emoji-repository";
 import type {
-  NormalizedEmoji,
-  SkintoneAppliedNativeEmoji,
-  NormalizedCustomEmoji,
+  SkintoneApplied,
+  Emoji,
+  NativeEmoji,
+  CustomEmoji,
 } from "../../types";
 
 export interface ISkintoneFeature {
   readonly skintones: Skintone[];
   currentSkintone: Skintone | null;
-  applySkintone(
-    emoji: NormalizedEmoji,
-  ): SkintoneAppliedNativeEmoji | NormalizedCustomEmoji;
+  applySkintone(emoji: Emoji): SkintoneApplied<NativeEmoji> | CustomEmoji;
   reset(): void;
+}
+
+export interface Skintone {
+  char: string;
+  alt: string;
 }
 
 class State {
@@ -21,38 +23,42 @@ class State {
 
 export class SkintoneFeature implements ISkintoneFeature {
   private state = new State();
-  private repo = useEmojiRepository();
 
   readonly skintones = $derived.by(() => this.state.skintones);
   currentSkintone = $state<Skintone | null>(null);
 
-  applySkintone(
-    emoji: NormalizedEmoji,
-  ): SkintoneAppliedNativeEmoji | NormalizedCustomEmoji {
+  applySkintone(emoji: Emoji): SkintoneApplied<NativeEmoji> | CustomEmoji {
     if ("src" in emoji) {
       return emoji;
     }
 
     const skintone = this.currentSkintone?.char ?? null;
 
-    if (emoji.skinToneSupport && skintone) {
+    if (emoji.supportsSkintone && skintone) {
       return {
         ...emoji,
         char: applySkintone(emoji.char, skintone),
-        appliedSkintone: skintone,
+        skintone: skintone,
         naked: emoji.char,
       };
     } else {
       return {
         ...emoji,
-        appliedSkintone: null,
+        skintone: null,
         naked: emoji.char,
       };
     }
   }
 
   reset() {
-    this.state.skintones = this.repo.getSkintones();
+    // TODO
+    this.state.skintones = [
+      { char: "\u{1f3fb}", alt: "Light skin" },
+      { char: "\u{1f3fc}", alt: "Medium light skin" },
+      { char: "\u{1f3fd}", alt: "Medium skin" },
+      { char: "\u{1f3fe}", alt: "Medium dark skin" },
+      { char: "\u{1f3ff}", alt: "Dark skin" },
+    ];
     this.currentSkintone = null;
   }
 }

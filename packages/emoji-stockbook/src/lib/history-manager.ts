@@ -1,4 +1,4 @@
-import { put } from "./array";
+import { UArray } from "./utils";
 
 export interface IHistoryManager {
   updateHistory(emojiId: string): void;
@@ -66,7 +66,7 @@ function updateHistory(history: HistoryRecord[], emojiId: string): void {
   const record = history.find((e) => e.emojiId === emojiId);
 
   if (record) {
-    put(history, (e) => e.emojiId === emojiId, {
+    UArray.put(history, (e) => e.emojiId === emojiId, {
       emojiId,
       count: record.count + 1,
       updatedAt: Date.now(),

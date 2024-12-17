@@ -1,8 +1,3 @@
-import type {
-  EmojiGroup,
-  NativeEmoji,
-  EmojiRepositoryDataset,
-} from "@emoji-stockbook/types";
 import keywordsByEmoji from "emojilib";
 import dataByGroup from "unicode-emoji-json/data-by-group.json";
 
@@ -10,39 +5,47 @@ import dataByGroup from "unicode-emoji-json/data-by-group.json";
 // - コンパイル時に圧縮した形式のデータを作る
 // - 圧縮した形式から可読な形式に変換する関数 f を作って f(data) を export する
 
+interface NativeEmojiset {
+  kind: "native";
+  categories: NativeEmojiCategory[];
+}
+
+interface NativeEmojiCategory {
+  kind: "native";
+  id: string;
+  name: string;
+  emojis: NativeEmoji[];
+}
+
+interface NativeEmoji {
+  kind: "native";
+  id: string;
+  char: string;
+  shortcode: string;
+  keywords: string[];
+  supportsSkintone?: boolean;
+}
+
 // TODO: Generate at compile-time
-const data: EmojiGroup[] = Object.entries(dataByGroup).map(
-  ([groupName, emojis]): EmojiGroup => ({
-    name: groupName,
+const categories: NativeEmojiCategory[] = Object.entries(dataByGroup).map(
+  ([name, emojis]) => ({
+    id: "native (TODO: versioning)",
+    kind: "native",
+    name,
     emojis: emojis.map((emoji): NativeEmoji => {
-      const nativeEmoji: NativeEmoji = {
+      return {
+        id: emoji.slug,
+        kind: "native",
         shortcode: emoji.slug,
         char: emoji.emoji,
+        keywords: keywordsByEmoji[emoji.emoji],
+        supportsSkintone: emoji.skin_tone_support,
       };
-
-      const keywords = (keywordsByEmoji as Record<string, string[]>)[
-        nativeEmoji.char
-      ];
-      if (keywords) {
-        nativeEmoji.keywords = keywords;
-      }
-
-      if (emoji.skin_tone_support) {
-        nativeEmoji.skinToneSupport = true;
-      }
-
-      return nativeEmoji;
     }),
   }),
 );
 
-export const stockbookData: EmojiRepositoryDataset = {
-  data,
-  skintones: [
-    { char: "\u{1f3fb}", alt: "Light skin" },
-    { char: "\u{1f3fc}", alt: "Medium light skin" },
-    { char: "\u{1f3fd}", alt: "Medium skin" },
-    { char: "\u{1f3fe}", alt: "Medium dark skin" },
-    { char: "\u{1f3ff}", alt: "Dark skin" },
-  ],
+export const stockbookData: NativeEmojiset = {
+  kind: "native",
+  categories,
 };

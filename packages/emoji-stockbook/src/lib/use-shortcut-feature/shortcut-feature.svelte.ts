@@ -1,4 +1,4 @@
-import type { NormalizedEmoji } from "../../types";
+import type { Emoji } from "../../types";
 import { useCustomElementProperty } from "../use-custom-element-property";
 import { useTranslation } from "../use-translation";
 import { useEmojiRepository } from "../use-emoji-repository";
@@ -6,7 +6,7 @@ import { LocalStorageHistoryManager } from "../history-manager";
 
 export interface IShortcutFeature {
   readonly title: string;
-  readonly emojis: NormalizedEmoji[];
+  readonly emojis: Emoji[];
   readonly maxRows: number;
   clearHistory(): void;
   reset(): void;
@@ -60,7 +60,7 @@ export class ShortcutFeature implements IShortcutFeature {
     }
   });
 
-  private _emojis = $state<NormalizedEmoji[]>([]);
+  private _emojis = $state<Emoji[]>([]);
   readonly emojis = $derived.by(() =>
     this._emojis.slice(0, this.rootProps.col * this.maxRows),
   );
@@ -81,16 +81,17 @@ export class ShortcutFeature implements IShortcutFeature {
 
     const history = config.history.getHistory();
 
-    if (config.mode === "frequently-used") {
-      this._emojis = [...history]
-        .sort((a, b) => b.updatedAt - a.updatedAt)
-        .map((e) => this.repo.getEmojiById(e.emojiId))
-        .filter((e) => !!e);
-    } else {
-      this._emojis = [...history]
-        .sort((a, b) => b.count - a.count)
-        .map((e) => this.repo.getEmojiById(e.emojiId))
-        .filter((e) => !!e);
-    }
+    // TODO: promisify
+    // if (config.mode === "frequently-used") {
+    //   this._emojis = [...history]
+    //     .sort((a, b) => b.updatedAt - a.updatedAt)
+    //     .map((e) => this.repo.getEmojiById(e.emojiId))
+    //     .filter((e) => !!e);
+    // } else {
+    //   this._emojis = [...history]
+    //     .sort((a, b) => b.count - a.count)
+    //     .map((e) => this.repo.getEmojiById(e.emojiId))
+    //     .filter((e) => !!e);
+    // }
   }
 }

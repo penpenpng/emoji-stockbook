@@ -1,4 +1,4 @@
-import { remove } from "../array";
+import { UArray } from "../utils";
 
 export interface IFoldables {
   openAll(): void;
@@ -32,6 +32,6 @@ export class Foldables implements IFoldables {
   }
 
   unregisterFoldable(operator: FoldableOperator): void {
-    remove(this.operators, operator);
+    UArray.remove(this.operators, operator);
   }
 }

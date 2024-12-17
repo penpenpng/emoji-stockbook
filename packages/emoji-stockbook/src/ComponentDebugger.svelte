@@ -1,13 +1,10 @@
 <script lang="ts">
   import "./EmojiStockbookElement.svelte";
-  import { stockbookData } from "@emoji-stockbook/data";
   import EmojiStockbook from "./EmojiStockbookElement.svelte";
   import { onMount } from "svelte";
   import { LocalStorageHistoryManager } from "./lib/history-manager";
   import en from "./lib/locales/en.json";
   import ja from "./lib/locales/ja.json";
-
-  console.log({ stockbookData });
 
   let col = $state(8);
   let lang = $state(null);
@@ -19,9 +16,7 @@
       console.log("picked:", ev.detail);
     });
 
-    stockbook.addEventListener("initialized", () => {
-      stockbook.setEmojiDataset(stockbookData);
-    });
+    stockbook.addEventListener("initialized", () => {});
     stockbook.i18n = { en, ja };
     stockbook.shortcut = {
       history: new LocalStorageHistoryManager(),
@@ -30,10 +25,6 @@
 </script>
 
 <main>
-  <button onclick={() => stockbook.setEmojiDataset(stockbookData)}
-    >set data</button
-  >
-  <button onclick={() => stockbook.setEmojiDataset([])}>unset data</button>
   <button onclick={() => (col = 4)}>col 4</button>
   <button onclick={() => (col = 6)}>col 6</button>
   <button onclick={() => (col = 8)}>col 8</button>

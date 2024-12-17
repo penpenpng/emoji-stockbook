@@ -17,14 +17,21 @@
   <ShortcutSection />
 {/if}
 
-{#each contentRegion.groups as group (group.id)}
-  <FoldableSection
-    title={group.name}
-    disabled={searchFeature.searching}
-    expanded
-  >
-    {#snippet children()}
-      <EmojiGrid emojis={group.emojis} />
-    {/snippet}
-  </FoldableSection>
-{/each}
+{#await contentRegion.categories}
+  <!-- TODO -->
+  loading...
+{:then categories}
+  {#each categories as cat (cat.id)}
+    <FoldableSection
+      title={cat.name}
+      disabled={searchFeature.searching}
+      expanded
+    >
+      {#snippet children()}
+        <EmojiGrid emojis={cat.emojis} />
+      {/snippet}
+    </FoldableSection>
+  {/each}
+{:catch err}
+  Error: {err}
+{/await}

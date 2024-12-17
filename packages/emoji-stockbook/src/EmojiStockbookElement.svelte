@@ -2,6 +2,7 @@
   customElement={{
     tag: "emoji-stockbook",
     props: {
+      emojisets: { reflect: true, type: "String", attribute: "emojisets" },
       col: { reflect: true, type: "Number", attribute: "col" },
       i18n: { reflect: false, type: "Object", attribute: "i18n" },
       lang: { reflect: true, type: "String", attribute: "lang" },
@@ -19,38 +20,15 @@
     type ComponentEventDispatcher,
   } from "./lib/use-custom-element-event-dispatcher";
   import { useSearchFeature } from "./lib/use-search-feature";
-  import type { EmojiRepositoryDataset } from "@emoji-stockbook/types";
   import { useContentRegion } from "./lib/use-content-region";
   import { useSkintoneFeature } from "./lib/use-skintone-feature";
   import { useFoldables } from "./lib/use-foldables";
   import { useShortcutFeature } from "./lib/use-shortcut-feature";
-  import {
-    useCustomElementProperty,
-    type IEmojiStockbookProperty,
-  } from "./lib/use-custom-element-property";
+  import { useCustomElementProperty } from "./lib/use-custom-element-property";
   import { useLangResolver } from "./lib/use-translation";
-  import type { I18nResource, ShortcutSectionConfig } from "./types";
 
-  const {
-    col = 8,
-    i18n = {},
-    lang,
-    shortcut = true,
-  }: {
-    col: number;
-    i18n: I18nResource;
-    lang?: string;
-    shortcut: ShortcutSectionConfig | boolean;
-  } = $props();
-
-  class EmojiStockbookProperty implements IEmojiStockbookProperty {
-    col = $derived(col);
-    i18n = $derived(i18n);
-    lang = $derived(lang);
-    shortcut = $derived(shortcut);
-  }
-
-  useCustomElementProperty.setup(new EmojiStockbookProperty());
+  const props = $props();
+  useCustomElementProperty.setup(props);
 
   const dispatchComponentEvent: ComponentEventDispatcher = (
     type: string,
@@ -80,6 +58,7 @@
   const skintoneFeature = useSkintoneFeature();
   const shortcutFeature = useShortcutFeature();
 
+  // TODO: repo はもう reactive なのでいらなくなった
   const resetComponentState = () => {
     contentRegion.reset();
     searchFeature.reset();
@@ -97,10 +76,6 @@
   // TODO: mounted まで使えないのをどうにかできないか
   // https://svelte.dev/docs/svelte/custom-elements#Component-options の extend が役に立つかもしれない
   export const isInitialized = () => initialized;
-  export const setEmojiDataset = (dataset: EmojiRepositoryDataset) => {
-    repo.setEmojiDataset(dataset);
-    resetComponentState();
-  };
 </script>
 
 <EmojiStockbook />

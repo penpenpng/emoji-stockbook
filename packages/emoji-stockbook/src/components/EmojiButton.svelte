@@ -2,13 +2,13 @@
   import { useCustomElementEventDispatcher } from "../lib/use-custom-element-event-dispatcher";
   import { useCustomElementProperty } from "../lib/use-custom-element-property";
   import { useSkintoneFeature } from "../lib/use-skintone-feature";
-  import type { NormalizedEmoji } from "../types";
+  import type { Emoji } from "../types";
 
   const {
     emoji: nakedEmoji,
     ...callbacks
   }: {
-    emoji: NormalizedEmoji;
+    emoji: Emoji;
     onArrowUp?: () => void;
     onArrowDown?: () => void;
     onArrowRight?: () => void;
