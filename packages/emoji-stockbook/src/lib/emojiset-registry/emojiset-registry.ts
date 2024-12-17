@@ -5,6 +5,7 @@ import type {
   EmojiCategory,
   Emoji,
 } from "../../types";
+import { Logger } from "../logger";
 import { UPromise } from "../utils";
 import { nativeEmojiset } from "./native-emojisets";
 
@@ -38,10 +39,25 @@ export class EmojiRegistry implements IEmojisetRegistry {
 
   async getEmojiset(key: string): Promise<Emojiset> {
     const valueOrGetter = this.emojisets[key];
-    if (typeof valueOrGetter === "function") {
-      return valueOrGetter();
-    } else {
-      return valueOrGetter;
+
+    if (!valueOrGetter) {
+      Logger.error(
+        `Emojiset "${key}" was requested but not found. You need to call getEmojisetRegistry().addEmojiset(key, emojiset) before the use.`,
+      );
+      throw new Error();
+    }
+
+    try {
+      if (typeof valueOrGetter === "function") {
+        const value = await valueOrGetter();
+        return value;
+      } else {
+        const value = await valueOrGetter;
+        return value;
+      }
+    } catch (err) {
+      Logger.error(`An error occurred while getting emojiset "${key}".`, err);
+      throw err;
     }
   }
 
@@ -84,7 +100,8 @@ export class EmojiRegistry implements IEmojisetRegistry {
         }
       }
 
-      throw new Error(`Emoji ${id} was not found in emojiset ${key}`);
+      // Not found. This error will be caught.
+      throw new Error();
     };
 
     const task = UPromise.first(keys.map(search));
@@ -103,7 +120,8 @@ function merge(a: EmojiCategory | undefined, b: EmojiCategory): EmojiCategory {
     return b;
   }
   if (a.id !== b.id) {
-    throw new Error("Cannot merge categories");
+    // Cannot merge. This error will be caught.
+    throw new Error();
   }
 
   if (a.kind === "custom" && b.kind === "custom") {
@@ -117,6 +135,7 @@ function merge(a: EmojiCategory | undefined, b: EmojiCategory): EmojiCategory {
       emojis: [...a.emojis, ...b.emojis],
     };
   } else {
-    throw new Error("Cannot merge categories");
+    // Cannot merge. This error will be caught.
+    throw new Error();
   }
 }
