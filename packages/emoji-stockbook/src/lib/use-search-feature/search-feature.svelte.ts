@@ -1,5 +1,7 @@
 import type { Emoji } from "../../types";
-import { useEmojiRepository } from "../use-emoji-repository/index";
+import { useEmojiRepository } from "../use-emoji-repository";
+
+// TODO: ゆるい入力形式をサポートしたあとにこっちに着手
 
 export interface ISearchFeature {
   readonly searching: boolean;

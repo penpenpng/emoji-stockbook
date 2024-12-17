@@ -28,7 +28,7 @@ export class SkintoneFeature implements ISkintoneFeature {
   currentSkintone = $state<Skintone | null>(null);
 
   applySkintone(emoji: Emoji): SkintoneApplied<NativeEmoji> | CustomEmoji {
-    if ("src" in emoji) {
+    if (emoji.kind === "custom") {
       return emoji;
     }
 
@@ -51,7 +51,7 @@ export class SkintoneFeature implements ISkintoneFeature {
   }
 
   reset() {
-    // TODO
+    // TODO ベタ書きでも今のところいいが後で直す
     this.state.skintones = [
       { char: "\u{1f3fb}", alt: "Light skin" },
       { char: "\u{1f3fc}", alt: "Medium light skin" },

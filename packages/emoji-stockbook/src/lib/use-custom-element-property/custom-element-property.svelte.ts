@@ -15,7 +15,7 @@ export interface IEmojiStockbookProperty {
   readonly col: number;
   readonly i18n: I18nResource;
   readonly lang?: string;
-  readonly shortcut: ShortcutSectionConfig | boolean;
+  readonly shortcut: ShortcutSectionConfig | null;
 }
 
 export type ShortcutSectionMode = "recently-used" | "frequently-used";
@@ -36,7 +36,19 @@ export class EmojiStockbookProperty implements IEmojiStockbookProperty {
   readonly col = $derived.by(() => this.props?.col ?? 8);
   readonly i18n = $derived.by(() => this.props?.i18n ?? {});
   readonly lang = $derived.by(() => this.props?.lang);
-  readonly shortcut = $derived.by(() => this.props?.shortcut ?? true);
+  readonly shortcut = $derived.by(() => {
+    const shortcut = this.props?.shortcut;
+
+    if (typeof shortcut === "boolean") {
+      if (shortcut) {
+        return {};
+      } else {
+        return null;
+      }
+    } else {
+      return shortcut ?? null;
+    }
+  });
 
   constructor(props) {
     this.props = props;

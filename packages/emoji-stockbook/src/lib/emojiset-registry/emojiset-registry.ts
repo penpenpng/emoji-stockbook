@@ -23,9 +23,12 @@ export class EmojiRegistry implements IEmojisetRegistry {
   private emojisets: Record<string, ValueOrGetter<MaybePromise<Emojiset>>> = {};
 
   constructor() {
+    // TODO: バージョンごとに登録する。とりあえず2種類作って試す
+    // TODO: バージョンを増やしたら emojisets property のデフォルト値も直しておく
     this.addEmojiset("native", nativeEmojiset("native"));
   }
 
+  // TODO: 入力によりゆるい形式を許す
   addEmojiset(
     key: string,
     emojiset: ValueOrGetter<MaybePromise<Emojiset>>,
@@ -63,6 +66,8 @@ export class EmojiRegistry implements IEmojisetRegistry {
         // noop
       }
     }
+
+    // TODO: id に重複があったら警告を表示する
 
     return Object.values(categories);
   }

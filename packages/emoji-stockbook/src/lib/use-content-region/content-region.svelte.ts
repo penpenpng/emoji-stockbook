@@ -7,12 +7,7 @@ export interface IContentRegion {
   reset(): void;
 }
 
-class State {
-  defaultGroups = $state.raw<EmojiCategory[]>([]);
-}
-
 export class ContentRegion implements IContentRegion {
-  private state = new State();
   private searchFeature = useSearchFeature();
   private repo = useEmojiRepository();
 
@@ -20,7 +15,7 @@ export class ContentRegion implements IContentRegion {
     if (this.searchFeature.searching) {
       return [
         {
-          kind: "custom", // TODO これおかしい
+          kind: "custom", // TODO これおかしい。まあ許容してもいいが、コメントは残す
           id: "result",
           emojis: this.searchFeature.result,
           name: "Search Result",
@@ -31,7 +26,5 @@ export class ContentRegion implements IContentRegion {
     }
   });
 
-  reset() {
-    // this.state.defaultGroups = this.repo.getAllEmojiGroups();
-  }
+  reset() {}
 }

@@ -13,7 +13,6 @@ export interface IShortcutFeature {
 }
 
 export class ShortcutFeature implements IShortcutFeature {
-  private repo = useEmojiRepository();
   private rootProps = useCustomElementProperty();
   private t = useTranslation().t;
 
@@ -24,23 +23,12 @@ export class ShortcutFeature implements IShortcutFeature {
       return null;
     }
 
-    const defaultConfig = {
-      title: undefined,
-      history: new LocalStorageHistoryManager(),
-      maxRows: 2,
-      mode: "frequently-used",
+    return {
+      ...shortcut,
+      history: shortcut.history ?? new LocalStorageHistoryManager(),
+      maxRows: shortcut.maxRows ?? 2,
+      mode: shortcut.mode ?? "frequently-used",
     };
-
-    if (shortcut === true) {
-      return defaultConfig;
-    } else {
-      return {
-        ...shortcut,
-        history: shortcut.history ?? defaultConfig.history,
-        maxRows: shortcut.maxRows ?? defaultConfig.maxRows,
-        mode: shortcut.mode ?? defaultConfig.mode,
-      };
-    }
   });
 
   readonly title = $derived.by(() => {
@@ -81,7 +69,7 @@ export class ShortcutFeature implements IShortcutFeature {
 
     const history = config.history.getHistory();
 
-    // TODO: promisify
+    // TODO: promisify。 byId のクエリごとに promise が生まれるの嫌なのでまとめてクエリする方法を repo/regi 側で提供する
     // if (config.mode === "frequently-used") {
     //   this._emojis = [...history]
     //     .sort((a, b) => b.updatedAt - a.updatedAt)

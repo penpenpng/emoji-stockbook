@@ -53,6 +53,7 @@
     <!-- native emoji -->
     {emoji.char}
   {:else}
+    <!-- TODO -->
     <!-- custom emoji -->
     <img alt={emoji.name ?? emoji.shortcode} src={emoji.src} />
   {/if}
