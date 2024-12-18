@@ -5,22 +5,29 @@
   import { useShortcutFeature } from "../lib/use-shortcut-feature";
   import EmojiGrid from "./EmojiGrid.svelte";
   import FoldableSection from "./FoldableSection.svelte";
-  import ShortcutSection from "./ShortcutSection.svelte";
 
   const contentRegion = useContentRegion();
   const searchFeature = useSearchFeature();
   const shortcutFeature = useShortcutFeature();
   const rootProps = useCustomElementProperty();
+
+  const region = $derived(
+    Promise.all([shortcutFeature.emojis, contentRegion.categories])
+  );
 </script>
 
-{#if !searchFeature.searching && rootProps.shortcut && shortcutFeature.emojis.length > 0}
-  <ShortcutSection />
-{/if}
-
-{#await contentRegion.categories}
+{#await region}
   <!-- TODO -->
   loading...
-{:then categories}
+{:then [shortcuts, categories]}
+  {#if !searchFeature.searching && rootProps.shortcut && shortcuts.length > 0}
+    <FoldableSection title={shortcutFeature.title} expanded>
+      {#snippet children()}
+        <EmojiGrid emojis={shortcuts} />
+      {/snippet}
+    </FoldableSection>
+  {/if}
+
   {#each categories as cat (cat.id)}
     <FoldableSection
       title={cat.name}
@@ -33,5 +40,6 @@
     </FoldableSection>
   {/each}
 {:catch err}
+  <!-- TODO -->
   Error: {err}
 {/await}

@@ -13,7 +13,6 @@
 
 <script lang="ts">
   import EmojiStockbook from "./components/EmojiStockbook.svelte";
-  import { onMount } from "svelte";
   import { useEmojiRepository } from "./lib/use-emoji-repository";
   import {
     useCustomElementEventDispatcher,
@@ -50,24 +49,6 @@
   useFoldables.setup();
   useLangResolver.setup();
   useShortcutFeature.setup();
-
-  const repo = useEmojiRepository();
-  const dispatch = useCustomElementEventDispatcher();
-  const searchFeature = useSearchFeature();
-  const contentRegion = useContentRegion();
-  const skintoneFeature = useSkintoneFeature();
-  const shortcutFeature = useShortcutFeature();
-
-  let initialized = false;
-
-  onMount(() => {
-    initialized = true;
-    dispatch("initialized");
-  });
-
-  // TODO: mounted まで使えないのをどうにかできないか
-  // https://svelte.dev/docs/svelte/custom-elements#Component-options の extend が役に立つかもしれない
-  export const isInitialized = () => initialized;
 </script>
 
 <EmojiStockbook />

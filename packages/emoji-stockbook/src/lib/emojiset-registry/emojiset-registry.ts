@@ -116,7 +116,11 @@ export class EmojiRegistry implements IEmojisetRegistry {
   }
 
   async getEmojiByIds(keys: string[], ids: string[]): Promise<Emoji[]> {
-    // TODO
+    const emojis = await Promise.all(
+      ids.map((id) => this.getEmojiById(keys, id)),
+    );
+
+    return emojis.filter((e) => !!e);
   }
 }
 
