@@ -58,8 +58,11 @@ export class ShortcutFeature implements IShortcutFeature {
     const emojiIds = [...records]
       .sort((a, b) => b.updatedAt - a.updatedAt)
       .map((e) => e.emojiId);
+    const emojis = await Promise.all(
+      emojiIds.map((id) => this.repo.getEmojiById(id)),
+    );
 
-    return this.repo.getEmojiByIds(emojiIds);
+    return emojis.filter((e) => !!e);
   });
 
   readonly maxRows = $derived.by(() => this.config?.maxRows ?? 0);

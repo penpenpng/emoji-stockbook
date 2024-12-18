@@ -18,7 +18,6 @@ export interface IEmojisetRegistry {
   removeEmojiset(key: string): boolean;
   getEmojiCategories(keys: string[]): Promise<EmojiCategory[]>;
   getEmojiById(keys: string[], id: string): Promise<Emoji | undefined>;
-  getEmojiByIds(keys: string[], ids: string[]): Promise<Emoji[]>;
 }
 
 export class EmojiRegistry implements IEmojisetRegistry {
