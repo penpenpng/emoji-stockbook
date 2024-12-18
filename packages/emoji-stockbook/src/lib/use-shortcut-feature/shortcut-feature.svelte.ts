@@ -6,14 +6,14 @@ import { LocalStorageHistoryManager } from "../history-manager";
 
 export interface IShortcutFeature {
   readonly title: string;
-  readonly emojis: Emoji[];
+  readonly emojis: Promise<Emoji[]>;
   readonly maxRows: number;
   clearHistory(): void;
-  reset(): void;
 }
 
 export class ShortcutFeature implements IShortcutFeature {
   private rootProps = useCustomElementProperty();
+  private repo = useEmojiRepository();
   private t = useTranslation().t;
 
   private config = $derived.by(() => {
@@ -48,38 +48,23 @@ export class ShortcutFeature implements IShortcutFeature {
     }
   });
 
-  private _emojis = $state<Emoji[]>([]);
-  readonly emojis = $derived.by(() =>
-    this._emojis.slice(0, this.rootProps.col * this.maxRows),
-  );
+  readonly emojis = $derived.by(async () => {
+    const config = this.config;
+    if (!config) {
+      return [];
+    }
+
+    const records = config.history.getHistory();
+    const emojiIds = [...records]
+      .sort((a, b) => b.updatedAt - a.updatedAt)
+      .map((e) => e.emojiId);
+
+    return this.repo.getEmojiByIds(emojiIds);
+  });
 
   readonly maxRows = $derived.by(() => this.config?.maxRows ?? 0);
 
   clearHistory(): void {
     this.config?.history.clearHistory();
-    this.reset();
-  }
-
-  reset(): void {
-    const config = this.config;
-
-    if (!config) {
-      return;
-    }
-
-    const history = config.history.getHistory();
-
-    // TODO: promisify。 byId のクエリごとに promise が生まれるの嫌なのでまとめてクエリする方法を repo/regi 側で提供する
-    // if (config.mode === "frequently-used") {
-    //   this._emojis = [...history]
-    //     .sort((a, b) => b.updatedAt - a.updatedAt)
-    //     .map((e) => this.repo.getEmojiById(e.emojiId))
-    //     .filter((e) => !!e);
-    // } else {
-    //   this._emojis = [...history]
-    //     .sort((a, b) => b.count - a.count)
-    //     .map((e) => this.repo.getEmojiById(e.emojiId))
-    //     .filter((e) => !!e);
-    // }
   }
 }

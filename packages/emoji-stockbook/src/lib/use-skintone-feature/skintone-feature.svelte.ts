@@ -9,7 +9,6 @@ export interface ISkintoneFeature {
   readonly skintones: Skintone[];
   currentSkintone: Skintone | null;
   applySkintone(emoji: Emoji): SkintoneApplied<NativeEmoji> | CustomEmoji;
-  reset(): void;
 }
 
 export interface Skintone {
@@ -18,7 +17,14 @@ export interface Skintone {
 }
 
 class State {
-  skintones = $state.raw<Skintone[]>([]);
+  // TODO ベタ書きでも今のところいいが後で直す
+  skintones = $state.raw<Skintone[]>([
+    { char: "\u{1f3fb}", alt: "Light skin" },
+    { char: "\u{1f3fc}", alt: "Medium light skin" },
+    { char: "\u{1f3fd}", alt: "Medium skin" },
+    { char: "\u{1f3fe}", alt: "Medium dark skin" },
+    { char: "\u{1f3ff}", alt: "Dark skin" },
+  ]);
 }
 
 export class SkintoneFeature implements ISkintoneFeature {
@@ -48,18 +54,6 @@ export class SkintoneFeature implements ISkintoneFeature {
         naked: emoji.char,
       };
     }
-  }
-
-  reset() {
-    // TODO ベタ書きでも今のところいいが後で直す
-    this.state.skintones = [
-      { char: "\u{1f3fb}", alt: "Light skin" },
-      { char: "\u{1f3fc}", alt: "Medium light skin" },
-      { char: "\u{1f3fd}", alt: "Medium skin" },
-      { char: "\u{1f3fe}", alt: "Medium dark skin" },
-      { char: "\u{1f3ff}", alt: "Dark skin" },
-    ];
-    this.currentSkintone = null;
   }
 }
 

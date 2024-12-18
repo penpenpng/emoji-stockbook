@@ -7,7 +7,6 @@ export interface ISearchFeature {
   readonly searching: boolean;
   readonly result: Emoji[];
   readonly suggestions: Suggestion[];
-  reset(): void;
   searchEmojis(query: string);
 }
 
@@ -31,18 +30,6 @@ export class SearchFeature implements ISearchFeature {
   readonly result = $derived.by(() => this.state.result);
   readonly suggestions = $derived.by(() => this.state.suggestions);
 
-  reset() {
-    const allEmojis = this.repo.getAllEmojis();
-
-    this.state.searching = false;
-    this.state.result = allEmojis;
-    this.state.lastQuery = "";
-    this.state.suggestions = allEmojis.map((emoji) => ({
-      shortcode: emoji.shortcode,
-      content: isNativeEmoji(emoji) ? emoji.char : "",
-    }));
-  }
-
   searchEmojis(query: string) {
     if (query === "") {
       this.reset();
@@ -59,6 +46,18 @@ export class SearchFeature implements ISearchFeature {
     } else {
       this.state.result = narrowResult(this.repo.getAllEmojis(), query);
     }
+  }
+
+  private reset() {
+    const allEmojis = this.repo.getAllEmojis();
+
+    this.state.searching = false;
+    this.state.result = allEmojis;
+    this.state.lastQuery = "";
+    this.state.suggestions = allEmojis.map((emoji) => ({
+      shortcode: emoji.shortcode,
+      content: isNativeEmoji(emoji) ? emoji.char : "",
+    }));
   }
 }
 

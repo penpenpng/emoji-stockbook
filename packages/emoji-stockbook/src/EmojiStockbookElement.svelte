@@ -58,14 +58,6 @@
   const skintoneFeature = useSkintoneFeature();
   const shortcutFeature = useShortcutFeature();
 
-  // TODO: repo はもう reactive なのでいらなくなった
-  const resetComponentState = () => {
-    contentRegion.reset();
-    searchFeature.reset();
-    skintoneFeature.reset();
-    shortcutFeature.reset();
-  };
-
   let initialized = false;
 
   onMount(() => {

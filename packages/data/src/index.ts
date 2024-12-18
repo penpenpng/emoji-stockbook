@@ -5,6 +5,9 @@ import dataByGroup from "unicode-emoji-json/data-by-group.json";
 // - コンパイル時に圧縮した形式のデータを作る
 // - 圧縮した形式から可読な形式に変換する関数 f を作って f(data) を export する
 
+// https://emojibase.dev/docs/datasets/ を使うのが良さそう
+// e.g. https://github.com/nolanlawson/emoji-picker-element-data/blob/master/build.js
+
 interface NativeEmojiset {
   kind: "native";
   categories: NativeEmojiCategory[];

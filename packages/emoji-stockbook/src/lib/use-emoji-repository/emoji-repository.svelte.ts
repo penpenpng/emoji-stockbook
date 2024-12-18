@@ -7,6 +7,7 @@ export interface IEmojiRepository {
   readonly categories: Promise<EmojiCategory[]>;
   readonly emojis: Promise<Emoji[]>;
   getEmojiById(id: string): Promise<Emoji>;
+  getEmojiByIds(ids: string[]): Promise<Emoji[]>;
 }
 
 export class EmojiRepository implements IEmojiRepository {
@@ -55,6 +56,11 @@ export class EmojiRepository implements IEmojiRepository {
 
     // The return value must not be undefined.
     return emoji!;
+  }
+
+  async getEmojiByIds(ids: string[]): Promise<Emoji[]> {
+    const reg = getEmojisetRegistry();
+    return reg.getEmojiByIds(this.props.emojisets, ids);
   }
 }
 

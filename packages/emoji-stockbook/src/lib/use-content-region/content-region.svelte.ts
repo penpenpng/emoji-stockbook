@@ -4,7 +4,6 @@ import { useEmojiRepository } from "../use-emoji-repository/index";
 
 export interface IContentRegion {
   readonly categories: Promise<EmojiCategory[]>;
-  reset(): void;
 }
 
 export class ContentRegion implements IContentRegion {
@@ -25,6 +24,4 @@ export class ContentRegion implements IContentRegion {
       return this.repo.categories;
     }
   });
-
-  reset() {}
 }
