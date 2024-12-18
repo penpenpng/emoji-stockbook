@@ -48,7 +48,7 @@ export class SearchFeature implements ISearchFeature {
     }
   }
 
-  private reset() {
+  leaveSearchMode() {
     const allEmojis = this.repo.getAllEmojis();
 
     this.state.searching = false;

@@ -49,13 +49,12 @@
 </script>
 
 <button {onclick} {onkeydown}>
-  {#if "char" in emoji}
+  {#if emoji.kind === "native"}
     <!-- native emoji -->
     {emoji.char}
   {:else}
-    <!-- TODO -->
     <!-- custom emoji -->
-    <img alt={emoji.name ?? emoji.shortcode} src={emoji.src} />
+    <img alt={emoji.alt ?? emoji.shortcode} src={emoji.src} />
   {/if}
 </button>
 
