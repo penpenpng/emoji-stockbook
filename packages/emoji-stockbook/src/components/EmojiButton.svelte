@@ -23,7 +23,7 @@
 
   const onclick = () => {
     dispatch("pick", emoji);
-    rootProps.shortcut?.history.updateHistory(emoji.id);
+    rootProps.shortcut?.history.updateHistory([emoji.emojiset, emoji.id]);
   };
 
   const onkeydown = (event: KeyboardEvent) => {
