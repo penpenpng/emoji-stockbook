@@ -4,24 +4,69 @@ import type {
   Emojiset,
   EmojiCategory,
   Emoji,
+  EmojisetInput,
 } from "../../types";
 import { Logger } from "../logger";
 import { UPromise } from "../utils";
+import { makeEmojiset } from "./make-emojiset";
 import { nativeEmojiset } from "./native-emojisets";
 
 export interface IEmojisetRegistry {
-  addEmojiset(
-    key: string,
-    emojiset: ValueOrGetter<MaybePromise<Emojiset>>,
-  ): void;
+  /**
+   * Registers an emojiset tied to a given key. Emojiset is allowed in raw value, Promise, or function form.
+   * This enables a custom element given the key to load the emojiset.
+   *
+   * When you use a function format, the loading emojiset is delayed until just before rendering of emoji-stockbook.
+   * If the loading process includes fetching over network, the lazy loading helps reduce communication.
+   * However, note that it also affects the time it takes to render.
+   *
+   * **Hint**:
+   * Ideally, asset data should be cached locally, since emoji data sets are generally large.
+   * It is the best practice to give an emojiset as a promise, which is resolved from cache,
+   * or after fetching asset data.
+   */
+  addEmojiset(key: string, emojiset: EmojisetResolver): void;
+  /**
+   * Retrieve an emojiset.
+   *
+   * This method is normally called from a custom element, but can also be called directly by developer.
+   */
   getEmojiset(key: string): Promise<Emojiset>;
+  /**
+   * Returns whether or not the emojiset exists.
+   */
+  hasEmojiset(key: string): boolean;
+  /**
+   * Return all emojiset keys.
+   */
+  getEmojisetList(): string[];
+  /**
+   * Remove an emojiset.
+   *
+   * If any emojiset is removed, it return `true`.
+   */
   removeEmojiset(key: string): boolean;
+  /**
+   * Retrieve emoji categories by the given keys.
+   * If categories with the same name exist between emojisets, they will be merged.
+   *
+   * This method is normally called from a custom element, but can also be called directly by developer.
+   */
   getEmojiCategories(keys: string[]): Promise<EmojiCategory[]>;
+  // TODO: emoji は key, id の複合キーとしてユニークなので、このシグネチャはおかしい。直す
+  /**
+   * Retrieve emoji by the given ID.
+   *
+   * This method is normally called from a custom element, but can also be called directly by developer.
+   */
   getEmojiById(keys: string[], id: string): Promise<Emoji | undefined>;
 }
 
+/** Format that can be registered in EmojiRegistry. */
+export type EmojisetResolver = ValueOrGetter<MaybePromise<EmojisetInput>>;
+
 export class EmojiRegistry implements IEmojisetRegistry {
-  private emojisets: Record<string, ValueOrGetter<MaybePromise<Emojiset>>> = {};
+  private emojisets: Record<string, EmojisetResolver> = {};
 
   constructor() {
     // TODO: バージョンごとに登録する。とりあえず2種類作って試す
@@ -29,18 +74,14 @@ export class EmojiRegistry implements IEmojisetRegistry {
     this.addEmojiset("native", nativeEmojiset("native"));
   }
 
-  // TODO: 入力によりゆるい形式を許す
-  addEmojiset(
-    key: string,
-    emojiset: ValueOrGetter<MaybePromise<Emojiset>>,
-  ): void {
+  addEmojiset(key: string, emojiset: EmojisetResolver): void {
     this.emojisets[key] = emojiset;
   }
 
   async getEmojiset(key: string): Promise<Emojiset> {
-    const valueOrGetter = this.emojisets[key];
+    const emojiset = this.emojisets[key];
 
-    if (!valueOrGetter) {
+    if (!emojiset) {
       Logger.error(
         `Emojiset "${key}" was requested but not found. You need to call getEmojisetRegistry().addEmojiset(key, emojiset) before the use.`,
       );
@@ -48,17 +89,19 @@ export class EmojiRegistry implements IEmojisetRegistry {
     }
 
     try {
-      if (typeof valueOrGetter === "function") {
-        const value = await valueOrGetter();
-        return value;
-      } else {
-        const value = await valueOrGetter;
-        return value;
-      }
+      return makeEmojiset(key, await resolveEmojiset(emojiset));
     } catch (err) {
       Logger.error(`An error occurred while getting emojiset "${key}".`, err);
       throw err;
     }
+  }
+
+  hasEmojiset(key: string): boolean {
+    return !!this.emojisets[key];
+  }
+
+  getEmojisetList(): string[] {
+    return Object.keys(this.emojisets);
   }
 
   removeEmojiset(key: string): boolean {
@@ -76,14 +119,12 @@ export class EmojiRegistry implements IEmojisetRegistry {
       try {
         const emojiset = await this.getEmojiset(key);
         for (const cat of emojiset.categories) {
-          categories[cat.id] = merge(categories[cat.id], cat);
+          categories[cat.id] = mergeEmojiCategories(categories[cat.id], cat);
         }
       } catch {
         // noop
       }
     }
-
-    // TODO: id に重複があったら警告を表示する
 
     return Object.values(categories);
   }
@@ -113,17 +154,22 @@ export class EmojiRegistry implements IEmojisetRegistry {
       return undefined;
     }
   }
+}
 
-  async getEmojiByIds(keys: string[], ids: string[]): Promise<Emoji[]> {
-    const emojis = await Promise.all(
-      ids.map((id) => this.getEmojiById(keys, id)),
-    );
-
-    return emojis.filter((e) => !!e);
+async function resolveEmojiset(
+  resolver: EmojisetResolver,
+): Promise<EmojisetInput> {
+  if (typeof resolver === "function") {
+    return resolver();
+  } else {
+    return resolver;
   }
 }
 
-function merge(a: EmojiCategory | undefined, b: EmojiCategory): EmojiCategory {
+function mergeEmojiCategories(
+  a: EmojiCategory | undefined,
+  b: EmojiCategory,
+): EmojiCategory {
   if (!a) {
     return b;
   }
