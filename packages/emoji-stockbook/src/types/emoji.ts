@@ -48,3 +48,5 @@ export interface CustomEmoji {
 }
 
 export type Emoji = NativeEmoji | CustomEmoji;
+
+export type GlobalEmojiId = [emojiset: string, emojiId: string];

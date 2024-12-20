@@ -1,13 +1,15 @@
+import type { GlobalEmojiId } from "../types";
+import { isSameEmojiId } from "./global-emoji-id";
 import { UArray } from "./utils";
 
 export interface IHistoryManager {
-  updateHistory(emojiId: string): void;
+  updateHistory(id: GlobalEmojiId): void;
   getHistory(): HistoryRecord[];
   clearHistory(): void;
 }
 
 export interface HistoryRecord {
-  emojiId: string;
+  id: GlobalEmojiId;
   count: number;
   updatedAt: number;
 }
@@ -15,12 +17,12 @@ export interface HistoryRecord {
 export class LocalStorageHistoryManager implements IHistoryManager {
   constructor(private localStorageKey: string = "_emoji-stockbook") {}
 
-  updateHistory(emojiId: string): void {
+  updateHistory(id: GlobalEmojiId): void {
     try {
       const history = this.getHistory();
 
       // This may throw because the return value of `this.getHistory()` is not safe.
-      updateHistory(history, emojiId);
+      updateHistory(history, id);
 
       window.localStorage.setItem(
         this.localStorageKey,
@@ -49,8 +51,8 @@ export class LocalStorageHistoryManager implements IHistoryManager {
 export class InMemoryHistoryManager implements IHistoryManager {
   private history: HistoryRecord[] = [];
 
-  updateHistory(emojiId: string): void {
-    updateHistory(this.history, emojiId);
+  updateHistory(id: GlobalEmojiId): void {
+    updateHistory(this.history, id);
   }
 
   getHistory(): HistoryRecord[] {
@@ -62,18 +64,18 @@ export class InMemoryHistoryManager implements IHistoryManager {
   }
 }
 
-function updateHistory(history: HistoryRecord[], emojiId: string): void {
-  const record = history.find((e) => e.emojiId === emojiId);
+function updateHistory(history: HistoryRecord[], id: GlobalEmojiId): void {
+  const record = history.find((e) => isSameEmojiId(e.id, id));
 
   if (record) {
-    UArray.put(history, (e) => e.emojiId === emojiId, {
-      emojiId,
+    UArray.put(history, (e) => isSameEmojiId(e.id, id), {
+      id,
       count: record.count + 1,
       updatedAt: Date.now(),
     });
   } else {
     history.push({
-      emojiId,
+      id,
       count: 1,
       updatedAt: Date.now(),
     });

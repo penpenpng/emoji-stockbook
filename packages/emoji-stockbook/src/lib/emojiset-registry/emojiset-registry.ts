@@ -53,13 +53,12 @@ export interface IEmojisetRegistry {
    * This method is normally called from a custom element, but can also be called directly by developer.
    */
   getEmojiCategories(keys: string[]): Promise<EmojiCategory[]>;
-  // TODO: emoji は key, id の複合キーとしてユニークなので、このシグネチャはおかしい。直す
   /**
    * Retrieve emoji by the given ID.
    *
    * This method is normally called from a custom element, but can also be called directly by developer.
    */
-  getEmojiById(keys: string[], id: string): Promise<Emoji | undefined>;
+  getEmojiById(key: string, id: string): Promise<Emoji | undefined>;
 }
 
 /** Format that can be registered in EmojiRegistry. */
@@ -129,30 +128,18 @@ export class EmojiRegistry implements IEmojisetRegistry {
     return Object.values(categories);
   }
 
-  async getEmojiById(keys: string[], id: string): Promise<Emoji | undefined> {
-    const search = async (key: string): Promise<Emoji> => {
-      const emojiset = await this.getEmojiset(key);
+  async getEmojiById(key: string, id: string): Promise<Emoji | undefined> {
+    const emojiset = await this.getEmojiset(key);
 
-      for (const cat of emojiset.categories) {
-        for (const emoji of cat.emojis) {
-          if (emoji.id === id) {
-            return emoji;
-          }
+    for (const cat of emojiset.categories) {
+      for (const emoji of cat.emojis) {
+        if (emoji.id === id) {
+          return emoji;
         }
       }
-
-      // Not found. This error will be caught.
-      throw new Error();
-    };
-
-    const task = UPromise.first(keys.map(search));
-
-    try {
-      const result = await task;
-      return result;
-    } catch {
-      return undefined;
     }
+
+    return undefined;
   }
 }
 

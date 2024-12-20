@@ -1,4 +1,4 @@
-import type { EmojiCategory, Emoji } from "../../types";
+import type { EmojiCategory, Emoji, GlobalEmojiId } from "../../types";
 import { useCustomElementProperty } from "../use-custom-element-property";
 import { getEmojisetRegistry } from "../emojiset-registry";
 import { UPromise } from "../utils";
@@ -6,7 +6,7 @@ import { UPromise } from "../utils";
 export interface IEmojiRepository {
   readonly categories: Promise<EmojiCategory[]>;
   readonly emojis: Promise<Emoji[]>;
-  getEmojiById(id: string): Promise<Emoji | undefined>;
+  getEmojiById(id: GlobalEmojiId): Promise<Emoji | undefined>;
 }
 
 export class EmojiRepository implements IEmojiRepository {
@@ -28,60 +28,15 @@ export class EmojiRepository implements IEmojiRepository {
     });
   }
 
-  // setEmojiDataset({ data, skintones }: EmojiRepositoryDataset): void {
-  //   const groups = normalize(data);
-  //   this.groups = groups;
-
-  //   const emojis: Record<string, NormalizedEmoji> = {};
-  //   for (const group of groups) {
-  //     for (const emoji of group.emojis) {
-  //       if (emojis[emoji.id]) {
-  //         console.warn(
-  //           `Emoji IDs are duplicated: ${emoji.id}\nThis may lead to unexpected behavior.`,
-  //         );
-  //       }
-
-  //       emojis[emoji.id] = emoji;
-  //     }
-  //   }
-
-  //   this.emojis = emojis;
-  //   this.skintones = skintones;
-  // }
-
-  async getEmojiById(id: string): Promise<Emoji | undefined> {
+  async getEmojiById(id: GlobalEmojiId): Promise<Emoji | undefined> {
     const reg = getEmojisetRegistry();
-    const emoji = await reg.getEmojiById(this.props.emojisets, id);
+    const [emojiset, emojiId] = id;
 
-    // The return value must not be undefined.
-    return emoji;
+    if (this.props.emojisets.includes(emojiset)) {
+      const emoji = await reg.getEmojiById(emojiset, emojiId);
+      return emoji;
+    } else {
+      return undefined;
+    }
   }
 }
-
-// function normalize(dataset: Emoji[] | EmojiGroup[]): NormalizedEmojiGroup[] {
-//   if (isEmojiGroups(dataset)) {
-//     return toNormalizedEmojiGroups(dataset);
-//   } else {
-//     return toNormalizedEmojiGroups([
-//       {
-//         name: "",
-//         emojis: dataset,
-//       },
-//     ]);
-//   }
-// }
-
-// function toNormalizedEmojiGroups(raw: EmojiGroup[]): NormalizedEmojiGroup[] {
-//   return raw.map((group, idx) => ({
-//     ...group,
-//     id: idx,
-//     emojis: group.emojis.map(toNormalizedEmoji),
-//   }));
-// }
-
-// function toNormalizedEmoji(raw: Emoji): NormalizedEmoji {
-//   return {
-//     ...raw,
-//     id: raw.id ?? raw.shortcode,
-//   };
-// }
