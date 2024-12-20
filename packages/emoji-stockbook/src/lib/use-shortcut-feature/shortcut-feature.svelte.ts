@@ -57,7 +57,7 @@ export class ShortcutFeature implements IShortcutFeature {
     const records = config.history.getHistory();
     const emojiIds = [...records]
       .sort((a, b) => b.updatedAt - a.updatedAt)
-      .map((e) => e.emojiId);
+      .map((e) => e.id);
     const emojis = await Promise.all(
       emojiIds.map((id) => this.repo.getEmojiById(id)),
     );
