@@ -1,7 +1,6 @@
 <script lang="ts">
   import ContentRegion from "./ContentRegion.svelte";
   import SearchInput from "./SearchInput.svelte";
-  import SkintoneSelector from "./SkintoneSelector.svelte";
   import FoldableController from "./FoldableController.svelte";
 
   import { useTranslation } from "../lib/use-translation";
@@ -14,7 +13,6 @@
     {t("hello")}
   </div>
   <FoldableController />
-  <SkintoneSelector />
   <SearchInput />
   <ContentRegion />
 </div>

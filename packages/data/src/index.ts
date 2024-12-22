@@ -1,54 +1,22 @@
-import keywordsByEmoji from "emojilib";
-import dataByGroup from "unicode-emoji-json/data-by-group.json";
+import fs from "node:fs";
+import path from "node:path";
+import { getEmojibase, getVersions } from "./get-emojibase";
+import { build } from "./build";
 
-// TODO:
-// - コンパイル時に圧縮した形式のデータを作る
-// - 圧縮した形式から可読な形式に変換する関数 f を作って f(data) を export する
+const dist = path.resolve(__dirname, "..", "dist");
 
-// https://emojibase.dev/docs/datasets/ を使うのが良さそう
-// e.g. https://github.com/nolanlawson/emoji-picker-element-data/blob/master/build.js
+fs.rmSync(dist, {
+  recursive: true,
+  force: true,
+});
+fs.mkdirSync(dist);
 
-interface NativeEmojiset {
-  kind: "native";
-  categories: NativeEmojiCategory[];
+const getJsonPath = (version: number): string =>
+  path.resolve(dist, `${version}.json`);
+
+for (const version of getVersions()) {
+  const emojibase = getEmojibase(version);
+  const data = build(emojibase);
+
+  fs.writeFileSync(getJsonPath(version), JSON.stringify(data));
 }
-
-interface NativeEmojiCategory {
-  kind: "native";
-  id: string;
-  name: string;
-  emojis: NativeEmoji[];
-}
-
-interface NativeEmoji {
-  kind: "native";
-  id: string;
-  char: string;
-  shortcode: string;
-  keywords: string[];
-  supportsSkintone?: boolean;
-}
-
-// TODO: Generate at compile-time
-const categories: NativeEmojiCategory[] = Object.entries(dataByGroup).map(
-  ([name, emojis]) => ({
-    id: "native (TODO: versioning)",
-    kind: "native",
-    name,
-    emojis: emojis.map((emoji): NativeEmoji => {
-      return {
-        id: emoji.slug,
-        kind: "native",
-        shortcode: emoji.slug,
-        char: emoji.emoji,
-        keywords: keywordsByEmoji[emoji.emoji],
-        supportsSkintone: emoji.skin_tone_support,
-      };
-    }),
-  }),
-);
-
-export const stockbookData: NativeEmojiset = {
-  kind: "native",
-  categories,
-};

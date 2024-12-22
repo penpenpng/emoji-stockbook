@@ -1,24 +1,16 @@
 {
   "name": "@emoji-stockbook/data",
   "version": "0.0.1",
-  "description": "",
-  "main": "./dist/index.js",
-  "exports": {
-    ".": {
-      "module": "./dist/index.js",
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
-    }
-  },
-  "scripts": {
-    "build": "tsc"
-  },
   "author": "penpenpng",
-  "devDependencies": {
-    "typescript": "^5.2.2"
+  "description": "",
+  "scripts": {
+    "build": "tsx ./src/index.ts"
   },
-  "dependencies": {
-    "emojilib": "^3.0.11",
-    "unicode-emoji-json": "^0.4.0"
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "emojibase": "^16.0.0",
+    "emojibase-data": "^16.0.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.2.2"
   }
 }

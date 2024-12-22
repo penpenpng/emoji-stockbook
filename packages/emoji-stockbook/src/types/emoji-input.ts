@@ -26,7 +26,6 @@ export interface NativeEmojiInput {
   char: string;
   shortcode: string;
   keywords: string[];
-  supportsSkintone?: boolean;
 }
 
 export interface CustomEmojiInput {

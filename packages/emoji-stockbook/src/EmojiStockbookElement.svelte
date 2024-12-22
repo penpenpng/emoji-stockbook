@@ -20,7 +20,6 @@
   } from "./lib/use-custom-element-event-dispatcher";
   import { useSearchFeature } from "./lib/use-search-feature";
   import { useContentRegion } from "./lib/use-content-region";
-  import { useSkintoneFeature } from "./lib/use-skintone-feature";
   import { useFoldables } from "./lib/use-foldables";
   import { useShortcutFeature } from "./lib/use-shortcut-feature";
   import { useCustomElementProperty } from "./lib/use-custom-element-property";
@@ -45,7 +44,6 @@
   useEmojiRepository.setup();
   useSearchFeature.setup();
   useContentRegion.setup();
-  useSkintoneFeature.setup();
   useFoldables.setup();
   useLangResolver.setup();
   useShortcutFeature.setup();
