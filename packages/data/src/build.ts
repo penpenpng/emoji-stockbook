@@ -1,7 +1,7 @@
 import type { Emoji as EmojibaseEmoji } from "emojibase";
 import groups from "emojibase-data/meta/groups.json";
 import shortcodes from "emojibase-data/en/shortcodes/emojibase.json";
-import { Emoji, EmojiVariant } from "./types";
+import type { Emoji } from "./types";
 
 export const build = (emojis: EmojibaseEmoji[]) => {
   const emojisByGroup: Record<number, Emoji[]> = {};
@@ -22,17 +22,13 @@ export const build = (emojis: EmojibaseEmoji[]) => {
 
     emojisByGroup[emoji.group].push({
       char: emoji.emoji,
-      hexcode: emoji.hexcode,
       shortcode,
       keywords: emoji.tags,
       version: emoji.version,
-      variants: emoji.skins?.map(
-        (variant): EmojiVariant => ({
-          char: variant.emoji,
-          hexcode: variant.hexcode,
-          version: variant.version,
-        }),
-      ),
+      variants: emoji.skins?.map((variant) => ({
+        char: variant.emoji,
+        version: variant.version,
+      })),
     });
   }
 

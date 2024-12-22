@@ -2,7 +2,15 @@
   "name": "@emoji-stockbook/data",
   "version": "0.0.1",
   "author": "penpenpng",
-  "description": "",
+  "description": "native emoji dataset for emoji-stockbook.",
+  "exports": {
+    "./*": {
+      "import": {
+        "types": "./dist/*.d.ts",
+        "default": "./dist/*.json"
+      }
+    }
+  },
   "scripts": {
     "build": "tsx ./src/index.ts"
   },

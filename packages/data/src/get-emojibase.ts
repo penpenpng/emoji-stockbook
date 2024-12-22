@@ -1,7 +1,7 @@
 import emojibase from "emojibase-data/en/data.json";
 import versions from "emojibase-data/versions/emoji.json";
 import type { Emoji as EmojibaseEmoji } from "emojibase";
-import { UArray, UFunc } from "./utils";
+import { UArray, UFunc } from "./utils/index.js";
 
 export const getEmojibase = (version: number): EmojibaseEmoji[] =>
   UArray.mapfilter(emojibase, (emoji, skip) => {

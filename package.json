@@ -1,6 +1,6 @@
 {
   "name": "emoji-stockbook",
-  "private":true,
+  "private": true,
   "scripts": {
     "dev": "npm run dev -w packages/emoji-stockbook"
   },
