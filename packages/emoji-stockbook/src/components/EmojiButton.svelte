@@ -1,11 +1,10 @@
 <script lang="ts">
   import { useCustomElementEventDispatcher } from "../lib/use-custom-element-event-dispatcher";
   import { useCustomElementProperty } from "../lib/use-custom-element-property";
-  import { useSkintoneFeature } from "../lib/use-skintone-feature";
   import type { Emoji } from "../types";
 
   const {
-    emoji: nakedEmoji,
+    emoji,
     ...callbacks
   }: {
     emoji: Emoji;
@@ -15,13 +14,11 @@
     onArrowLeft?: () => void;
   } = $props();
 
-  const skintoneFeature = useSkintoneFeature();
   const rootProps = useCustomElementProperty();
   const dispatch = useCustomElementEventDispatcher();
 
-  const emoji = $derived(skintoneFeature.applySkintone(nakedEmoji));
-
   const onclick = () => {
+    // TODO
     dispatch("pick", emoji);
     rootProps.shortcut?.history.updateHistory([emoji.emojiset, emoji.id]);
   };

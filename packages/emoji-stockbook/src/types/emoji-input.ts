@@ -1,3 +1,5 @@
+import type { NativeEmojiVariant } from "./emoji";
+
 export type EmojisetInput = NativeEmojisetInput | CustomEmojisetInput;
 
 export interface NativeEmojisetInput {
@@ -25,7 +27,9 @@ export interface CustomEmojiCategoryInput {
 export interface NativeEmojiInput {
   char: string;
   shortcode: string;
-  keywords: string[];
+  keywords?: string[];
+  version: number;
+  variants?: NativeEmojiVariant[];
 }
 
 export interface CustomEmojiInput {

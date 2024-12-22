@@ -1,8 +1,12 @@
-import type { CustomEmoji, NativeEmoji } from "./emoji";
+import type { CustomEmoji } from "./emoji";
 
-export type SkintoneApplied<T> = T & {
-  skintone: string | null;
-  naked: string;
-};
+export interface NativeEmojiOutput {
+  emojiset: string;
+  char: string;
+  shortcode: string;
+  keywords?: string[];
+  version: number;
+  original?: string;
+}
 
-export type EmojiOutput = SkintoneApplied<NativeEmoji> | CustomEmoji;
+export type EmojiOutput = NativeEmojiOutput | CustomEmoji;

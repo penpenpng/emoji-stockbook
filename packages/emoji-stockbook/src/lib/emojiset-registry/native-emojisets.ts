@@ -1,7 +1,8 @@
-import type { Emojiset } from "../../types";
+import type { NativeEmojisetInput } from "../../types";
 
 // TODO: remove this
-import { stockbookData } from "@emoji-stockbook/data";
+import emoji16 from "@emoji-stockbook/data/16.json";
+import emoji11 from "@emoji-stockbook/data/11.json";
 
 // これを使って native emoji のデータを読み込む
 // この実装だと初回表示時に遅いのが難点だが addEmojiset(key, emojisetPromise) を渡してユーザが上書きすればいい
@@ -24,6 +25,13 @@ import { stockbookData } from "@emoji-stockbook/data";
 
 // TODO:
 // indexed DB などのキャッシュも利用しつつ、必要があれば CDN から拾ってくる形にする (参考実装: 上)
-export const nativeEmojiset = async (version: string): Promise<Emojiset> => {
-  return stockbookData;
+export const nativeEmojiset = async (
+  version: "11" | "16",
+): Promise<NativeEmojisetInput> => {
+  const categories = version === "11" ? emoji11 : emoji16;
+
+  return {
+    kind: "native",
+    categories,
+  };
 };

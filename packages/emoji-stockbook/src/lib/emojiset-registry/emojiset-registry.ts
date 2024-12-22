@@ -7,7 +7,6 @@ import type {
   EmojisetInput,
 } from "../../types";
 import { Logger } from "../logger";
-import { UPromise } from "../utils";
 import { makeEmojiset } from "./make-emojiset";
 import { nativeEmojiset } from "./native-emojisets";
 
@@ -68,9 +67,9 @@ export class EmojiRegistry implements IEmojisetRegistry {
   private emojisets: Record<string, EmojisetResolver> = {};
 
   constructor() {
-    // TODO: バージョンごとに登録する。とりあえず2種類作って試す
     // TODO: バージョンを増やしたら emojisets property のデフォルト値も直しておく
-    this.addEmojiset("native", nativeEmojiset("native"));
+    this.addEmojiset("11", nativeEmojiset("11"));
+    this.addEmojiset("16", nativeEmojiset("16"));
   }
 
   addEmojiset(key: string, emojiset: EmojisetResolver): void {

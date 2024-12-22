@@ -4,9 +4,9 @@
   "author": "penpenpng",
   "description": "native emoji dataset for emoji-stockbook.",
   "exports": {
-    "./*": {
+    "./*.json": {
       "import": {
-        "types": "./dist/*.d.ts",
+        "types": "./dist/*.json.d.ts",
         "default": "./dist/*.json"
       }
     }

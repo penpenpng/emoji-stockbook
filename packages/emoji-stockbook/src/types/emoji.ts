@@ -33,7 +33,13 @@ export interface NativeEmoji {
   id: string;
   char: string;
   shortcode: string;
-  keywords: string[];
+  keywords?: string[];
+  variants?: NativeEmojiVariant[];
+}
+
+export interface NativeEmojiVariant {
+  char: string;
+  version: number;
 }
 
 export interface CustomEmoji {

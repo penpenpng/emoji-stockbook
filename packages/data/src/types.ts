@@ -1,3 +1,11 @@
+export type Emojiset = EmojiCategory[];
+
+export interface EmojiCategory {
+  id: string;
+  name: string;
+  emojis: Emoji[];
+}
+
 export interface Emoji {
   char: string;
   shortcode: string;
@@ -11,7 +19,15 @@ export interface EmojiVariant {
   version: number;
 }
 
-export const emojiJsonTypeDef = `interface Emoji {
+export const emojiJsonTypeDef = `type Emojiset = EmojiCategory[];
+
+interface EmojiCategory {
+  id: string;
+  name: string;
+  emojis: Emoji[];
+}
+
+interface Emoji {
   char: string;
   shortcode: string;
   keywords?: string[];
@@ -24,6 +40,6 @@ interface EmojiVariant {
   version: number;
 }
 
-declare const data: Emoji[];
+declare const data: Emojiset;
 
 export default data;`;

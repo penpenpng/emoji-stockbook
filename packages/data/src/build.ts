@@ -1,9 +1,9 @@
 import type { Emoji as EmojibaseEmoji } from "emojibase";
 import groups from "emojibase-data/meta/groups.json";
 import shortcodes from "emojibase-data/en/shortcodes/emojibase.json";
-import type { Emoji } from "./types";
+import type { Emoji, Emojiset } from "./types";
 
-export const build = (emojis: EmojibaseEmoji[]) => {
+export const build = (emojis: EmojibaseEmoji[]): Emojiset => {
   const emojisByGroup: Record<number, Emoji[]> = {};
   for (const groupNumber of Object.keys(groups.groups)) {
     emojisByGroup[Number(groupNumber)] = [];

@@ -31,7 +31,7 @@ export class EmojiStockbookProperty implements IEmojiStockbookProperty {
   private props = $state<AcceptableEmojiStockbookProperty>();
 
   readonly emojisets = $derived.by(() =>
-    (this.props?.emojisets ?? "native").split(","),
+    (this.props?.emojisets ?? "16").split(","),
   );
   readonly col = $derived.by(() => this.props?.col ?? 8);
   readonly i18n = $derived.by(() => this.props?.i18n ?? {});
