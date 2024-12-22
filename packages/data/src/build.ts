@@ -2,6 +2,18 @@ import type { Emoji as EmojibaseEmoji } from "emojibase";
 import groups from "emojibase-data/meta/groups.json";
 import shortcodes from "emojibase-data/en/shortcodes/emojibase.json";
 import type { Emoji, Emojiset } from "./types";
+import { UArray } from "./utils";
+
+const getShortcode = (hexcode: string): string | undefined => {
+  const shortcode: string | string[] | undefined = shortcodes[hexcode];
+  if (!shortcode) {
+    return undefined;
+  }
+  if (typeof shortcode === "string") {
+    return shortcode;
+  }
+  return shortcode[0];
+};
 
 export const build = (emojis: EmojibaseEmoji[]): Emojiset => {
   const emojisByGroup: Record<number, Emoji[]> = {};
@@ -15,8 +27,8 @@ export const build = (emojis: EmojibaseEmoji[]): Emojiset => {
       continue;
     }
 
-    const shortcode = shortcodes[emoji.hexcode]?.[0];
-    if (typeof shortcode !== "string") {
+    const shortcode = getShortcode(emoji.hexcode);
+    if (shortcode === undefined) {
       continue;
     }
 
@@ -32,9 +44,18 @@ export const build = (emojis: EmojibaseEmoji[]): Emojiset => {
     });
   }
 
-  return Object.entries(emojisByGroup).map(([groupNumber, emojis]) => ({
-    id: `${groupNumber}`,
-    name: `category.title.${groupNumber}`,
-    emojis,
-  }));
+  return UArray.mapfilter(
+    Object.entries(emojisByGroup),
+    ([groupNumber, emojis], skip) => {
+      if (emojis.length <= 0) {
+        return skip;
+      }
+
+      return {
+        id: `${groupNumber}`,
+        name: `category.title.${groups.groups[`${groupNumber}`]}`,
+        emojis,
+      };
+    },
+  );
 };

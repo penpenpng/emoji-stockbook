@@ -1,5 +1,14 @@
 {
   "hello": "世界",
+  "category.title.smileys-emotion": "感情",
+  "category.title.people-body": "人物",
+  "category.title.animals-nature": "自然",
+  "category.title.food-drink": "食べ物",
+  "category.title.travel-places": "場所",
+  "category.title.activities": "活動",
+  "category.title.objects": "モノ",
+  "category.title.symbols": "シンボル",
+  "category.title.flags": "国旗",
   "shortcut.title.frequently-used": "よく使う絵文字",
   "shortcut.title.recently-used": "最近使った絵文字"
 }

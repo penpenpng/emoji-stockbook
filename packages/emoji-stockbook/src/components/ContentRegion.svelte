@@ -3,12 +3,14 @@
   import { useCustomElementProperty } from "../lib/use-custom-element-property";
   import { useSearchFeature } from "../lib/use-search-feature";
   import { useShortcutFeature } from "../lib/use-shortcut-feature";
+  import { useTranslation } from "../lib/use-translation";
   import EmojiGrid from "./EmojiGrid.svelte";
   import FoldableSection from "./FoldableSection.svelte";
 
   const contentRegion = useContentRegion();
   const searchFeature = useSearchFeature();
   const shortcutFeature = useShortcutFeature();
+  const { t } = useTranslation();
   const rootProps = useCustomElementProperty();
 
   const region = $derived(
@@ -21,7 +23,7 @@
   loading...
 {:then [shortcuts, categories]}
   {#if !searchFeature.searching && rootProps.shortcut && shortcuts.length > 0}
-    <FoldableSection title={shortcutFeature.title} expanded>
+    <FoldableSection title={t(shortcutFeature.title)} expanded>
       {#snippet children()}
         <EmojiGrid emojis={shortcuts} />
       {/snippet}
@@ -30,7 +32,7 @@
 
   {#each categories as cat (cat.id)}
     <FoldableSection
-      title={cat.name}
+      title={t(cat.name)}
       disabled={searchFeature.searching}
       expanded
     >

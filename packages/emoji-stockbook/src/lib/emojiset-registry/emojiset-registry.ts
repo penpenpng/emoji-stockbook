@@ -68,7 +68,7 @@ export class EmojiRegistry implements IEmojisetRegistry {
 
   constructor() {
     // TODO: バージョンを増やしたら emojisets property のデフォルト値も直しておく
-    this.addEmojiset("11", nativeEmojiset("11"));
+    this.addEmojiset("1", nativeEmojiset("1"));
     this.addEmojiset("16", nativeEmojiset("16"));
   }
 

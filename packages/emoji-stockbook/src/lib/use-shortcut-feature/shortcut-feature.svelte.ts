@@ -1,6 +1,5 @@
 import type { Emoji } from "../../types";
 import { useCustomElementProperty } from "../use-custom-element-property";
-import { useTranslation } from "../use-translation";
 import { useEmojiRepository } from "../use-emoji-repository";
 import { LocalStorageHistoryManager } from "../history-manager";
 
@@ -14,7 +13,6 @@ export interface IShortcutFeature {
 export class ShortcutFeature implements IShortcutFeature {
   private rootProps = useCustomElementProperty();
   private repo = useEmojiRepository();
-  private t = useTranslation().t;
 
   private config = $derived.by(() => {
     const shortcut = this.rootProps.shortcut;
@@ -38,13 +36,13 @@ export class ShortcutFeature implements IShortcutFeature {
       return "";
     }
     if (config.title) {
-      return this.t(config.title);
+      return config.title;
     }
 
     if (config.mode === "frequently-used") {
-      return this.t("shortcut.title.frequently-used");
+      return "shortcut.title.frequently-used";
     } else {
-      return this.t("shortcut.title.recently-used");
+      return "shortcut.title.recently-used";
     }
   });
 

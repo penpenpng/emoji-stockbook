@@ -9,6 +9,11 @@ export const getEmojibase = (version: number): EmojibaseEmoji[] =>
       return skip;
     }
 
+    // emoji components. (e.g. skintone)
+    if (emoji.group === 2) {
+      return skip;
+    }
+
     return {
       ...emoji,
       skins: UFunc.ifexist(emoji.skins, (skins) =>

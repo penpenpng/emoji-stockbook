@@ -1,5 +1,14 @@
 {
   "hello": "world",
+  "category.title.smileys-emotion": "emotion",
+  "category.title.people-body": "people",
+  "category.title.animals-nature": "nature",
+  "category.title.food-drink": "food",
+  "category.title.travel-places": "places",
+  "category.title.activities": "activities",
+  "category.title.objects": "objects",
+  "category.title.symbols": "symbols",
+  "category.title.flags": "flags",
   "shortcut.title.frequently-used": "Frequently Used",
   "shortcut.title.recently-used": "Recently Used"
 }
