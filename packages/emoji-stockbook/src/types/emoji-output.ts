@@ -1,6 +1,7 @@
 import type { CustomEmoji } from "./emoji";
 
 export interface NativeEmojiOutput {
+  kind: "native";
   emojiset: string;
   char: string;
   shortcode: string;

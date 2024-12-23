@@ -1,14 +1,14 @@
 {
-  "hello": "world",
-  "category.title.smileys-emotion": "emotion",
-  "category.title.people-body": "people",
-  "category.title.animals-nature": "nature",
-  "category.title.food-drink": "food",
-  "category.title.travel-places": "places",
-  "category.title.activities": "activities",
-  "category.title.objects": "objects",
-  "category.title.symbols": "symbols",
-  "category.title.flags": "flags",
+  "category.title.smileys-emotion": "Emotion",
+  "category.title.people-body": "People",
+  "category.title.animals-nature": "Nature",
+  "category.title.food-drink": "Food",
+  "category.title.travel-places": "Places",
+  "category.title.activities": "Activities",
+  "category.title.objects": "Objects",
+  "category.title.symbols": "Symbols",
+  "category.title.flags": "Flags",
   "shortcut.title.frequently-used": "Frequently Used",
-  "shortcut.title.recently-used": "Recently Used"
+  "shortcut.title.recently-used": "Recently Used",
+  "search-result.title": "Search Result"
 }

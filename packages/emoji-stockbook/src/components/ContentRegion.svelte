@@ -14,14 +14,14 @@
   const rootProps = useCustomElementProperty();
 
   const region = $derived(
-    Promise.all([shortcutFeature.emojis, contentRegion.categories])
+    Promise.all([shortcutFeature.emojis, contentRegion.sections])
   );
 </script>
 
 {#await region}
   <!-- TODO -->
   loading...
-{:then [shortcuts, categories]}
+{:then [shortcuts, sections]}
   {#if !searchFeature.searching && rootProps.shortcut && shortcuts.length > 0}
     <FoldableSection title={t(shortcutFeature.title)} expanded>
       {#snippet children()}
@@ -30,14 +30,14 @@
     </FoldableSection>
   {/if}
 
-  {#each categories as cat (cat.id)}
+  {#each sections as section (section.id)}
     <FoldableSection
-      title={t(cat.name)}
+      title={t(section.name)}
       disabled={searchFeature.searching}
       expanded
     >
       {#snippet children()}
-        <EmojiGrid emojis={cat.emojis} />
+        <EmojiGrid emojis={section.emojis} />
       {/snippet}
     </FoldableSection>
   {/each}

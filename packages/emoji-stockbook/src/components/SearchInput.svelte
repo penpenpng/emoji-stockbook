@@ -19,5 +19,6 @@
 <button
   onclick={() => {
     query = "";
+    searchFeature.leaveSearchMode();
   }}>Clear</button
 >

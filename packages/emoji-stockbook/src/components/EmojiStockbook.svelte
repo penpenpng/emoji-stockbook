@@ -4,14 +4,9 @@
   import FoldableController from "./FoldableController.svelte";
 
   import { useTranslation } from "../lib/use-translation";
-
-  const { t } = useTranslation();
 </script>
 
 <div class="host">
-  <div>
-    {t("hello")}
-  </div>
   <FoldableController />
   <SearchInput />
   <ContentRegion />
