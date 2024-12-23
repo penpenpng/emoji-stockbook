@@ -24,6 +24,7 @@
   import { useShortcutFeature } from "./lib/use-shortcut-feature";
   import { useCustomElementProperty } from "./lib/use-custom-element-property";
   import { useLangResolver } from "./lib/use-translation";
+  import { usePreviewFeature } from "./lib/use-preview-feature";
 
   const props = $props();
   useCustomElementProperty.setup(props);
@@ -47,6 +48,7 @@
   useFoldables.setup();
   useLangResolver.setup();
   useShortcutFeature.setup();
+  usePreviewFeature.setup();
 </script>
 
 <EmojiStockbook />

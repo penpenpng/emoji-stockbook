@@ -2,11 +2,11 @@
   import ContentRegion from "./ContentRegion.svelte";
   import SearchInput from "./SearchInput.svelte";
   import FoldableController from "./FoldableController.svelte";
-
-  import { useTranslation } from "../lib/use-translation";
+  import PreviewRegion from "./PreviewRegion.svelte";
 </script>
 
 <div class="host">
+  <PreviewRegion />
   <FoldableController />
   <SearchInput />
   <ContentRegion />

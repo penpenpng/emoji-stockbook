@@ -2,6 +2,7 @@
   import { useCustomElementEventDispatcher } from "../lib/use-custom-element-event-dispatcher";
   import { useShortcutFeature } from "../lib/use-shortcut-feature";
   import { makeEmojiOutput } from "../lib/make-emoji-output";
+  import { usePreviewFeature } from "../lib/use-preview-feature";
   import type { Emoji } from "../types";
 
   const {
@@ -15,14 +16,9 @@
     onArrowLeft?: () => void;
   } = $props();
 
-  const dispatch = useCustomElementEventDispatcher();
   const shortcutFeature = useShortcutFeature();
-
-  const onclick = () => {
-    const output = makeEmojiOutput(emoji);
-    dispatch("pick", output);
-    shortcutFeature.updateHistory(output);
-  };
+  const previewFeature = usePreviewFeature();
+  const dispatch = useCustomElementEventDispatcher();
 
   const onkeydown = (event: KeyboardEvent) => {
     switch (event.key) {
@@ -44,9 +40,19 @@
 
     event.preventDefault();
   };
+
+  const showPreview = () => {
+    previewFeature.showPreview(emoji);
+  };
+
+  const onclick = () => {
+    const output = makeEmojiOutput(emoji);
+    dispatch("pick", output);
+    shortcutFeature.updateHistory(output);
+  };
 </script>
 
-<button {onclick} {onkeydown}>
+<button {onclick} {onkeydown} onfocus={showPreview} onmouseenter={showPreview}>
   {#if emoji.kind === "native"}
     <!-- native emoji -->
     {emoji.char}
