@@ -1,6 +1,6 @@
 import type { Emoji } from "../../types";
-import { useSearchFeature } from "../use-search-feature/index";
 import { useEmojiRepository } from "../use-emoji-repository/index";
+import { useSearchFeature } from "../use-search-feature/index";
 
 export interface IContentRegion {
   readonly sections: Promise<SectionContent[]>;

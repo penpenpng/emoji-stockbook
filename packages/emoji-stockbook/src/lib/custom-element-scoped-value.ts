@@ -7,7 +7,7 @@ export interface CustomElementScopedValue<T, P = void> {
 
 export const customElementScopedValue = <T, P = void>(
   factory: (param: P) => T,
-  cleanup?: (value: T) => void,
+  cleanup?: (value: T) => void
 ): CustomElementScopedValue<T, P> => {
   const key = Symbol();
 

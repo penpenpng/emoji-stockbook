@@ -7,5 +7,5 @@ import {
 export type { IShortcutFeature };
 
 export const useShortcutFeature = customElementScopedValue(
-  (): IShortcutFeature => new ShortcutFeature(),
+  (): IShortcutFeature => new ShortcutFeature()
 );

@@ -7,5 +7,5 @@ export interface ComponentEventDispatcher {
 }
 
 export const useCustomElementEventDispatcher = customElementScopedValue(
-  (dispatch: ComponentEventDispatcher) => dispatch,
+  (dispatch: ComponentEventDispatcher) => dispatch
 );

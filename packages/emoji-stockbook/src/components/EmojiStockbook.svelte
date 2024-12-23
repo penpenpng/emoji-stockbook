@@ -1,8 +1,8 @@
 <script lang="ts">
   import ContentRegion from "./ContentRegion.svelte";
-  import SearchInput from "./SearchInput.svelte";
   import FoldableController from "./FoldableController.svelte";
   import PreviewRegion from "./PreviewRegion.svelte";
+  import SearchInput from "./SearchInput.svelte";
 </script>
 
 <div class="host">

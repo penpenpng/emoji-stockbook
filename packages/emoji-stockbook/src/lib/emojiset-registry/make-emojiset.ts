@@ -1,14 +1,14 @@
 import type {
+  CustomEmoji,
+  CustomEmojiCategory,
+  CustomEmojiCategoryInput,
+  CustomEmojiInput,
   Emojiset,
   EmojisetInput,
-  NativeEmojiCategory,
   NativeEmoji,
-  NativeEmojiInput,
+  NativeEmojiCategory,
   NativeEmojiCategoryInput,
-  CustomEmojiInput,
-  CustomEmoji,
-  CustomEmojiCategoryInput,
-  CustomEmojiCategory,
+  NativeEmojiInput,
 } from "../../types";
 
 const makeNativeEmoji =

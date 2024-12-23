@@ -4,5 +4,5 @@ import { type IContentRegion, ContentRegion } from "./content-region.svelte";
 export type { IContentRegion };
 
 export const useContentRegion = customElementScopedValue(
-  (): IContentRegion => new ContentRegion(),
+  (): IContentRegion => new ContentRegion()
 );

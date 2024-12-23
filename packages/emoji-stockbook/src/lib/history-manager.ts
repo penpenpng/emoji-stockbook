@@ -27,7 +27,7 @@ export class LocalStorageHistoryManager implements IHistoryManager {
 
       window.localStorage.setItem(
         this.localStorageKey,
-        JSON.stringify(history),
+        JSON.stringify(history)
       );
     } catch (err) {
       Logger.warn("Failed to update emoji-stockbook history data.", err);
@@ -37,7 +37,7 @@ export class LocalStorageHistoryManager implements IHistoryManager {
   getHistory(): HistoryRecord[] {
     try {
       return JSON.parse(
-        window.localStorage.getItem(this.localStorageKey) ?? "[]",
+        window.localStorage.getItem(this.localStorageKey) ?? "[]"
       );
     } catch (err) {
       Logger.warn("Failed to load emoji-stockbook history data.", err);
@@ -68,7 +68,7 @@ export class InMemoryHistoryManager implements IHistoryManager {
 
 function updateHistory(
   history: HistoryRecord[],
-  pointer: EmojiSpecifier,
+  pointer: EmojiSpecifier
 ): void {
   const record = history.find((e) => pointsSame(e.pointer, pointer));
 

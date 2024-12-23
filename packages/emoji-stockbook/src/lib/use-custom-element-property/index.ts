@@ -1,13 +1,12 @@
 import { customElementScopedValue } from "../custom-element-scoped-value";
 import {
   EmojiStockbookProperty,
-  type IEmojiStockbookProperty,
   type AcceptableEmojiStockbookProperty,
+  type IEmojiStockbookProperty,
 } from "./custom-element-property.svelte";
 
 export type { IEmojiStockbookProperty };
 
 export const useCustomElementProperty = customElementScopedValue(
-  (props: AcceptableEmojiStockbookProperty) =>
-    new EmojiStockbookProperty(props),
+  (props: AcceptableEmojiStockbookProperty) => new EmojiStockbookProperty(props)
 );

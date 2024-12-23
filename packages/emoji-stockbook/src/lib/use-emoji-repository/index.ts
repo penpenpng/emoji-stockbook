@@ -7,5 +7,5 @@ import {
 export type { IEmojiRepository };
 
 export const useEmojiRepository = customElementScopedValue(
-  (): IEmojiRepository => new EmojiRepository(),
+  (): IEmojiRepository => new EmojiRepository()
 );

@@ -1,7 +1,7 @@
 <script lang="ts">
-  import type { Emoji } from "../types";
   import { useCustomElementProperty } from "../lib/use-custom-element-property";
   import { UArray } from "../lib/utils";
+  import type { Emoji } from "../types";
   import EmojiButton from "./EmojiButton.svelte";
 
   const { emojis }: { emojis: Emoji[] } = $props();

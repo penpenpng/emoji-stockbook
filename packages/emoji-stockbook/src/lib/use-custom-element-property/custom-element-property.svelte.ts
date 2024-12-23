@@ -1,5 +1,5 @@
-import type { I18nResource } from "../use-translation";
 import type { IHistoryManager } from "../history-manager";
+import type { I18nResource } from "../use-translation";
 
 // Note that we should also edit `<svelte:options customElement>`
 export interface AcceptableEmojiStockbookProperty {
@@ -31,7 +31,7 @@ export class EmojiStockbookProperty implements IEmojiStockbookProperty {
   private props = $state<AcceptableEmojiStockbookProperty>();
 
   readonly emojisets = $derived.by(() =>
-    (this.props?.emojisets ?? "16").split(","),
+    (this.props?.emojisets ?? "16").split(",")
   );
   readonly col = $derived.by(() => this.props?.col ?? 8);
   readonly i18n = $derived.by(() => this.props?.i18n ?? {});

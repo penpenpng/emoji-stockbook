@@ -1,6 +1,6 @@
+import resourceEn from "../locales/en.json";
 import { useCustomElementProperty } from "../use-custom-element-property";
 import { useLangResolver } from "./lang-resolver.svelte";
-import resourceEn from "../locales/en.json";
 
 export type I18nResource = Record<
   string /* language code */,
@@ -24,7 +24,7 @@ export const useTranslation = () => {
 
 function getTranslation(
   resource: I18nResource,
-  lang: string,
+  lang: string
 ): Record<string, string> {
   if (resource[lang]) {
     return resource[lang];

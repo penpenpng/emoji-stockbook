@@ -4,5 +4,5 @@ import { type ISearchFeature, SearchFeature } from "./search-feature.svelte";
 export type { ISearchFeature };
 
 export const useSearchFeature = customElementScopedValue(
-  (): ISearchFeature => new SearchFeature(),
+  (): ISearchFeature => new SearchFeature()
 );

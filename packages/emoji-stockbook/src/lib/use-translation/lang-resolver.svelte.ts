@@ -31,5 +31,5 @@ export class LangResolver implements ILangResolver {
 
 export const useLangResolver = customElementScopedValue(
   (): ILangResolver => new LangResolver(),
-  (resolver: ILangResolver) => resolver.cleanup(),
+  (resolver: ILangResolver) => resolver.cleanup()
 );

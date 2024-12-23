@@ -1,8 +1,8 @@
-import type { EmojiCategory, Emoji, EmojiSpecifier } from "../../types";
-import { useCustomElementProperty } from "../use-custom-element-property";
+import type { Emoji, EmojiCategory, EmojiSpecifier } from "../../types";
 import { getEmojisetRegistry } from "../emojiset-registry";
 import { Logger } from "../logger";
 import { includeVersions } from "../native-emoji-versions";
+import { useCustomElementProperty } from "../use-custom-element-property";
 
 export interface IEmojiRepository {
   readonly categories: Promise<EmojiCategory[]>;
@@ -19,7 +19,7 @@ export class EmojiRepository implements IEmojiRepository {
     return reg.getEmojiCategories(keys);
   });
   readonly emojis = $derived.by(() =>
-    this.categories.then((cats) => cats.flatMap((c): Emoji[] => c.emojis)),
+    this.categories.then((cats) => cats.flatMap((c): Emoji[] => c.emojis))
   );
 
   async getEmojiByPointer(pointer: EmojiSpecifier): Promise<Emoji | undefined> {

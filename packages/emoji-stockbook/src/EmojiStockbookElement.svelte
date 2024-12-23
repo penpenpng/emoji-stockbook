@@ -13,18 +13,18 @@
 
 <script lang="ts">
   import EmojiStockbook from "./components/EmojiStockbook.svelte";
-  import { useEmojiRepository } from "./lib/use-emoji-repository";
+  import { useContentRegion } from "./lib/use-content-region";
   import {
     type ComponentEventDispatcher,
     useCustomElementEventDispatcher,
   } from "./lib/use-custom-element-event-dispatcher";
-  import { useSearchFeature } from "./lib/use-search-feature";
-  import { useContentRegion } from "./lib/use-content-region";
-  import { useFoldables } from "./lib/use-foldables";
-  import { useShortcutFeature } from "./lib/use-shortcut-feature";
   import { useCustomElementProperty } from "./lib/use-custom-element-property";
-  import { useLangResolver } from "./lib/use-translation";
+  import { useEmojiRepository } from "./lib/use-emoji-repository";
+  import { useFoldables } from "./lib/use-foldables";
   import { usePreviewFeature } from "./lib/use-preview-feature";
+  import { useSearchFeature } from "./lib/use-search-feature";
+  import { useShortcutFeature } from "./lib/use-shortcut-feature";
+  import { useLangResolver } from "./lib/use-translation";
 
   const props = $props();
   useCustomElementProperty.setup(props);

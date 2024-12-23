@@ -1,10 +1,10 @@
 import type {
-  ValueOrGetter,
-  MaybePromise,
-  Emojiset,
-  EmojiCategory,
   Emoji,
+  EmojiCategory,
+  Emojiset,
   EmojisetInput,
+  MaybePromise,
+  ValueOrGetter,
 } from "../../types";
 import { Logger } from "../logger";
 import { makeEmojiset } from "./make-emojiset";
@@ -81,7 +81,7 @@ export class EmojiRegistry implements IEmojisetRegistry {
 
     if (!emojiset) {
       Logger.error(
-        `Emojiset "${key}" was requested but not found. You need to call getEmojisetRegistry().addEmojiset(key, emojiset) before the use.`,
+        `Emojiset "${key}" was requested but not found. You need to call getEmojisetRegistry().addEmojiset(key, emojiset) before the use.`
       );
       throw new Error();
     }
@@ -143,7 +143,7 @@ export class EmojiRegistry implements IEmojisetRegistry {
 }
 
 async function resolveEmojiset(
-  resolver: EmojisetResolver,
+  resolver: EmojisetResolver
 ): Promise<EmojisetInput> {
   if (typeof resolver === "function") {
     return resolver();
@@ -154,7 +154,7 @@ async function resolveEmojiset(
 
 function mergeEmojiCategories(
   a: EmojiCategory | undefined,
-  b: EmojiCategory,
+  b: EmojiCategory
 ): EmojiCategory {
   if (!a) {
     return b;

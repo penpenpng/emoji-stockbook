@@ -4,5 +4,5 @@ import { type IPreviewFeature, PreviewFeature } from "./preview-feature.svelte";
 export type { IPreviewFeature };
 
 export const usePreviewFeature = customElementScopedValue(
-  (): IPreviewFeature => new PreviewFeature(),
+  (): IPreviewFeature => new PreviewFeature()
 );

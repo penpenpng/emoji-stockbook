@@ -1,7 +1,7 @@
 import type { Emoji, EmojiOutput } from "../../types";
+import { LocalStorageHistoryManager } from "../history-manager";
 import { useCustomElementProperty } from "../use-custom-element-property";
 import { useEmojiRepository } from "../use-emoji-repository";
-import { LocalStorageHistoryManager } from "../history-manager";
 
 export interface IShortcutFeature {
   readonly title: string;
@@ -58,7 +58,7 @@ export class ShortcutFeature implements IShortcutFeature {
       .sort((a, b) => b.updatedAt - a.updatedAt)
       .map((e) => e.pointer);
     const emojis = await Promise.all(
-      emojiPointers.map((pointer) => this.repo.getEmojiByPointer(pointer)),
+      emojiPointers.map((pointer) => this.repo.getEmojiByPointer(pointer))
     );
 
     return emojis.filter((e) => !!e);
