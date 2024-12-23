@@ -68,7 +68,10 @@
     background-color: transparent;
     border: none;
     cursor: pointer;
-    /* outline: none; */ /* For a11y reason */
+
+    /* outline: none; */
+
+    /* For a11y reason */
     padding: 0;
     appearance: none;
   }
@@ -82,10 +85,12 @@
     height: 100%;
     font-size: 20px;
   }
+
   button:hover {
-    background-color: rgb(223, 223, 223);
+    background-color: rgb(223 223 223);
   }
+
   button:active {
-    background-color: rgb(204, 204, 204);
+    background-color: rgb(204 204 204);
   }
 </style>

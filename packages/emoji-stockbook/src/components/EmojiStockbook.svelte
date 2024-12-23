@@ -14,18 +14,11 @@
 
 <style>
   .host {
-    /* For debugging */
-    background-color: #e6fcca;
-
-    /* Base styles */
     display: flex;
     flex-direction: column;
     align-items: center;
+    height: var(--height);
     overflow: auto;
-
-    /* Customizable */
-    height: var(--emoji-stockbook-height, 450px);
-    --cell-size: 32px;
-    --cell-gap: 4px;
+    background-color: var(--background-color);
   }
 </style>
