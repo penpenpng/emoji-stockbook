@@ -22,10 +22,10 @@
 
   const focus = (motion: FocusMotion): boolean => {
     if (motion === "next-component") {
-      // TODO
+      // TODO: 隣のグリッドにフォーカスを移す
       return false;
     } else if (motion === "prev-component") {
-      // TODO
+      // TODO: 前のグリッドにフォーカスを移す
       return false;
     } else {
       const [rowIndex, colIndex] = motion;

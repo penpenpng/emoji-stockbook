@@ -1,6 +1,5 @@
 import type { NativeEmojisetInput } from "../../types";
 
-// TODO: remove this
 import emoji16 from "@emoji-stockbook/data/16.json";
 import emoji1 from "@emoji-stockbook/data/1.json";
 
@@ -23,8 +22,7 @@ import emoji1 from "@emoji-stockbook/data/1.json";
 //     return emojiset;
 //   };
 
-// TODO:
-// indexed DB などのキャッシュも利用しつつ、必要があれば CDN から拾ってくる形にする (参考実装: 上)
+// TODO: json の形式が確定したら publish して、ここを CDN を参照する形に直す。キャッシュも実装する (参考実装: 上)
 export const nativeEmojiset = async (
   version: "1" | "16",
 ): Promise<NativeEmojisetInput> => {

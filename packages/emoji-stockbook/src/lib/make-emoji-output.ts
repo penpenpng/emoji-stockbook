@@ -10,7 +10,7 @@ export const makeEmojiOutput = (emoji: Emoji): EmojiOutput => {
       shortcode: emoji.shortcode,
       version: emoji.version,
       keywords: emoji.keywords,
-      original: undefined, // TODO
+      original: undefined, // TODO: variant を pick できるようになったらここ直す
     };
   } else {
     return {

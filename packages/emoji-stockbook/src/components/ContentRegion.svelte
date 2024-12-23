@@ -19,7 +19,7 @@
 </script>
 
 {#await region}
-  <!-- TODO -->
+  <!-- TODO: loading 中の表示 -->
   loading...
 {:then [shortcuts, sections]}
   {#if !searchFeature.searching && rootProps.shortcut && shortcuts.length > 0}
@@ -42,6 +42,6 @@
     </FoldableSection>
   {/each}
 {:catch err}
-  <!-- TODO -->
+  <!-- TODO:エラー時の表示 -->
   Error: {err}
 {/await}

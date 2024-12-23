@@ -39,7 +39,7 @@ export class EmojiRepository implements IEmojiRepository {
           if (pointer.original) {
             // variant native emoji
 
-            // TODO
+            // TODO: variant を pick できるようになったらここ直す
             Logger.error("not implemented yet");
             const original = await reg.getEmojiById(emojiset, pointer.original);
           } else {
