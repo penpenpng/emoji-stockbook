@@ -1,6 +1,7 @@
 <script lang="ts">
   import { useCustomElementEventDispatcher } from "../lib/use-custom-element-event-dispatcher";
-  import { useCustomElementProperty } from "../lib/use-custom-element-property";
+  import { useShortcutFeature } from "../lib/use-shortcut-feature";
+  import { makeEmojiOutput } from "../lib/make-emoji-output";
   import type { Emoji } from "../types";
 
   const {
@@ -14,13 +15,13 @@
     onArrowLeft?: () => void;
   } = $props();
 
-  const rootProps = useCustomElementProperty();
   const dispatch = useCustomElementEventDispatcher();
+  const shortcutFeature = useShortcutFeature();
 
   const onclick = () => {
-    // TODO
-    dispatch("pick", emoji);
-    rootProps.shortcut?.history.updateHistory([emoji.emojiset, emoji.id]);
+    const output = makeEmojiOutput(emoji);
+    dispatch("pick", output);
+    shortcutFeature.updateHistory(output);
   };
 
   const onkeydown = (event: KeyboardEvent) => {

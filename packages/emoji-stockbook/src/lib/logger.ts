@@ -1,16 +1,18 @@
 export class Logger {
-  static warn(msg: string) {
-    let message = `emoji-stockbook: ${msg}`;
-
-    console.warn(message);
+  static warn(msg: string, trace?: unknown) {
+    console.warn(...Logger.output(msg, trace));
   }
 
-  static error(msg: string, error?: unknown) {
-    let message = `emoji-stockbook: ${msg}`;
-    if (error) {
-      message += `\n${error}`;
+  static error(msg: string, trace?: unknown) {
+    console.error(...Logger.output(msg, trace));
+  }
+
+  private static output(msg: string, trace?: unknown) {
+    const output: unknown[] = [`emoji-stockbook: ${msg}`];
+    if (trace) {
+      output.push(trace);
     }
 
-    console.error(message);
+    return output;
   }
 }

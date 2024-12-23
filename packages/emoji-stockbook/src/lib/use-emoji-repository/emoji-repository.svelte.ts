@@ -1,11 +1,13 @@
-import type { EmojiCategory, Emoji, GlobalEmojiId } from "../../types";
+import type { EmojiCategory, Emoji, EmojiSpecifier } from "../../types";
 import { useCustomElementProperty } from "../use-custom-element-property";
 import { getEmojisetRegistry } from "../emojiset-registry";
+import { Logger } from "../logger";
+import { includeVersions } from "../native-emoji-versions";
 
 export interface IEmojiRepository {
   readonly categories: Promise<EmojiCategory[]>;
   readonly emojis: Promise<Emoji[]>;
-  getEmojiById(id: GlobalEmojiId): Promise<Emoji | undefined>;
+  getEmojiByPointer(pointer: EmojiSpecifier): Promise<Emoji | undefined>;
 }
 
 export class EmojiRepository implements IEmojiRepository {
@@ -20,15 +22,36 @@ export class EmojiRepository implements IEmojiRepository {
     this.categories.then((cats) => cats.flatMap((c): Emoji[] => c.emojis)),
   );
 
-  async getEmojiById(id: GlobalEmojiId): Promise<Emoji | undefined> {
+  async getEmojiByPointer(pointer: EmojiSpecifier): Promise<Emoji | undefined> {
     const reg = getEmojisetRegistry();
+    const emojisets = this.props.emojisets;
 
     try {
-      const [emojiset, emojiId] = id;
+      if (pointer.kind === "native") {
+        const versions = includeVersions(pointer.version);
 
-      if (this.props.emojisets.includes(emojiset)) {
-        const emoji = await reg.getEmojiById(emojiset, emojiId);
-        return emoji;
+        for (const version of versions) {
+          const emojiset = `${version}`;
+          if (!reg.hasEmojiset(emojiset)) {
+            continue;
+          }
+
+          if (pointer.original) {
+            // variant native emoji
+
+            // TODO
+            Logger.error("not implemented yet");
+            const original = await reg.getEmojiById(emojiset, pointer.original);
+          } else {
+            // naked native emoji
+            return await reg.getEmojiById(emojiset, pointer.char);
+          }
+        }
+      } else {
+        if (emojisets.includes(pointer.emojiset)) {
+          // custom emoji
+          return await reg.getEmojiById(pointer.emojiset, pointer.id);
+        }
       }
     } catch {
       // noop

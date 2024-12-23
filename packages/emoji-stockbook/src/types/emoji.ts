@@ -35,6 +35,7 @@ export interface NativeEmoji {
   shortcode: string;
   keywords?: string[];
   variants?: NativeEmojiVariant[];
+  version: number;
 }
 
 export interface NativeEmojiVariant {
@@ -54,4 +55,15 @@ export interface CustomEmoji {
 
 export type Emoji = NativeEmoji | CustomEmoji;
 
-export type GlobalEmojiId = [emojiset: string, emojiId: string];
+export type EmojiSpecifier =
+  | {
+      kind: "native";
+      version: number;
+      char: string;
+      original?: string;
+    }
+  | {
+      kind: "custom";
+      emojiset: string;
+      id: string;
+    };

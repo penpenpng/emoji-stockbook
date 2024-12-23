@@ -1,15 +1,16 @@
-import type { GlobalEmojiId } from "../types";
-import { isSameEmojiId } from "./global-emoji-id";
+import type { EmojiSpecifier } from "../types";
+import { Logger } from "./logger";
+import { pointsSame } from "./points-same";
 import { UArray } from "./utils";
 
 export interface IHistoryManager {
-  updateHistory(id: GlobalEmojiId): void;
+  updateHistory(pointer: EmojiSpecifier): void;
   getHistory(): HistoryRecord[];
   clearHistory(): void;
 }
 
 export interface HistoryRecord {
-  id: GlobalEmojiId;
+  pointer: EmojiSpecifier;
   count: number;
   updatedAt: number;
 }
@@ -17,19 +18,19 @@ export interface HistoryRecord {
 export class LocalStorageHistoryManager implements IHistoryManager {
   constructor(private localStorageKey: string = "_emoji-stockbook") {}
 
-  updateHistory(id: GlobalEmojiId): void {
+  updateHistory(pointer: EmojiSpecifier): void {
     try {
       const history = this.getHistory();
 
       // This may throw because the return value of `this.getHistory()` is not safe.
-      updateHistory(history, id);
+      updateHistory(history, pointer);
 
       window.localStorage.setItem(
         this.localStorageKey,
         JSON.stringify(history),
       );
-    } catch {
-      // noop
+    } catch (err) {
+      Logger.warn("Failed to update emoji-stockbook history data.", err);
     }
   }
 
@@ -38,7 +39,8 @@ export class LocalStorageHistoryManager implements IHistoryManager {
       return JSON.parse(
         window.localStorage.getItem(this.localStorageKey) ?? "[]",
       );
-    } catch {
+    } catch (err) {
+      Logger.warn("Failed to load emoji-stockbook history data.", err);
       return [];
     }
   }
@@ -51,8 +53,8 @@ export class LocalStorageHistoryManager implements IHistoryManager {
 export class InMemoryHistoryManager implements IHistoryManager {
   private history: HistoryRecord[] = [];
 
-  updateHistory(id: GlobalEmojiId): void {
-    updateHistory(this.history, id);
+  updateHistory(pointer: EmojiSpecifier): void {
+    updateHistory(this.history, pointer);
   }
 
   getHistory(): HistoryRecord[] {
@@ -64,18 +66,21 @@ export class InMemoryHistoryManager implements IHistoryManager {
   }
 }
 
-function updateHistory(history: HistoryRecord[], id: GlobalEmojiId): void {
-  const record = history.find((e) => isSameEmojiId(e.id, id));
+function updateHistory(
+  history: HistoryRecord[],
+  pointer: EmojiSpecifier,
+): void {
+  const record = history.find((e) => pointsSame(e.pointer, pointer));
 
   if (record) {
-    UArray.put(history, (e) => isSameEmojiId(e.id, id), {
-      id,
+    UArray.put(history, (e) => pointsSame(e.pointer, pointer), {
+      pointer,
       count: record.count + 1,
       updatedAt: Date.now(),
     });
   } else {
     history.push({
-      id,
+      pointer,
       count: 1,
       updatedAt: Date.now(),
     });

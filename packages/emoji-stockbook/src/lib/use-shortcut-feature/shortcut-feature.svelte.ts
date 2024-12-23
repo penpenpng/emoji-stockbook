@@ -1,4 +1,4 @@
-import type { Emoji } from "../../types";
+import type { Emoji, EmojiOutput } from "../../types";
 import { useCustomElementProperty } from "../use-custom-element-property";
 import { useEmojiRepository } from "../use-emoji-repository";
 import { LocalStorageHistoryManager } from "../history-manager";
@@ -7,6 +7,7 @@ export interface IShortcutFeature {
   readonly title: string;
   readonly emojis: Promise<Emoji[]>;
   readonly maxRows: number;
+  updateHistory(output: EmojiOutput): void;
   clearHistory(): void;
 }
 
@@ -53,17 +54,35 @@ export class ShortcutFeature implements IShortcutFeature {
     }
 
     const records = config.history.getHistory();
-    const emojiIds = [...records]
+    const emojiPointers = [...records]
       .sort((a, b) => b.updatedAt - a.updatedAt)
-      .map((e) => e.id);
+      .map((e) => e.pointer);
     const emojis = await Promise.all(
-      emojiIds.map((id) => this.repo.getEmojiById(id)),
+      emojiPointers.map((pointer) => this.repo.getEmojiByPointer(pointer)),
     );
 
     return emojis.filter((e) => !!e);
   });
 
   readonly maxRows = $derived.by(() => this.config?.maxRows ?? 0);
+
+  updateHistory(output: EmojiOutput): void {
+    // Don't use spread syntax to plune unneeded fields.
+    if (output.kind === "native") {
+      this.config?.history.updateHistory({
+        kind: "native",
+        char: output.char,
+        version: output.version,
+        original: output.original,
+      });
+    } else {
+      this.config?.history.updateHistory({
+        kind: "custom",
+        emojiset: output.emojiset,
+        id: output.id,
+      });
+    }
+  }
 
   clearHistory(): void {
     this.config?.history.clearHistory();
