@@ -1,8 +1,8 @@
 <script lang="ts">
-  import EmojiButton from "./EmojiButton.svelte";
   import type { Emoji } from "../types";
   import { useCustomElementProperty } from "../lib/use-custom-element-property";
   import { UArray } from "../lib/utils";
+  import EmojiButton from "./EmojiButton.svelte";
 
   const { emojis }: { emojis: Emoji[] } = $props();
 
@@ -90,7 +90,6 @@
 <style>
   .grid {
     content-visibility: auto;
-
     display: flex;
     flex-direction: column;
     gap: var(--cell-gap);
@@ -98,7 +97,6 @@
 
   .row-group {
     content-visibility: auto;
-
     display: flex;
     flex-direction: column;
     gap: var(--cell-gap);
@@ -106,9 +104,8 @@
 
   .row {
     display: flex;
-    flex-direction: row;
+    flex-flow: row nowrap;
     gap: var(--cell-gap);
-    flex-wrap: nowrap;
   }
 
   .cell {

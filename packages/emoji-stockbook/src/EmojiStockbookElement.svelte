@@ -15,8 +15,8 @@
   import EmojiStockbook from "./components/EmojiStockbook.svelte";
   import { useEmojiRepository } from "./lib/use-emoji-repository";
   import {
-    useCustomElementEventDispatcher,
     type ComponentEventDispatcher,
+    useCustomElementEventDispatcher,
   } from "./lib/use-custom-element-event-dispatcher";
   import { useSearchFeature } from "./lib/use-search-feature";
   import { useContentRegion } from "./lib/use-content-region";

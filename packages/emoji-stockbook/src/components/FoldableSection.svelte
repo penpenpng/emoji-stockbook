@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onMount, type Snippet } from "svelte";
+  import { type Snippet, onMount } from "svelte";
   import { useFoldables } from "../lib/use-foldables";
 
   let {
