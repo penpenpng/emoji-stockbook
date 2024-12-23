@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { useCustomElementEventDispatcher } from "../lib/use-custom-element-event-dispatcher";
-  import { useShortcutFeature } from "../lib/use-shortcut-feature";
   import { makeEmojiOutput } from "../lib/make-emoji-output";
+  import { useCustomElementEventDispatcher } from "../lib/use-custom-element-event-dispatcher";
   import { usePreviewFeature } from "../lib/use-preview-feature";
+  import { useShortcutFeature } from "../lib/use-shortcut-feature";
   import type { Emoji } from "../types";
 
   const {
@@ -63,24 +63,10 @@
 </button>
 
 <style>
-  /* Reset CSS */
-  button {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-
-    /* outline: none; */
-
-    /* For a11y reason */
-    padding: 0;
-    appearance: none;
-  }
-
-  /* Styles */
   button {
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     width: 100%;
     height: 100%;
     font-size: 20px;

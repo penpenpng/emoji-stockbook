@@ -21,4 +21,15 @@
     overflow: auto;
     background-color: var(--background-color);
   }
+
+  /* stylelint-disable-next-line selector-pseudo-class-no-unknown -- :global is allowed as a svelte-specific syntax. */
+  :global :host {
+    button {
+      padding: 0;
+      appearance: none;
+      cursor: pointer;
+      background-color: transparent;
+      border: none;
+    }
+  }
 </style>
