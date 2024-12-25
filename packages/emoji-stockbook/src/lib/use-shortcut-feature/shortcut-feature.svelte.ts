@@ -15,6 +15,9 @@ export class ShortcutFeature implements IShortcutFeature {
   private rootProps = useCustomElementProperty();
   private repo = useEmojiRepository();
 
+  // Updated to force `emojis` to be reevaluated
+  private key = $state(0);
+
   private config = $derived.by(() => {
     const shortcut = this.rootProps.shortcut;
 
@@ -53,6 +56,9 @@ export class ShortcutFeature implements IShortcutFeature {
       return [];
     }
 
+    // `emojis` depends on `key`, but `key` is not used to compute `emojis`.
+    void this.key;
+
     const records = config.history.getHistory();
     const emojiPointers = [...records]
       .sort((a, b) => b.updatedAt - a.updatedAt)
@@ -86,5 +92,6 @@ export class ShortcutFeature implements IShortcutFeature {
 
   clearHistory(): void {
     this.config?.history.clearHistory();
+    this.key++;
   }
 }
