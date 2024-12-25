@@ -38,17 +38,19 @@
   }
 
   .preview-region {
-    flex: 0 0 40px;
+    flex: 0 0 50px;
   }
 
   /* stylelint-disable-next-line selector-pseudo-class-no-unknown -- :global is allowed as a svelte-specific syntax. */
   :global .emoji-stockbook {
     * {
       font-family: var(--font-family);
+      font-size: 16px;
       color: var(--font-color);
     }
 
     small {
+      font-size: 11.5px;
       color: var(--small-font-color);
     }
 
