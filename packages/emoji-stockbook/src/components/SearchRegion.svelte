@@ -21,14 +21,11 @@
   />
 
   <!-- TODO: filter 機能, 漏斗アイコン -->
-  <label>
-    <input type="checkbox" />
-    Native
-  </label>
-  <label>
-    <input type="checkbox" />
-    Custom
-  </label>
+  <select>
+    <option value="">{t("filter.select.all-emojis")}</option>
+    <option value="">{t("filter.select.native-emojis")}</option>
+    <option value="">{t("filter.select.custom-emojis")}</option>
+  </select>
 </div>
 
 <style>

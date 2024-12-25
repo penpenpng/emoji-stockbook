@@ -1,4 +1,13 @@
 {
+  "search.a11y.label": "emoji",
+  "search.placeholder": "shortcode / keyword",
+  "search.title.result": "Search Result",
+  "shortcut.title.frequently-used": "Frequently Used",
+  "shortcut.title.recently-used": "Recently Used",
+  "shortcut.button.clear-history": "Clear History",
+  "filter.select.all-emojis": "All emojis",
+  "filter.select.native-emojis": "Only native emojis",
+  "filter.select.custom-emojis": "Only custom emojis",
   "category.title.smileys-emotion": "Emotion",
   "category.title.people-body": "People",
   "category.title.animals-nature": "Nature",
@@ -7,10 +16,5 @@
   "category.title.activities": "Activities",
   "category.title.objects": "Objects",
   "category.title.symbols": "Symbols",
-  "category.title.flags": "Flags",
-  "shortcut.title.frequently-used": "Frequently Used",
-  "shortcut.title.recently-used": "Recently Used",
-  "search.a11y.label": "emoji",
-  "search.placeholder": "shortcode / keyword",
-  "search.title.result": "Search Result"
+  "category.title.flags": "Flags"
 }

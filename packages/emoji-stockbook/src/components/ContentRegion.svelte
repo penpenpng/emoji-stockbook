@@ -26,7 +26,9 @@
     <FoldableSection title={t(shortcutFeature.title)} expanded>
       {#snippet children()}
         <EmojiGrid emojis={shortcuts} />
-        <button onclick={() => shortcutFeature.clearHistory()}>forget</button>
+        <button onclick={() => shortcutFeature.clearHistory()}
+          >{t("shortcut.button.clear-history")}</button
+        >
       {/snippet}
     </FoldableSection>
   {/if}
