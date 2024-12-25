@@ -27,7 +27,7 @@
         <small class="emoji-meta-version">{emojiVersion}</small>
         {#if hasVariant}
           <small class="emoji-meta-variant"
-            >{t("variant.tip.has-variant")}</small
+            ><b>{t("variant.tip.has-variant")}</b></small
           >
         {/if}
       </div>

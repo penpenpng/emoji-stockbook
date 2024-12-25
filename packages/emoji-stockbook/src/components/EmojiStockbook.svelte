@@ -54,6 +54,12 @@
       color: var(--small-font-color);
     }
 
+    b {
+      font-size: inherit;
+      font-weight: normal;
+      color: var(--font-color);
+    }
+
     button {
       padding: 0;
       appearance: none;
