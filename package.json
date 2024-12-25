@@ -1,10 +1,10 @@
 {
   "name": "emoji-stockbook",
   "private": true,
+  "author": "penpenpng",
   "scripts": {
     "dev": "npm run dev -w packages/emoji-stockbook"
   },
-  "author": "penpenpng",
   "workspaces": [
     "packages/*",
     "apps/demo"

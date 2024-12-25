@@ -1,35 +1,72 @@
 <script lang="ts">
   import ContentRegion from "./ContentRegion.svelte";
-  import FoldableController from "./FoldableController.svelte";
+  // import FoldableController from "./FoldableController.svelte";
   import PreviewRegion from "./PreviewRegion.svelte";
-  import SearchInput from "./SearchInput.svelte";
+  import SearchRegion from "./SearchRegion.svelte";
 </script>
 
-<div class="host">
-  <PreviewRegion />
-  <FoldableController />
-  <SearchInput />
-  <ContentRegion />
+<div class="emoji-stockbook">
+  <div class="search-region">
+    <SearchRegion />
+  </div>
+  <!-- <div class="foldable-controller">
+    <FoldableController />
+  </div> -->
+  <div class="content-region">
+    <ContentRegion />
+  </div>
+  <div class="preview-region">
+    <PreviewRegion />
+  </div>
 </div>
 
 <style>
-  .host {
+  .emoji-stockbook {
     display: flex;
     flex-direction: column;
-    align-items: center;
     height: var(--height);
-    overflow: auto;
     background-color: var(--background-color);
   }
 
+  .search-region {
+    flex: 0 0 min-content;
+  }
+
+  .content-region {
+    flex-grow: 1;
+    overflow: auto;
+  }
+
+  .preview-region {
+    flex: 0 0 40px;
+  }
+
   /* stylelint-disable-next-line selector-pseudo-class-no-unknown -- :global is allowed as a svelte-specific syntax. */
-  :global :host {
+  :global .emoji-stockbook {
+    * {
+      font-family: var(--font-family);
+      color: var(--font-color);
+    }
+
+    small {
+      color: var(--small-font-color);
+    }
+
     button {
       padding: 0;
       appearance: none;
       cursor: pointer;
       background-color: transparent;
       border: none;
+    }
+
+    input[type="search"] {
+      padding: 0.375em 0.75em;
+      appearance: none;
+      background-color: white;
+      border: 0.5px solid gray;
+      border-radius: 5px;
+      box-shadow: none;
     }
   }
 </style>

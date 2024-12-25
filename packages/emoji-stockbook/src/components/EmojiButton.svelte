@@ -4,6 +4,7 @@
   import { usePreviewFeature } from "../lib/use-preview-feature";
   import { useShortcutFeature } from "../lib/use-shortcut-feature";
   import type { Emoji } from "../types";
+  import EmojiAtom from "./EmojiAtom.svelte";
 
   const {
     emoji,
@@ -41,10 +42,6 @@
     event.preventDefault();
   };
 
-  const showPreview = () => {
-    previewFeature.showPreview(emoji);
-  };
-
   const onclick = () => {
     const output = makeEmojiOutput(emoji);
     dispatch("pick", output);
@@ -52,14 +49,14 @@
   };
 </script>
 
-<button {onclick} {onkeydown} onfocus={showPreview} onmouseenter={showPreview}>
-  {#if emoji.kind === "native"}
-    <!-- native emoji -->
-    {emoji.char}
-  {:else}
-    <!-- custom emoji -->
-    <img alt={emoji.alt ?? emoji.shortcode} src={emoji.src} />
-  {/if}
+<button
+  {onclick}
+  {onkeydown}
+  onfocus={() => previewFeature.notifyFocus(emoji)}
+  onblur={() => previewFeature.notifyFocus(null)}
+  onmouseenter={() => previewFeature.notifyHover(emoji)}
+>
+  <EmojiAtom {emoji} />
 </button>
 
 <style>

@@ -1,14 +1,16 @@
 {
-  "category.title.smileys-emotion": "感情",
-  "category.title.people-body": "人物",
-  "category.title.animals-nature": "自然",
+  "category.title.smileys-emotion": "表情・感情",
+  "category.title.people-body": "体・人物",
+  "category.title.animals-nature": "動物・自然",
   "category.title.food-drink": "食べ物",
   "category.title.travel-places": "場所",
-  "category.title.activities": "活動",
+  "category.title.activities": "アクティビティ",
   "category.title.objects": "モノ",
   "category.title.symbols": "シンボル",
   "category.title.flags": "旗",
   "shortcut.title.frequently-used": "よく使う絵文字",
   "shortcut.title.recently-used": "最近使った絵文字",
-  "search-result.title": "検索結果"
+  "search.a11y.label": "絵文字",
+  "search.placeholder": "ショートコード・キーワード",
+  "search.title.result": "検索結果"
 }

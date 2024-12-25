@@ -2,24 +2,20 @@ import type { Emoji } from "../../types";
 
 export interface IPreviewFeature {
   readonly preview: Emoji | null;
-  showPreview(emoji: Emoji): void;
-  hidePreview(): void;
-}
-
-class State {
-  preview = $state<Emoji | null>(null);
+  notifyFocus(emoji: Emoji | null): void;
+  notifyHover(emoji: Emoji | null): void;
 }
 
 export class PreviewFeature implements IPreviewFeature {
-  state = new State();
+  private focused = $state<Emoji | null>(null);
+  private hovered = $state<Emoji | null>(null);
+  readonly preview = $derived.by(() => this.hovered ?? this.focused ?? null);
 
-  readonly preview = $derived.by(() => this.state.preview);
-
-  showPreview(emoji: Emoji): void {
-    this.state.preview = emoji;
+  notifyFocus(emoji: Emoji | null): void {
+    this.focused = emoji;
   }
 
-  hidePreview(): void {
-    this.state.preview = null;
+  notifyHover(emoji: Emoji | null): void {
+    this.hovered = emoji;
   }
 }

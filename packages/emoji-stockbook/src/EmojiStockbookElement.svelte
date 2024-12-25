@@ -60,5 +60,27 @@
     --height: var(--esb-height, 450px);
     --cell-size: var(--esb-cell-size, 32px);
     --cell-gap: var(--esb-cell-gap, 4px);
+    --font-color: var(--esb-font-color, black);
+    --small-font-color: var(--esb-small-font-color, gray);
+    --font-family: var(
+      --esb-font-family,
+      "Helvetica Neue",
+      Arial,
+      "Hiragino Kaku Gothic ProN",
+      "Hiragino Sans",
+      Meiryo,
+      sans-serif
+    );
+    --emoji-font-family: var(
+      --esb-emoji-font-family,
+      "Twemoji Mozilla",
+      "Apple Color Emoji",
+      "Segoe UI Emoji",
+      "Segoe UI Symbol",
+      "Noto Color Emoji",
+      "EmojiOne Color",
+      "Android Emoji",
+      sans-serif
+    );
   }
 </style>

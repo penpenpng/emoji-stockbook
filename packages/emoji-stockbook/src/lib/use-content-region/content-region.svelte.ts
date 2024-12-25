@@ -22,7 +22,7 @@ export class ContentRegion implements IContentRegion {
         {
           id: "stockbook-search-result",
           emojis: this.searchFeature.result,
-          name: "search-result.title",
+          name: "search.title.result",
         },
       ];
     } else {

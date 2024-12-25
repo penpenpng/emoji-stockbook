@@ -1,5 +1,6 @@
 <script lang="ts">
   import { useCustomElementProperty } from "../lib/use-custom-element-property";
+  import { usePreviewFeature } from "../lib/use-preview-feature";
   import { UArray } from "../lib/utils";
   import type { Emoji } from "../types";
   import EmojiButton from "./EmojiButton.svelte";
@@ -7,6 +8,7 @@
   const { emojis }: { emojis: Emoji[] } = $props();
 
   const rootProps = useCustomElementProperty();
+  const previewFeature = usePreviewFeature();
 
   const rowGroupCount = 20;
   const colCount = $derived(rootProps.col);
@@ -40,7 +42,17 @@
   };
 </script>
 
-<div bind:this={gridElement} role="grid" aria-colcount={colCount} class="grid">
+<!-- svelte-ignore a11y_interactive_supports_focus
+  -- `gridElement` itself is not interactive.
+     Semantically, this callback should be registered against the EmojiButtons,
+     but it is registered here as a hack to prevent flickering. -->
+<div
+  bind:this={gridElement}
+  role="grid"
+  aria-colcount={colCount}
+  class="grid"
+  onmouseleave={() => previewFeature.notifyHover(null)}
+>
   {#each rowGroups as rowGroupProps, idx (rowGroupProps[0][0].id)}
     {@render rowGroup(rowGroupProps, idx + 1)}
   {/each}
