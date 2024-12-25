@@ -3,7 +3,7 @@
   "shortcut.title.recently-used": "最近使った絵文字",
   "shortcut.button.clear-history": "履歴を消去する",
   "search.a11y.label": "絵文字",
-  "search.placeholder": "ショートコード・キーワード",
+  "search.placeholder": "絵文字を検索",
   "search.title.result": "検索結果",
   "filter.select.all-emojis": "すべての絵文字",
   "filter.select.native-emojis": "通常の絵文字のみ",
@@ -16,5 +16,7 @@
   "category.title.activities": "アクティビティ",
   "category.title.objects": "モノ",
   "category.title.symbols": "シンボル",
-  "category.title.flags": "旗"
+  "category.title.flags": "旗",
+  "emojiset.custom-emoji": "カスタム絵文字",
+  "variant.tip.has-variant": "色を選択できます"
 }

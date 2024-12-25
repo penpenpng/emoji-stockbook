@@ -1,6 +1,6 @@
 {
   "search.a11y.label": "emoji",
-  "search.placeholder": "shortcode / keyword",
+  "search.placeholder": "Search",
   "search.title.result": "Search Result",
   "shortcut.title.frequently-used": "Frequently Used",
   "shortcut.title.recently-used": "Recently Used",
@@ -16,5 +16,7 @@
   "category.title.activities": "Activities",
   "category.title.objects": "Objects",
   "category.title.symbols": "Symbols",
-  "category.title.flags": "Flags"
+  "category.title.flags": "Flags",
+  "emojiset.custom-emoji": "Custom Emoji",
+  "variant.tip.has-variant": "Skin options available"
 }
