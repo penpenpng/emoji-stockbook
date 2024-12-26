@@ -1,4 +1,4 @@
-import type { Emoji } from "../../types";
+import type { Emoji } from "@/types";
 
 export interface IPreviewFeature {
   readonly preview: Emoji | null;

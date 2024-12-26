@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { usePreviewFeature } from "../lib/use-preview-feature";
-  import { useTranslation } from "../lib/use-translation";
+  import { usePreviewFeature } from "@/lib/use-preview-feature";
+  import { useTranslation } from "@/lib/use-translation";
   import AtomEmoji from "./AtomEmoji.svelte";
 
   const previewFeature = usePreviewFeature();
@@ -8,13 +8,17 @@
 
   const emoji = $derived(previewFeature.preview);
   const emojiVersion = $derived.by(() => {
+    if (!emoji) {
+      return "";
+    }
+
     if (emoji.kind === "native") {
       return `Emoji ${emoji.version}`;
     } else {
       return t("emojiset.custom-emoji");
     }
   });
-  const hasVariant = $derived(emoji.kind === "native" && !!emoji.variants);
+  const hasVariant = $derived(emoji?.kind === "native" && !!emoji.variants);
 </script>
 
 <div class="preview" role="status" aria-live="polite">

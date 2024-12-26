@@ -1,10 +1,10 @@
 <script lang="ts">
+  import { LocalStorageHistoryManager } from "@/lib/history-manager";
+  import en from "@/lib/locales/en.json";
+  import ja from "@/lib/locales/ja.json";
+  import { onMount } from "svelte";
   import "./EmojiStockbookElement.svelte";
   import EmojiStockbook from "./EmojiStockbookElement.svelte";
-  import { onMount } from "svelte";
-  import { LocalStorageHistoryManager } from "./lib/history-manager";
-  import en from "./lib/locales/en.json";
-  import ja from "./lib/locales/ja.json";
 
   let col = $state(8);
   let lang = $state(null);

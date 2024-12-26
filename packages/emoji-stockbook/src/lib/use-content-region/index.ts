@@ -1,4 +1,4 @@
-import { customElementScopedValue } from "../custom-element-scoped-value";
+import { customElementScopedValue } from "@/lib/custom-element-scoped-value";
 import { type IContentRegion, ContentRegion } from "./content-region.svelte";
 
 export type { IContentRegion };

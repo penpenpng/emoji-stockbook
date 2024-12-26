@@ -1,4 +1,4 @@
-import type { Emoji, EmojiOutput } from "../types";
+import type { Emoji, EmojiOutput } from "@/types";
 
 export const makeEmojiOutput = (emoji: Emoji): EmojiOutput => {
   // Don't use spread syntax to plune unneeded fields.

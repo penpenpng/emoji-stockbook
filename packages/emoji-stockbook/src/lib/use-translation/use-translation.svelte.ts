@@ -1,5 +1,5 @@
+import { useCustomElementProperty } from "@/lib/use-custom-element-property";
 import resourceEn from "../locales/en.json";
-import { useCustomElementProperty } from "../use-custom-element-property";
 import { useLangResolver } from "./lang-resolver.svelte";
 
 export type I18nResource = Record<

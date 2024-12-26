@@ -1,4 +1,4 @@
-import { UArray } from "../utils";
+import { UArray } from "@/lib/utils";
 
 export interface IFoldables {
   openAll(): void;

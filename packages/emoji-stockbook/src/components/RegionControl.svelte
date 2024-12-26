@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { useFoldables } from "../lib/use-foldables";
-  import { useSearchFeature } from "../lib/use-search-feature";
-  import { useTranslation } from "../lib/use-translation";
+  import { useFoldables } from "@/lib/use-foldables";
+  import { useSearchFeature } from "@/lib/use-search-feature";
+  import { useTranslation } from "@/lib/use-translation";
 
   const searchFeature = useSearchFeature();
   const foldables = useFoldables();

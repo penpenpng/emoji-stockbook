@@ -1,5 +1,5 @@
-import type { Emoji } from "../../types";
-import { useEmojiRepository } from "../use-emoji-repository";
+import { useEmojiRepository } from "@/lib/use-emoji-repository";
+import type { Emoji } from "@/types";
 
 export interface ISearchFeature {
   readonly searching: boolean;

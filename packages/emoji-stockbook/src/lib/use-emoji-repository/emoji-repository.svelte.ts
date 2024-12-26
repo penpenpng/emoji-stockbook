@@ -1,8 +1,8 @@
-import type { Emoji, EmojiCategory, EmojiSpecifier } from "../../types";
-import { getEmojisetRegistry } from "../emojiset-registry";
-import { Logger } from "../logger";
-import { includeVersions } from "../native-emoji-versions";
-import { useCustomElementProperty } from "../use-custom-element-property";
+import { getEmojisetRegistry } from "@/lib/emojiset-registry";
+import { Logger } from "@/lib/logger";
+import { includeVersions } from "@/lib/native-emoji-versions";
+import { useCustomElementProperty } from "@/lib/use-custom-element-property";
+import type { Emoji, EmojiCategory, EmojiSpecifier } from "@/types";
 
 export interface IEmojiRepository {
   readonly categories: Promise<EmojiCategory[]>;

@@ -14,12 +14,13 @@
     "allowJs": true,
     "checkJs": true,
     "isolatedModules": true,
-    "moduleDetection": "force"
+    "moduleDetection": "force",
+    // path alias (see vite.config.js#resolve.alias)
+    "baseUrl": "./src",
+    "paths": {
+      "@/*": ["./*"]
+    }
   },
-  "include": [
-    "packages/emoji-stockbook/src/**/*.ts",
-    "packages/emoji-stockbook/src/**/*.js",
-    "packages/emoji-stockbook/src/**/*.svelte"
-  ],
+  "include": ["src/**/*.ts", "src/**/*.js", "src/**/*.svelte"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

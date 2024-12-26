@@ -1,5 +1,5 @@
-import type { IHistoryManager } from "../history-manager";
-import type { I18nResource } from "../use-translation";
+import type { IHistoryManager } from "@/lib/history-manager";
+import type { I18nResource } from "@/lib/use-translation";
 
 // Note that we should also edit `<svelte:options customElement>`
 export interface AcceptableEmojiStockbookProperty {
@@ -50,7 +50,7 @@ export class EmojiStockbookProperty implements IEmojiStockbookProperty {
     }
   });
 
-  constructor(props) {
+  constructor(props: AcceptableEmojiStockbookProperty) {
     this.props = props;
   }
 }

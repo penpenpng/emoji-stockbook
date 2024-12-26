@@ -1,6 +1,6 @@
 <script lang="ts">
+  import { useFoldables } from "@/lib/use-foldables";
   import { type Snippet, onMount } from "svelte";
-  import { useFoldables } from "../lib/use-foldables";
 
   let {
     title = "",

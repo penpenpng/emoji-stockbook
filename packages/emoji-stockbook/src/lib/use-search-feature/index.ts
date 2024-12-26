@@ -1,4 +1,4 @@
-import { customElementScopedValue } from "../custom-element-scoped-value";
+import { customElementScopedValue } from "@/lib/custom-element-scoped-value";
 import { type ISearchFeature, SearchFeature } from "./search-feature.svelte";
 
 export type { ISearchFeature };

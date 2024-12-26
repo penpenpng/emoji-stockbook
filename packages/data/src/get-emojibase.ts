@@ -1,6 +1,6 @@
+import type { Emoji as EmojibaseEmoji } from "emojibase";
 import emojibase from "emojibase-data/en/data.json";
 import versions from "emojibase-data/versions/emoji.json";
-import type { Emoji as EmojibaseEmoji } from "emojibase";
 import { UArray, UFunc } from "./utils/index.js";
 
 export const getEmojibase = (version: number): EmojibaseEmoji[] =>
@@ -17,7 +17,7 @@ export const getEmojibase = (version: number): EmojibaseEmoji[] =>
     return {
       ...emoji,
       skins: UFunc.ifexist(emoji.skins, (skins) =>
-        skins.filter((skin) => skin.version <= version),
+        skins.filter((skin) => skin.version <= version)
       ),
     };
   });

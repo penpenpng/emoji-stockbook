@@ -1,9 +1,9 @@
 <script lang="ts">
-  import { makeEmojiOutput } from "../lib/make-emoji-output";
-  import { useCustomElementEventDispatcher } from "../lib/use-custom-element-event-dispatcher";
-  import { usePreviewFeature } from "../lib/use-preview-feature";
-  import { useShortcutFeature } from "../lib/use-shortcut-feature";
-  import type { Emoji } from "../types";
+  import { makeEmojiOutput } from "@/lib/make-emoji-output";
+  import { useCustomElementEventDispatcher } from "@/lib/use-custom-element-event-dispatcher";
+  import { usePreviewFeature } from "@/lib/use-preview-feature";
+  import { useShortcutFeature } from "@/lib/use-shortcut-feature";
+  import type { Emoji } from "@/types";
   import AtomEmoji from "./AtomEmoji.svelte";
 
   const {

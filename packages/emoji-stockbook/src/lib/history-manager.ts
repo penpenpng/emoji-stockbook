@@ -1,7 +1,7 @@
-import type { EmojiSpecifier } from "../types";
-import { Logger } from "./logger";
-import { pointsSame } from "./points-same";
-import { UArray } from "./utils";
+import { Logger } from "@/lib/logger";
+import { pointsSame } from "@/lib/points-same";
+import { UArray } from "@/lib/utils";
+import type { EmojiSpecifier } from "@/types";
 
 export interface IHistoryManager {
   updateHistory(pointer: EmojiSpecifier): void;

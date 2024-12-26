@@ -1,3 +1,4 @@
+import { Logger } from "@/lib/logger";
 import type {
   Emoji,
   EmojiCategory,
@@ -5,8 +6,7 @@ import type {
   EmojisetInput,
   MaybePromise,
   ValueOrGetter,
-} from "../../types";
-import { Logger } from "../logger";
+} from "@/types";
 import { makeEmojiset } from "./make-emojiset";
 import { nativeEmojiset } from "./native-emojisets";
 

@@ -1,9 +1,9 @@
 <script lang="ts">
-  import { useContentRegion } from "../lib/use-content-region";
-  import { useCustomElementProperty } from "../lib/use-custom-element-property";
-  import { useSearchFeature } from "../lib/use-search-feature";
-  import { useShortcutFeature } from "../lib/use-shortcut-feature";
-  import { useTranslation } from "../lib/use-translation";
+  import { useContentRegion } from "@/lib/use-content-region";
+  import { useCustomElementProperty } from "@/lib/use-custom-element-property";
+  import { useSearchFeature } from "@/lib/use-search-feature";
+  import { useShortcutFeature } from "@/lib/use-shortcut-feature";
+  import { useTranslation } from "@/lib/use-translation";
   import EmojiGrid from "./EmojiGrid.svelte";
   import FoldableSection from "./FoldableSection.svelte";
 

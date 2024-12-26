@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
-import { getEmojibase, getVersions } from "./get-emojibase";
 import { build } from "./build";
+import { getEmojibase, getVersions } from "./get-emojibase";
 import { emojiJsonTypeDef } from "./types";
 
 const dist = path.resolve(__dirname, "..", "dist");

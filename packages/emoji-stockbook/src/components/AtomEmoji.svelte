@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Emoji } from "../types";
+  import type { Emoji } from "@/types";
 
   const {
     emoji,

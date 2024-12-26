@@ -1,6 +1,6 @@
 import type { Emoji as EmojibaseEmoji } from "emojibase";
-import groups from "emojibase-data/meta/groups.json";
 import shortcodes from "emojibase-data/en/shortcodes/emojibase.json";
+import groups from "emojibase-data/meta/groups.json";
 import type { Emoji, Emojiset } from "./types";
 import { UArray } from "./utils";
 
@@ -56,6 +56,6 @@ export const build = (emojis: EmojibaseEmoji[]): Emojiset => {
         name: `category.title.${groups.groups[`${groupNumber}`]}`,
         emojis,
       };
-    },
+    }
   );
 };

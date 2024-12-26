@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { useCustomElementProperty } from "../lib/use-custom-element-property";
-  import { usePreviewFeature } from "../lib/use-preview-feature";
-  import { UArray } from "../lib/utils";
-  import type { Emoji } from "../types";
+  import { useCustomElementProperty } from "@/lib/use-custom-element-property";
+  import { usePreviewFeature } from "@/lib/use-preview-feature";
+  import { UArray } from "@/lib/utils";
+  import type { Emoji } from "@/types";
   import EmojiButton from "./EmojiButton.svelte";
 
   const { emojis }: { emojis: Emoji[] } = $props();
@@ -31,7 +31,7 @@
       return false;
     } else {
       const [rowIndex, colIndex] = motion;
-      const nextTarget = gridElement.querySelector<HTMLButtonElement>(
+      const nextTarget = gridElement?.querySelector<HTMLButtonElement>(
         `[aria-rowindex="${rowIndex}"] > [aria-colindex="${colIndex}"] button`
       );
 

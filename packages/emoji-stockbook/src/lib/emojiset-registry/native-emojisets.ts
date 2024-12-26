@@ -1,4 +1,4 @@
-import type { NativeEmojisetInput } from "../../types";
+import type { NativeEmojisetInput } from "@/types";
 
 import emoji1 from "@emoji-stockbook/data/1.json";
 import emoji16 from "@emoji-stockbook/data/16.json";

@@ -1,5 +1,5 @@
-import type { EmojiOutput } from "../types";
-import { customElementScopedValue } from "./custom-element-scoped-value";
+import { customElementScopedValue } from "@/lib/custom-element-scoped-value";
+import type { EmojiOutput } from "@/types";
 
 export interface ComponentEventDispatcher {
   (type: "initialized"): void;

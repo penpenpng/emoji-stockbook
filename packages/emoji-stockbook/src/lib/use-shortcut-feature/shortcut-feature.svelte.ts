@@ -1,7 +1,7 @@
-import type { Emoji, EmojiOutput } from "../../types";
+import { useCustomElementProperty } from "@/lib/use-custom-element-property";
+import { useEmojiRepository } from "@/lib/use-emoji-repository";
+import type { Emoji, EmojiOutput } from "@/types";
 import { LocalStorageHistoryManager } from "../history-manager";
-import { useCustomElementProperty } from "../use-custom-element-property";
-import { useEmojiRepository } from "../use-emoji-repository";
 
 export interface IShortcutFeature {
   readonly title: string;

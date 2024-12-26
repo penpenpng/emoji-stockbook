@@ -9,7 +9,7 @@ import type {
   NativeEmojiCategory,
   NativeEmojiCategoryInput,
   NativeEmojiInput,
-} from "../../types";
+} from "@/types";
 
 const makeNativeEmoji =
   (key: string) =>

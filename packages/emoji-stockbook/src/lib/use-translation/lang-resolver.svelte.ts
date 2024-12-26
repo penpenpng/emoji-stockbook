@@ -1,5 +1,5 @@
-import { customElementScopedValue } from "../custom-element-scoped-value";
-import { useCustomElementProperty } from "../use-custom-element-property";
+import { customElementScopedValue } from "@/lib/custom-element-scoped-value";
+import { useCustomElementProperty } from "@/lib/use-custom-element-property";
 
 export interface ILangResolver {
   readonly lang: string;
