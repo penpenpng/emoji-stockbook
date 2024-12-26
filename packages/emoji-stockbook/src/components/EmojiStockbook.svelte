@@ -1,17 +1,13 @@
 <script lang="ts">
   import ContentRegion from "./ContentRegion.svelte";
-  // import FoldableController from "./FoldableController.svelte";
+  import ControlRegion from "./ControlRegion.svelte";
   import PreviewRegion from "./PreviewRegion.svelte";
-  import SearchRegion from "./SearchRegion.svelte";
 </script>
 
 <div class="emoji-stockbook">
-  <div class="search-region">
-    <SearchRegion />
+  <div class="control-region">
+    <ControlRegion />
   </div>
-  <!-- <div class="foldable-controller">
-    <FoldableController />
-  </div> -->
   <div class="content-region">
     <ContentRegion />
   </div>
@@ -28,7 +24,7 @@
     background-color: var(--background-color);
   }
 
-  .search-region {
+  .control-region {
     flex: 0 0 min-content;
   }
 

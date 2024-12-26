@@ -1,8 +1,10 @@
 <script lang="ts">
+  import { useFoldables } from "../lib/use-foldables";
   import { useSearchFeature } from "../lib/use-search-feature";
   import { useTranslation } from "../lib/use-translation";
 
   const searchFeature = useSearchFeature();
+  const foldables = useFoldables();
   const { t } = useTranslation();
 
   let query = $state("");
@@ -26,6 +28,9 @@
     <option value="">{t("filter.select.native-emojis")}</option>
     <option value="">{t("filter.select.custom-emojis")}</option>
   </select>
+
+  <button onclick={() => foldables.openAll()}>open all</button>
+  <button onclick={() => foldables.closeAll()}>close all</button>
 </div>
 
 <style>
