@@ -64,12 +64,13 @@
       border: none;
     }
 
-    input[type="search"] {
-      padding: 0.375em 0.75em;
+    input {
+      padding: 0;
       appearance: none;
-      background-color: white;
-      border: 0.5px solid gray;
-      border-radius: 5px;
+      background-color: transparent;
+      border: 0;
+      border-radius: 0;
+      outline: 0;
       box-shadow: none;
     }
   }

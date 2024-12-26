@@ -1,7 +1,7 @@
 <script lang="ts">
   import { LocalStorageHistoryManager } from "@/lib/history-manager";
-  import en from "@/lib/locales/en.json";
-  import ja from "@/lib/locales/ja.json";
+  import en from "@/locales/en.json";
+  import ja from "@/locales/ja.json";
   import { onMount } from "svelte";
   import "./EmojiStockbookElement.svelte";
   import EmojiStockbook from "./EmojiStockbookElement.svelte";

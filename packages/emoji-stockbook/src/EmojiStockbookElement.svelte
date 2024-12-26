@@ -62,6 +62,7 @@
     --cell-gap: var(--esb-cell-gap, 4px);
     --font-color: var(--esb-font-color, black);
     --small-font-color: var(--esb-small-font-color, gray);
+    --icon-color: var(--esb-icon-color, gray);
     --font-family: var(
       --esb-font-family,
       "Helvetica Neue",
