@@ -1,7 +1,7 @@
 <script lang="ts">
   import { usePreviewFeature } from "../lib/use-preview-feature";
   import { useTranslation } from "../lib/use-translation";
-  import EmojiAtom from "./EmojiAtom.svelte";
+  import AtomEmoji from "./AtomEmoji.svelte";
 
   const previewFeature = usePreviewFeature();
   const { t } = useTranslation();
@@ -19,7 +19,7 @@
 
 <div class="preview" role="status" aria-live="polite">
   {#if emoji}
-    <EmojiAtom {emoji} />
+    <AtomEmoji {emoji} />
 
     <div class="emoji-info">
       <div class="emoji-shortcode">{emoji.shortcode}</div>

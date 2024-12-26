@@ -1,18 +1,18 @@
 <script lang="ts">
-  import ContentRegion from "./ContentRegion.svelte";
-  import ControlRegion from "./ControlRegion.svelte";
-  import PreviewRegion from "./PreviewRegion.svelte";
+  import RegionContent from "./RegionContent.svelte";
+  import RegionControl from "./RegionControl.svelte";
+  import RegionPreview from "./RegionPreview.svelte";
 </script>
 
 <div class="emoji-stockbook">
-  <div class="control-region">
-    <ControlRegion />
+  <div class="region-control">
+    <RegionControl />
   </div>
-  <div class="content-region">
-    <ContentRegion />
+  <div class="region-content">
+    <RegionContent />
   </div>
-  <div class="preview-region">
-    <PreviewRegion />
+  <div class="region-preview">
+    <RegionPreview />
   </div>
 </div>
 
@@ -24,16 +24,16 @@
     background-color: var(--background-color);
   }
 
-  .control-region {
+  .region-control {
     flex: 0 0 min-content;
   }
 
-  .content-region {
+  .region-content {
     flex-grow: 1;
     overflow: auto;
   }
 
-  .preview-region {
+  .region-preview {
     flex: 0 0 50px;
   }
 

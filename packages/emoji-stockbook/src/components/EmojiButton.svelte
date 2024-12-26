@@ -4,7 +4,7 @@
   import { usePreviewFeature } from "../lib/use-preview-feature";
   import { useShortcutFeature } from "../lib/use-shortcut-feature";
   import type { Emoji } from "../types";
-  import EmojiAtom from "./EmojiAtom.svelte";
+  import AtomEmoji from "./AtomEmoji.svelte";
 
   const {
     emoji,
@@ -56,7 +56,7 @@
   onblur={() => previewFeature.notifyFocus(null)}
   onmouseenter={() => previewFeature.notifyHover(emoji)}
 >
-  <EmojiAtom {emoji} />
+  <AtomEmoji {emoji} />
 </button>
 
 <style>
