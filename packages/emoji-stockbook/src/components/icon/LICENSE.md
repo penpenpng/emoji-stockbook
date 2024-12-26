@@ -1,6 +1,6 @@
 # emoji-stockbook Icon Assets
 
-`chevron-right.svg`, `filter.svg`, `folder-open.svg`, `folder.svg`, and `search.svg` are used under the following license:
+The svg icons in this directory are modified version of Tabler Icons.
 
 ```
 Copyright (c) 2018-2024 Tabler
