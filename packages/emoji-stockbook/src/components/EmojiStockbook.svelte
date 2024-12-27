@@ -20,6 +20,7 @@
   .emoji-stockbook {
     display: flex;
     flex-direction: column;
+    width: var(--width, min-content);
     height: var(--height);
     background-color: var(--background-color);
   }

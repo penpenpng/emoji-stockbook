@@ -49,17 +49,25 @@
   useLangResolver.setup();
   useShortcutFeature.setup();
   usePreviewFeature.setup();
+
+  const rootProps = useCustomElementProperty();
 </script>
 
-<EmojiStockbook />
+<div style:--col={rootProps.col}>
+  <EmojiStockbook />
+</div>
 
 <style>
   :host {
+    display: block;
+    width: min-content;
+
     /* TODO: color */
     --background-color: var(--esb-background-color, #e6fcca);
-    --height: var(--esb-height, 450px);
     --cell-size: var(--esb-cell-size, 40px);
     --cell-emoji-size: var(--esb-cell-emoji-size, 40px);
+    --height: var(--esb-height, 460px);
+    --width: var(--esb-width);
     --font-color: var(--esb-font-color, black);
     --small-font-color: var(--esb-small-font-color, gray);
     --icon-color: var(--esb-icon-color, gray);

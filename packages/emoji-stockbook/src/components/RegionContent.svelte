@@ -4,6 +4,7 @@
   import { useSearchFeature } from "@/lib/use-search-feature";
   import { useShortcutFeature } from "@/lib/use-shortcut-feature";
   import { useTranslation } from "@/lib/use-translation";
+  import ContentPlaceholder from "./ContentPlaceholder.svelte";
   import EmojiGrid from "./EmojiGrid.svelte";
   import FoldableSection from "./FoldableSection.svelte";
 
@@ -49,6 +50,8 @@
     <!-- TODO:エラー時の表示 -->
     Error: {err}
   {/await}
+
+  <ContentPlaceholder />
 </div>
 
 <style>
