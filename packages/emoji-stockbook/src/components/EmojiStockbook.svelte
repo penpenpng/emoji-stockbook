@@ -30,7 +30,7 @@
 
   .region-content {
     flex-grow: 1;
-    overflow: auto;
+    overflow-y: scroll;
   }
 
   .region-preview {
@@ -39,10 +39,24 @@
 
   /* stylelint-disable-next-line selector-pseudo-class-no-unknown -- :global is allowed as a svelte-specific syntax. */
   :global .emoji-stockbook {
+    --focus-outline-width: 2px;
+
     * {
       font-family: var(--font-family);
-      font-size: 16px;
+      font-size: 1rem;
       color: var(--font-color);
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      padding: 0;
+      margin: 0;
+      font-size: 1rem;
+      font-weight: bold;
     }
 
     small {
@@ -62,6 +76,13 @@
       cursor: pointer;
       background-color: transparent;
       border: none;
+      outline: none;
+    }
+
+    button:focus {
+      position: relative; /* To prevent outlines from being hidden */
+      z-index: 1; /* To prevent outlines from being hidden */
+      outline: var(--focus-outline-width) solid black;
     }
 
     input {

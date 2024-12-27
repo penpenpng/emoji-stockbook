@@ -18,33 +18,41 @@
   );
 </script>
 
-{#await region}
-  <!-- TODO: loading 中の表示 -->
-  loading...
-{:then [shortcuts, sections]}
-  {#if !searchFeature.searching && rootProps.shortcut && shortcuts.length > 0}
-    <FoldableSection title={t(shortcutFeature.title)} expanded>
-      {#snippet children()}
-        <EmojiGrid emojis={shortcuts} />
-        <button onclick={() => shortcutFeature.clearHistory()}
-          >{t("shortcut.button.clear-history")}</button
-        >
-      {/snippet}
-    </FoldableSection>
-  {/if}
+<div class="content">
+  {#await region}
+    <!-- TODO: loading 中の表示 -->
+    loading...
+  {:then [shortcuts, sections]}
+    {#if !searchFeature.searching && rootProps.shortcut && shortcuts.length > 0}
+      <FoldableSection title={t(shortcutFeature.title)} expanded>
+        {#snippet children()}
+          <EmojiGrid emojis={shortcuts} />
+          <button onclick={() => shortcutFeature.clearHistory()}
+            >{t("shortcut.button.clear-history")}</button
+          >
+        {/snippet}
+      </FoldableSection>
+    {/if}
 
-  {#each sections as section (section.id)}
-    <FoldableSection
-      title={t(section.name)}
-      disabled={searchFeature.searching}
-      expanded
-    >
-      {#snippet children()}
-        <EmojiGrid emojis={section.emojis} />
-      {/snippet}
-    </FoldableSection>
-  {/each}
-{:catch err}
-  <!-- TODO:エラー時の表示 -->
-  Error: {err}
-{/await}
+    {#each sections as section (section.id)}
+      <FoldableSection
+        title={t(section.name)}
+        disabled={searchFeature.searching}
+        expanded
+      >
+        {#snippet children()}
+          <EmojiGrid emojis={section.emojis} />
+        {/snippet}
+      </FoldableSection>
+    {/each}
+  {:catch err}
+    <!-- TODO:エラー時の表示 -->
+    Error: {err}
+  {/await}
+</div>
+
+<style>
+  .content {
+    padding: 0.75em;
+  }
+</style>

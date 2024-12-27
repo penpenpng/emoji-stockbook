@@ -2,6 +2,7 @@
   import { useFoldables } from "@/lib/use-foldables";
   import { useSearchFeature } from "@/lib/use-search-feature";
   import { useTranslation } from "@/lib/use-translation";
+  import IconChevron from "./icon/IconChevronDown.svelte";
   import IconFilter from "./icon/IconFilter.svelte";
   import IconFolderClose from "./icon/IconFolderClose.svelte";
   import IconFolderOpen from "./icon/IconFolderOpen.svelte";
@@ -12,6 +13,7 @@
   const { t } = useTranslation();
 
   let query = $state("");
+  let selectElement = $state<HTMLSelectElement>();
 </script>
 
 <div class="control">
@@ -50,6 +52,7 @@
 
 <style>
   .control {
+    padding: 0.5rem;
     /* TODO: 色をいい感じにする */
     background-color: aliceblue;
   }
@@ -65,6 +68,11 @@
     cursor: text;
     border: 0.5px solid gray;
     border-radius: 5px;
+    outline: none;
+  }
+
+  .search-input:has(:focus) {
+    outline: var(--focus-outline-width) solid black;
   }
 
   .search-input input {
@@ -76,6 +84,7 @@
   .row {
     display: flex;
     flex-direction: row;
+    margin-top: 0.2rem;
   }
 
   .foldable-control {
@@ -83,5 +92,10 @@
     flex-grow: 1;
     flex-direction: row;
     justify-content: end;
+  }
+
+  .foldable-control button {
+    display: grid;
+    place-content: center;
   }
 </style>

@@ -1,6 +1,9 @@
 <script lang="ts">
   import { useFoldables } from "@/lib/use-foldables";
+  import { useTranslation } from "@/lib/use-translation";
   import { type Snippet, onMount } from "svelte";
+  import IconChevronDown from "./icon/IconChevronDown.svelte";
+  import IconChevronRight from "./icon/IconChevronRight.svelte";
 
   let {
     title = "",
@@ -21,6 +24,7 @@
   const ifEnabled = <T,>(v: T) => (disabled || !children ? undefined : v);
 
   const foldables = useFoldables();
+  const { t } = useTranslation();
 
   onMount(() => {
     const operator = {
@@ -42,18 +46,26 @@
 
 <section>
   {#if title}
-    {#if disabled}
-      <h3>{title}</h3>
-    {:else}
-      <button
-        id={invokerId}
-        aria-controls={contentId}
-        aria-expanded={expanded ? "true" : "false"}
-        onclick={() => (expanded = !expanded)}
-      >
+    <div class="title">
+      {#if disabled}
         <h3>{title}</h3>
-      </button>
-    {/if}
+      {:else}
+        <button
+          id={invokerId}
+          aria-controls={contentId}
+          aria-expanded={expanded ? "true" : "false"}
+          onclick={() => (expanded = !expanded)}
+        >
+          {#if expanded}
+            <IconChevronDown alt={t("foldable.a11y.close")} />
+          {:else}
+            <IconChevronRight alt={t("foldable.a11y.open")} />
+          {/if}
+
+          <h3>{title}</h3>
+        </button>
+      {/if}
+    </div>
   {/if}
 
   <div
@@ -65,3 +77,15 @@
     {@render children?.()}
   </div>
 </section>
+
+<style>
+  .title {
+    padding-block: 0.2em;
+  }
+
+  button {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+</style>

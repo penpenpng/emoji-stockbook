@@ -59,7 +59,7 @@
     --background-color: var(--esb-background-color, #e6fcca);
     --height: var(--esb-height, 450px);
     --cell-size: var(--esb-cell-size, 32px);
-    --cell-gap: var(--esb-cell-gap, 4px);
+    --cell-gap: var(--esb-cell-gap, 2px);
     --font-color: var(--esb-font-color, black);
     --small-font-color: var(--esb-small-font-color, gray);
     --icon-color: var(--esb-icon-color, gray);

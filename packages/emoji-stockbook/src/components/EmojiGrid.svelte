@@ -10,7 +10,7 @@
   const rootProps = useCustomElementProperty();
   const previewFeature = usePreviewFeature();
 
-  const rowGroupCount = 20;
+  const rowGroupCount = 50;
   const colCount = $derived(rootProps.col);
   const rows = $derived(UArray.chunk(emojis, colCount));
   const rowGroups = $derived(UArray.chunk(rows, rowGroupCount));
@@ -50,7 +50,6 @@
   bind:this={gridElement}
   role="grid"
   aria-colcount={colCount}
-  class="grid"
   onmouseleave={() => previewFeature.notifyHover(null)}
 >
   {#each rowGroups as rowGroupProps, idx (rowGroupProps[0][0].id)}
@@ -69,7 +68,7 @@
 {/snippet}
 
 {#snippet row(props: Emoji[], rowIndex: number)}
-  <div role="row" aria-rowindex={rowIndex} class="row">
+  <div role="row" aria-rowindex={rowIndex}>
     {#each props as emoji, idx (emoji.id)}
       {@const colIndex = idx + 1}
       {@render cell(emoji, rowIndex, colIndex)}
@@ -78,7 +77,7 @@
 {/snippet}
 
 {#snippet cell(emoji: Emoji, rowIndex: number, colIndex: number)}
-  <div role="gridcell" aria-colindex={colIndex} class="cell">
+  <div role="gridcell" aria-colindex={colIndex}>
     <EmojiButton
       {emoji}
       onArrowUp={() =>
@@ -100,11 +99,11 @@
 {/snippet}
 
 <style>
-  .grid {
-    content-visibility: auto;
+  [role="grid"] {
     display: flex;
     flex-direction: column;
     gap: var(--cell-gap);
+    content-visibility: auto;
   }
 
   .row-group {
@@ -114,13 +113,13 @@
     gap: var(--cell-gap);
   }
 
-  .row {
+  [role="row"] {
     display: flex;
     flex-flow: row nowrap;
     gap: var(--cell-gap);
   }
 
-  .cell {
+  [role="gridcell"] {
     display: block;
     width: var(--cell-size);
     height: var(--cell-size);
