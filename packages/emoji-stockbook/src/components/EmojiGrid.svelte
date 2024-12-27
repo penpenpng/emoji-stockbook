@@ -102,21 +102,27 @@
   [role="grid"] {
     display: flex;
     flex-direction: column;
-    gap: var(--cell-gap);
     content-visibility: auto;
   }
 
   .row-group {
-    content-visibility: auto;
     display: flex;
     flex-direction: column;
-    gap: var(--cell-gap);
+    padding-inline: var(--focus-outline-width);
+    content-visibility: auto;
+  }
+
+  .row-group:first-child {
+    padding-block-start: var(--focus-outline-width);
+  }
+
+  .row-group:last-child {
+    padding-block-end: var(--focus-outline-width);
   }
 
   [role="row"] {
     display: flex;
     flex-flow: row nowrap;
-    gap: var(--cell-gap);
   }
 
   [role="gridcell"] {

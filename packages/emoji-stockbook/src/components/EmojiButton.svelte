@@ -67,6 +67,8 @@
     width: 100%;
     height: 100%;
     font-size: 20px;
+
+    --emoji-size: var(--cell-emoji-size);
   }
 
   button:hover {
