@@ -69,8 +69,8 @@
     --height: var(--esb-height, 460px);
     --width: var(--esb-width);
     --font-color: var(--esb-font-color, black);
-    --small-font-color: var(--esb-small-font-color, gray);
-    --icon-color: var(--esb-icon-color, gray);
+    --font-color-small: var(--esb-font-color-small, gray);
+    --font-color-icon: var(--esb-font-color-icon, gray);
     --font-family: var(
       --esb-font-family,
       "Helvetica Neue",
@@ -80,8 +80,8 @@
       Meiryo,
       sans-serif
     );
-    --emoji-font-family: var(
-      --esb-emoji-font-family,
+    --font-family-emoji: var(
+      --esb-font-family-emoji,
       "Twemoji Mozilla",
       "Apple Color Emoji",
       "Segoe UI Emoji",

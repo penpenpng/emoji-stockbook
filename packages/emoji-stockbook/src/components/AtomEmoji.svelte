@@ -24,7 +24,7 @@
     display: inline-block;
     width: var(--emoji-size);
     height: var(--emoji-size);
-    font-family: var(--emoji-font-family);
+    font-family: var(--font-family-emoji);
     /* The scale coefficient was decided heuristically. */
     font-size: calc(var(--emoji-size) * 2 / 3);
     text-align: center;

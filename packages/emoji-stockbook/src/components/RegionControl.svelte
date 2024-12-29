@@ -40,11 +40,11 @@
     </label>
 
     <div class="foldable-control">
-      <button onclick={() => foldables.openAll()}>
-        <IconFolderOpen alt={t("foldable.a11y.open-all")} />
-      </button>
       <button onclick={() => foldables.closeAll()}>
         <IconFolderClose alt={t("foldable.a11y.close-all")} />
+      </button>
+      <button onclick={() => foldables.openAll()}>
+        <IconFolderOpen alt={t("foldable.a11y.open-all")} />
       </button>
     </div>
   </div>

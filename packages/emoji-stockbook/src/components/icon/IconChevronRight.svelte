@@ -26,6 +26,6 @@
     display: inline-block;
     width: var(--icon-size, 24px);
     height: var(--icon-size, 24px);
-    stroke: var(--icon-color);
+    stroke: var(--font-color-icon);
   }
 </style>

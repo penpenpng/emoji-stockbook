@@ -62,7 +62,7 @@
 
     small {
       font-size: 11.5px;
-      color: var(--small-font-color);
+      color: var(--font-color-small);
     }
 
     b {
