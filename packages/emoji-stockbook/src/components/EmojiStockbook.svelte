@@ -1,20 +1,23 @@
 <script lang="ts">
+  import { useTranslation } from "@/lib/use-translation";
   import RegionContent from "./RegionContent.svelte";
   import RegionControl from "./RegionControl.svelte";
-  import RegionPreview from "./RegionPreview.svelte";
+  import RegionInfo from "./RegionInfo.svelte";
+
+  const { t } = useTranslation();
 </script>
 
-<div class="emoji-stockbook">
+<section class="emoji-stockbook" aria-label={t("element.a11y.label")}>
   <div class="region-control">
     <RegionControl />
   </div>
   <div class="region-content">
     <RegionContent />
   </div>
-  <div class="region-preview">
-    <RegionPreview />
+  <div class="region-info">
+    <RegionInfo />
   </div>
-</div>
+</section>
 
 <style>
   .emoji-stockbook {
@@ -34,7 +37,7 @@
     overflow-y: scroll;
   }
 
-  .region-preview {
+  .region-info {
     flex: 0 0 50px;
   }
 
@@ -60,8 +63,9 @@
       font-weight: bold;
     }
 
-    small {
-      font-size: 11.5px;
+    small,
+    small * {
+      font-size: 0.72rem;
       color: var(--font-color-small);
     }
 

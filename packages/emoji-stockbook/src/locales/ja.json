@@ -1,4 +1,8 @@
 {
+  "element.a11y.label": "絵文字ピッカー",
+  "element.about": "この絵文字ピッカーについて",
+  "a11y.loading": "読み込み中",
+  "a11y.open-in-new-tab": "(新しいタブで開く)",
   "search.a11y.label": "絵文字を検索",
   "search.placeholder": "絵文字を検索",
   "search.title.result": "検索結果",
@@ -23,5 +27,6 @@
   "category.title.symbols": "シンボル",
   "category.title.flags": "旗",
   "emojiset.custom-emoji": "カスタム絵文字",
-  "variant.tip.has-variant": "色を選択できます"
+  "variant.tip.has-variant": "色を選択できます",
+  "error.failed-loading-emojis": "エラー: 絵文字の読み込みに失敗しました。"
 }

@@ -1,4 +1,8 @@
 {
+  "element.a11y.label": "Emoji picker",
+  "element.about": "About this emoji picker",
+  "a11y.loading": "Loading",
+  "a11y.open-in-new-tab": "(Open in new tab)",
   "search.a11y.label": "Search",
   "search.placeholder": "Search",
   "search.title.result": "Search Result",
@@ -23,5 +27,6 @@
   "category.title.symbols": "Symbols",
   "category.title.flags": "Flags",
   "emojiset.custom-emoji": "Custom Emoji",
-  "variant.tip.has-variant": "Skin available"
+  "variant.tip.has-variant": "Skin available",
+  "error.failed-loading-emojis": "Error: Failed to load emojis."
 }

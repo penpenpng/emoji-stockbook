@@ -1,12 +1,12 @@
 <script lang="ts">
-  import { usePreviewFeature } from "@/lib/use-preview-feature";
   import { useTranslation } from "@/lib/use-translation";
+  import type { Emoji } from "@/types";
   import AtomEmoji from "./AtomEmoji.svelte";
 
-  const previewFeature = usePreviewFeature();
+  const { emoji }: { emoji: Emoji } = $props();
+
   const { t } = useTranslation();
 
-  const emoji = $derived(previewFeature.preview);
   const emojiVersion = $derived.by(() => {
     if (!emoji) {
       return "";
@@ -22,24 +22,19 @@
 </script>
 
 <div class="preview" role="status" aria-live="polite">
-  {#if emoji}
-    <AtomEmoji {emoji} />
+  <AtomEmoji {emoji} />
 
-    <div class="emoji-info">
-      <div class="emoji-shortcode">{emoji.shortcode}</div>
-      <div class="emoji-meta">
-        <small class="emoji-meta-version">{emojiVersion}</small>
-        {#if hasVariant}
-          <small class="emoji-meta-variant"
-            ><b>{t("variant.tip.has-variant")}</b></small
-          >
-        {/if}
-      </div>
+  <div class="emoji-info">
+    <div class="emoji-shortcode">{emoji.shortcode}</div>
+    <div class="emoji-meta">
+      <small class="emoji-meta-version">{emojiVersion}</small>
+      {#if hasVariant}
+        <small class="emoji-meta-variant"
+          ><b>{t("variant.tip.has-variant")}</b></small
+        >
+      {/if}
     </div>
-  {:else}
-    <!-- TODO: ここになんか気の利いたヒントを書く -->
-    <small>Hint: Arrow keys are allowed.</small>
-  {/if}
+  </div>
 </div>
 
 <style>
@@ -50,9 +45,6 @@
     flex-direction: row;
     align-items: center;
     height: 100%;
-
-    /* TODO: 色をいい感じにする */
-    background-color: aliceblue;
   }
 
   .emoji-shortcode {
