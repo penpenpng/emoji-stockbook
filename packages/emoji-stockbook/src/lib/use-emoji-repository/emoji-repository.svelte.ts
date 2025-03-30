@@ -2,12 +2,12 @@ import { getEmojisetRegistry } from "@/lib/emojiset-registry";
 import { Logger } from "@/lib/logger";
 import { includeVersions } from "@/lib/native-emoji-versions";
 import { useCustomElementProperty } from "@/lib/use-custom-element-property";
-import type { Emoji, EmojiCategory, EmojiSpecifier } from "@/types";
+import type { Emoji, EmojiCategory, EmojiPointer } from "@/types";
 
 export interface IEmojiRepository {
   readonly categories: Promise<EmojiCategory[]>;
   readonly emojis: Promise<Emoji[]>;
-  getEmojiByPointer(pointer: EmojiSpecifier): Promise<Emoji | undefined>;
+  getEmojiByPointer(pointer: EmojiPointer): Promise<Emoji | undefined>;
 }
 
 export class EmojiRepository implements IEmojiRepository {
@@ -22,7 +22,7 @@ export class EmojiRepository implements IEmojiRepository {
     this.categories.then((cats) => cats.flatMap((c): Emoji[] => c.emojis))
   );
 
-  async getEmojiByPointer(pointer: EmojiSpecifier): Promise<Emoji | undefined> {
+  async getEmojiByPointer(pointer: EmojiPointer): Promise<Emoji | undefined> {
     const reg = getEmojisetRegistry();
     const emojisets = this.props.emojisets;
 

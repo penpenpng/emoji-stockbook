@@ -55,7 +55,7 @@ export interface CustomEmoji {
 
 export type Emoji = NativeEmoji | CustomEmoji;
 
-export type EmojiSpecifier =
+export type EmojiPointer =
   | {
       kind: "native";
       version: number;

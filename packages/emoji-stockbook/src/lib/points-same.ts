@@ -1,6 +1,6 @@
-import type { EmojiSpecifier } from "@/types";
+import type { EmojiPointer } from "@/types";
 
-export const pointsSame = (a: EmojiSpecifier, b: EmojiSpecifier) =>
+export const pointsSame = (a: EmojiPointer, b: EmojiPointer) =>
   (a.kind === "native" && b.kind === "native" && a.char === b.char) ||
   (a.kind === "custom" &&
     b.kind === "custom" &&

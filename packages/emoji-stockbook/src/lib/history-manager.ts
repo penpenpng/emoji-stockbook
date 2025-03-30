@@ -1,16 +1,16 @@
 import { Logger } from "@/lib/logger";
 import { pointsSame } from "@/lib/points-same";
 import { UArray } from "@/lib/utils";
-import type { EmojiSpecifier } from "@/types";
+import type { EmojiPointer } from "@/types";
 
 export interface IHistoryManager {
-  updateHistory(pointer: EmojiSpecifier): void;
+  updateHistory(pointer: EmojiPointer): void;
   getHistory(): HistoryRecord[];
   clearHistory(): void;
 }
 
 export interface HistoryRecord {
-  pointer: EmojiSpecifier;
+  pointer: EmojiPointer;
   count: number;
   updatedAt: number;
 }
@@ -18,7 +18,7 @@ export interface HistoryRecord {
 export class LocalStorageHistoryManager implements IHistoryManager {
   constructor(private localStorageKey: string = "_emoji-stockbook") {}
 
-  updateHistory(pointer: EmojiSpecifier): void {
+  updateHistory(pointer: EmojiPointer): void {
     try {
       const history = this.getHistory();
 
@@ -53,7 +53,7 @@ export class LocalStorageHistoryManager implements IHistoryManager {
 export class InMemoryHistoryManager implements IHistoryManager {
   private history: HistoryRecord[] = [];
 
-  updateHistory(pointer: EmojiSpecifier): void {
+  updateHistory(pointer: EmojiPointer): void {
     updateHistory(this.history, pointer);
   }
 
@@ -68,7 +68,7 @@ export class InMemoryHistoryManager implements IHistoryManager {
 
 function updateHistory(
   history: HistoryRecord[],
-  pointer: EmojiSpecifier
+  pointer: EmojiPointer
 ): void {
   const record = history.find((e) => pointsSame(e.pointer, pointer));
 
