@@ -63,12 +63,26 @@
     width: min-content;
 
     /* TODO: color */
-    --background-color: var(--esb-background-color, #e6fcca);
     --cell-size: var(--esb-cell-size, 40px);
     --cell-emoji-size: var(--esb-cell-emoji-size, 40px);
     --height: var(--esb-height, 460px);
     --width: var(--esb-width);
-    --font-color: var(--esb-font-color, black);
+    --background-color-control: var(
+      --esb-background-color-control,
+      transparent
+    );
+    --background-color-content: var(
+      --esb-background-color-content,
+      transparent
+    );
+    --background-color-info: var(--esb-background-color-info, transparent);
+    --color-control-text: var(--esb-color-control-text, rgb(100 116 139));
+    --color-control-inactive: var(
+      --esb-color-control-inactive,
+      oklch(92.8% 0.006% 264.531deg)
+    );
+    --color-control-active: var(--esb-color-control-active, rgb(59 130 246));
+    --font-color: var(--esb-font-color, inherit);
     --font-color-small: var(--esb-font-color-small, gray);
     --font-color-icon: var(--esb-font-color-icon, gray);
     --font-family: var(

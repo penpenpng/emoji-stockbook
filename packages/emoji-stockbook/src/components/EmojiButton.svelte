@@ -4,7 +4,7 @@
   import { usePreviewFeature } from "@/lib/use-preview-feature";
   import { useShortcutFeature } from "@/lib/use-shortcut-feature";
   import type { Emoji } from "@/types";
-  import AtomEmoji from "./AtomEmoji.svelte";
+  import AtomEmoji from "./atom/AtomEmoji.svelte";
 
   const {
     emoji,
@@ -66,7 +66,6 @@
     justify-content: center;
     width: 100%;
     height: 100%;
-    font-size: 20px;
 
     --emoji-size: var(--cell-emoji-size);
   }

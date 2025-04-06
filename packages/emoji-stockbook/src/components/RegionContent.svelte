@@ -73,6 +73,7 @@
 <style>
   .content {
     padding: 0.75em;
+    background-color: var(--background-color-content);
   }
 
   .loader-container {

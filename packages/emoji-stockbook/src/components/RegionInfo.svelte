@@ -12,7 +12,7 @@
   {#if previewFeature.preview}
     <EmojiPreview emoji={previewFeature.preview} />
   {:else}
-    <footer>
+    <footer class="about">
       <small>
         <a target="_blank" href="https://github.com/penpenpng/emoji-stockbook">
           {t("element.about")}
@@ -29,7 +29,18 @@
 <style>
   .info {
     height: 100%;
-    /* TODO: 色をいい感じにする */
-    background-color: aliceblue;
+    background-color: var(--background-color-info);
+  }
+
+  .about {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: end;
+  }
+
+  .about small {
+    margin: 4px;
   }
 </style>

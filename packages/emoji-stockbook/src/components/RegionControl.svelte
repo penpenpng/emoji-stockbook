@@ -2,7 +2,10 @@
   import { useFoldables } from "@/lib/use-foldables";
   import { useSearchFeature } from "@/lib/use-search-feature";
   import { useTranslation } from "@/lib/use-translation";
-  import IconChevron from "./icon/IconChevronDown.svelte";
+  import AtomButton from "./atom/AtomButton.svelte";
+  import AtomIconLabel from "./atom/AtomIconLabel.svelte";
+  import AtomInput from "./atom/AtomInput.svelte";
+  import AtomSelect from "./atom/AtomSelect.svelte";
   import IconFilter from "./icon/IconFilter.svelte";
   import IconFolderClose from "./icon/IconFolderClose.svelte";
   import IconFolderOpen from "./icon/IconFolderOpen.svelte";
@@ -13,13 +16,15 @@
   const { t } = useTranslation();
 
   let query = $state("");
-  let selectElement = $state<HTMLSelectElement>();
 </script>
 
 <div class="control">
-  <label class="search-input">
-    <IconSearch alt={t("search.a11y.label")} />
-    <input
+  <AtomIconLabel>
+    {#snippet icon()}
+      <IconSearch alt={t("search.a11y.label")} />
+    {/snippet}
+
+    <AtomInput
       type="search"
       bind:value={query}
       placeholder={t("search.placeholder")}
@@ -27,25 +32,28 @@
         searchFeature.searchEmojis(query);
       }}
     />
-  </label>
+  </AtomIconLabel>
 
   <div class="row">
-    <label class="filter-input">
-      <IconFilter alt="filter" />
-      <select>
+    <AtomIconLabel>
+      {#snippet icon()}
+        <IconFilter alt="filter" />
+      {/snippet}
+
+      <AtomSelect>
         <option value="">{t("filter.select.all-emojis")}</option>
         <option value="">{t("filter.select.native-emojis")}</option>
         <option value="">{t("filter.select.custom-emojis")}</option>
-      </select>
-    </label>
+      </AtomSelect>
+    </AtomIconLabel>
 
     <div class="foldable-control">
-      <button onclick={() => foldables.closeAll()}>
+      <AtomButton onclick={() => foldables.closeAll()}>
         <IconFolderClose alt={t("foldable.a11y.close-all")} />
-      </button>
-      <button onclick={() => foldables.openAll()}>
+      </AtomButton>
+      <AtomButton onclick={() => foldables.openAll()}>
         <IconFolderOpen alt={t("foldable.a11y.open-all")} />
-      </button>
+      </AtomButton>
     </div>
   </div>
 </div>
@@ -53,32 +61,7 @@
 <style>
   .control {
     padding: 0.5rem;
-    /* TODO: 色をいい感じにする */
-    background-color: aliceblue;
-  }
-
-  label {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-  }
-
-  .search-input {
-    padding-left: 0.375em;
-    cursor: text;
-    border: 0.5px solid gray;
-    border-radius: 5px;
-    outline: none;
-  }
-
-  .search-input:has(:focus) {
-    outline: var(--focus-outline-width) solid black;
-  }
-
-  .search-input input {
-    display: block;
-    flex-grow: 1;
-    padding: 0.375em;
+    background-color: var(--background-color-control);
   }
 
   .row {

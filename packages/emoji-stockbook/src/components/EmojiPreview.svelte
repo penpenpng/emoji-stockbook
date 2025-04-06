@@ -1,7 +1,7 @@
 <script lang="ts">
   import { useTranslation } from "@/lib/use-translation";
   import type { Emoji } from "@/types";
-  import AtomEmoji from "./AtomEmoji.svelte";
+  import AtomEmoji from "./atom/AtomEmoji.svelte";
 
   const { emoji }: { emoji: Emoji } = $props();
 
@@ -22,7 +22,9 @@
 </script>
 
 <div class="preview" role="status" aria-live="polite">
-  <AtomEmoji {emoji} />
+  <div class="emoji">
+    <AtomEmoji --emoji-size="45px" {emoji} />
+  </div>
 
   <div class="emoji-info">
     <div class="emoji-shortcode">{emoji.shortcode}</div>
@@ -39,12 +41,14 @@
 
 <style>
   .preview {
-    --emoji-size: 45px;
-
     display: flex;
     flex-direction: row;
     align-items: center;
     height: 100%;
+  }
+
+  .emoji {
+    padding-inline: 4px;
   }
 
   .emoji-shortcode {
