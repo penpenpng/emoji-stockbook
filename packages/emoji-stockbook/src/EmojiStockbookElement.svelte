@@ -63,8 +63,8 @@
     width: min-content;
 
     /* TODO: color */
-    --cell-size: var(--esb-cell-size, 40px);
-    --cell-emoji-size: var(--esb-cell-emoji-size, 40px);
+    --cell-size: var(--esb-cell-size, 2.5rem);
+    --cell-emoji-size: var(--esb-cell-emoji-size, 2.5rem);
     --height: var(--esb-height, 460px);
     --width: var(--esb-width);
     --background-color-control: var(
@@ -74,6 +74,10 @@
     --background-color-content: var(
       --esb-background-color-content,
       transparent
+    );
+    --section-title-background-color: var(
+      --esb-section-title-background-color,
+      oklch(98.4% 0.003 247.858)
     );
     --background-color-info: var(--esb-background-color-info, transparent);
     --color-control-text: var(--esb-color-control-text, rgb(100 116 139));
@@ -105,5 +109,6 @@
       "Android Emoji",
       sans-serif
     );
+    --focus-outline-width: 2px;
   }
 </style>

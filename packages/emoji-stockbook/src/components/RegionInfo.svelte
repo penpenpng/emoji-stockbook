@@ -18,7 +18,7 @@
           {t("element.about")}
           <IconExternalLink
             alt={t("a11y.open-in-new-tab")}
-            --icon-size="1.2em"
+            --icon-size="0.8rem"
           />
         </a>
       </small>

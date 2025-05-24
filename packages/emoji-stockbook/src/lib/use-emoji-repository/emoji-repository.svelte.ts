@@ -7,6 +7,7 @@ import type { Emoji, EmojiCategory, EmojiPointer } from "@/types";
 export interface IEmojiRepository {
   readonly categories: Promise<EmojiCategory[]>;
   readonly emojis: Promise<Emoji[]>;
+  readonly hasCustomEmojis: Promise<boolean>;
   getEmojiByPointer(pointer: EmojiPointer): Promise<Emoji | undefined>;
 }
 
@@ -20,6 +21,9 @@ export class EmojiRepository implements IEmojiRepository {
   });
   readonly emojis = $derived.by(() =>
     this.categories.then((cats) => cats.flatMap((c): Emoji[] => c.emojis))
+  );
+  readonly hasCustomEmojis = $derived.by(() =>
+    this.categories.then((cats) => cats.some((c) => c.kind === "custom"))
   );
 
   async getEmojiByPointer(pointer: EmojiPointer): Promise<Emoji | undefined> {

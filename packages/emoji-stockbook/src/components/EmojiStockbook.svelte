@@ -37,7 +37,7 @@
   }
 
   .region-info {
-    flex: 0 0 50px;
+    flex: 0 0 3rem;
   }
 
   /* stylelint-disable-next-line selector-pseudo-class-no-unknown -- :global is allowed as a svelte-specific syntax. */

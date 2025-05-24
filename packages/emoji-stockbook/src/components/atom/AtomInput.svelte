@@ -32,5 +32,8 @@
   /* stylelint-disable-next-line no-duplicate-selectors */
   input {
     display: block;
+    padding-block-start: 4px;
+    padding-inline: 8px;
+    width: 100%;
   }
 </style>

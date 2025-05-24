@@ -57,9 +57,9 @@
           onclick={() => (expanded = !expanded)}
         >
           {#if expanded}
-            <IconChevronDown alt={t("foldable.a11y.close")} />
+            <IconChevronDown alt="" />
           {:else}
-            <IconChevronRight alt={t("foldable.a11y.open")} />
+            <IconChevronRight alt="" />
           {/if}
 
           <h3>{title}</h3>
@@ -79,13 +79,38 @@
 </section>
 
 <style>
+  /* reset */
+  button {
+    padding: 0;
+    appearance: none;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+  }
+
   .title {
-    padding-block: 0.2em;
+    padding: 0.25rem;
+    background-color: var(--section-title-background-color);
+  }
+
+  h3 {
+    padding-inline: 4px;
+    margin-block: 2px;
   }
 
   button {
     display: flex;
     align-items: center;
     width: 100%;
+  }
+
+  button:focus {
+    outline: var(--focus-outline-width) solid var(--color-control-active);
+
+    --font-color-icon: var(--color-control-active);
+  }
+
+  [role="region"] {
+    padding-block: 0.25rem;
   }
 </style>

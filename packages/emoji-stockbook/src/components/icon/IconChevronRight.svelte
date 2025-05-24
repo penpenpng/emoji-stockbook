@@ -24,8 +24,8 @@
 <style>
   svg {
     display: inline-block;
-    width: var(--icon-size, 24px);
-    height: var(--icon-size, 24px);
+    width: var(--icon-size, 1.25rem);
+    height: var(--icon-size, 1.25rem);
     stroke: var(--font-color-icon);
   }
 </style>

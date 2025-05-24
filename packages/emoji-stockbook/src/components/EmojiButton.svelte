@@ -60,6 +60,15 @@
 </button>
 
 <style>
+  /* reset */
+  button {
+    padding: 0;
+    appearance: none;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+  }
+
   button {
     display: flex;
     align-items: center;
@@ -68,6 +77,14 @@
     height: 100%;
 
     --emoji-size: var(--cell-emoji-size);
+  }
+
+  button:focus {
+    position: relative; /* To prevent outlines from being hidden */
+    z-index: 1; /* To prevent outlines from being hidden */
+    outline: var(--focus-outline-width) solid var(--color-control-active);
+
+    --font-color-icon: var(--color-control-active);
   }
 
   button:hover {

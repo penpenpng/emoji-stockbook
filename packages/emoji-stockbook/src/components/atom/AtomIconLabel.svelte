@@ -21,7 +21,7 @@
   .icon {
     display: flex;
     justify-items: bottom;
-    padding: 0.25rem;
+    padding: 0.3rem;
   }
 
   /* stylelint-disable-next-line selector-pseudo-class-no-unknown */

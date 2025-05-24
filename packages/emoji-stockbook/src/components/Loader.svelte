@@ -45,7 +45,7 @@
   }
 
   .loader {
-    --icon-size: 36px;
+    --icon-size: 3rem;
 
     width: var(--icon-size);
     height: var(--icon-size);

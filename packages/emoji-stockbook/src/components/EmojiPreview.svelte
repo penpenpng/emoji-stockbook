@@ -23,7 +23,7 @@
 
 <div class="preview" role="status" aria-live="polite">
   <div class="emoji">
-    <AtomEmoji --emoji-size="45px" {emoji} />
+    <AtomEmoji --emoji-size="2.75rem" {emoji} />
   </div>
 
   <div class="emoji-info">
@@ -61,7 +61,7 @@
     display: flex;
     flex-grow: 1;
     flex-direction: column;
-    height: 75%;
+    height: 80%;
   }
 
   .emoji-meta {

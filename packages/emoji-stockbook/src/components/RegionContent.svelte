@@ -9,6 +9,7 @@
   import EmojiGrid from "./EmojiGrid.svelte";
   import FoldableSection from "./FoldableSection.svelte";
   import Loader from "./Loader.svelte";
+  import RegionShortcut from "./RegionShortcut.svelte";
 
   const contentRegion = useContentRegion();
   const searchFeature = useSearchFeature();
@@ -37,19 +38,7 @@
     </div>
   {:then [shortcuts, sections]}
     {#if !searchFeature.searching && rootProps.shortcut && shortcuts.length > 0}
-      <FoldableSection title={t(shortcutFeature.title)} expanded>
-        {#snippet children()}
-          <EmojiGrid emojis={shortcuts} />
-
-          <div class="shortcut-actions">
-            <button
-              class="clear-history"
-              onclick={() => shortcutFeature.clearHistory()}
-              >{t("shortcut.button.clear-history")}</button
-            >
-          </div>
-        {/snippet}
-      </FoldableSection>
+      <RegionShortcut {shortcuts} />
     {/if}
 
     {#each sections as section (section.id)}
@@ -72,22 +61,13 @@
 
 <style>
   .content {
-    padding: 0.75em;
+    padding-block: 0.5rem;
+    padding-inline: 0.75rem;
     background-color: var(--background-color-content);
   }
 
   .loader-container {
     display: grid;
     place-items: center center;
-  }
-
-  .shortcut-actions {
-    display: flex;
-    flex-direction: row;
-    justify-content: end;
-  }
-
-  .clear-history {
-    padding: 2px;
   }
 </style>
