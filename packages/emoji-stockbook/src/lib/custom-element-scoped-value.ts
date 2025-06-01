@@ -1,27 +1,37 @@
 import { getContext, onDestroy, setContext } from "svelte";
+import { URecord } from "./utils/index.js";
 
-export interface CustomElementScopedValue<T, P = void> {
-  (): T;
-  setup: (param: P) => void;
+export class ScopedValue {
+  constructor() {}
+  [Symbol.dispose]() {}
 }
 
-export const customElementScopedValue = <T, P = void>(
-  factory: (param: P) => T,
-  cleanup?: (value: T) => void
-): CustomElementScopedValue<T, P> => {
+type ScopedValueConstructor<T extends ScopedValue> = new () => T;
+
+const rootKey = Symbol();
+
+export const createCustomElementScope = () => {
+  const dict: Record<symbol, ScopedValue> = {};
+
+  setContext(rootKey, dict);
+
+  onDestroy(() => {
+    for (const v of URecord.values(dict)) {
+      v[Symbol.dispose]?.();
+    }
+  });
+};
+
+export const scoped = <T extends ScopedValue>(
+  cls: ScopedValueConstructor<T>
+) => {
   const key = Symbol();
 
-  const setup = (param: P) => {
-    const value = factory(param);
-    setContext(key, value);
+  const use = (): T => {
+    const context = getContext<any>(rootKey);
 
-    if (cleanup) {
-      onDestroy(() => {
-        cleanup(value);
-      });
-    }
+    return (context[key] ??= new cls());
   };
-  const use = (): T => getContext(key);
 
-  return Object.assign(use, { setup });
+  return use;
 };

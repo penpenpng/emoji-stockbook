@@ -1,10 +1,12 @@
 <script lang="ts">
-  import { makeEmojiOutput } from "@/lib/make-emoji-output";
-  import { useCustomElementEventDispatcher } from "@/lib/use-custom-element-event-dispatcher";
-  import { usePreviewFeature } from "@/lib/use-preview-feature";
-  import { useShortcutFeature } from "@/lib/use-shortcut-feature";
+  import {
+    makeEmojiOutput,
+    useCustomElementEventDispatcher,
+    usePreviewFeature,
+    useShortcutFeature,
+  } from "@/lib";
   import type { Emoji } from "@/types";
-  import AtomEmoji from "./atom/AtomEmoji.svelte";
+  import { AtomEmoji } from "./atom";
 
   const {
     emoji,
@@ -19,7 +21,7 @@
 
   const shortcutFeature = useShortcutFeature();
   const previewFeature = usePreviewFeature();
-  const dispatch = useCustomElementEventDispatcher();
+  const { dispatch } = useCustomElementEventDispatcher();
 
   const onkeydown = (event: KeyboardEvent) => {
     switch (event.key) {

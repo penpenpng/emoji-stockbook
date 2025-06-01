@@ -1,12 +1,7 @@
 import type { Emoji } from "@/types";
+import { scoped, ScopedValue } from "./custom-element-scoped-value.js";
 
-export interface IPreviewFeature {
-  readonly preview: Emoji | null;
-  notifyFocus(emoji: Emoji | null): void;
-  notifyHover(emoji: Emoji | null): void;
-}
-
-export class PreviewFeature implements IPreviewFeature {
+export class PreviewFeature extends ScopedValue {
   private focused = $state<Emoji | null>(null);
   private hovered = $state<Emoji | null>(null);
   readonly preview = $derived.by(() => this.hovered ?? this.focused ?? null);
@@ -19,3 +14,5 @@ export class PreviewFeature implements IPreviewFeature {
     this.hovered = emoji;
   }
 }
+
+export const usePreviewFeature = scoped(PreviewFeature);

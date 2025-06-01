@@ -1,8 +1,7 @@
 <script lang="ts">
-  import { usePreviewFeature } from "@/lib/use-preview-feature";
-  import { useTranslation } from "@/lib/use-translation";
+  import { usePreviewFeature, useTranslation } from "@/lib";
   import EmojiPreview from "./EmojiPreview.svelte";
-  import IconExternalLink from "./icon/IconExternalLink.svelte";
+  import { IconExternalLink } from "./icon";
 
   const previewFeature = usePreviewFeature();
   const { t } = useTranslation();

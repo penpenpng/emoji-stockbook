@@ -12,45 +12,26 @@
 />
 
 <script lang="ts">
-  import { useContentRegion } from "@/lib/use-content-region";
-  import {
-    type ComponentEventDispatcher,
-    useCustomElementEventDispatcher,
-  } from "@/lib/use-custom-element-event-dispatcher";
-  import { useCustomElementProperty } from "@/lib/use-custom-element-property";
-  import { useEmojiRepository } from "@/lib/use-emoji-repository";
-  import { useFoldables } from "@/lib/use-foldables";
-  import { usePreviewFeature } from "@/lib/use-preview-feature";
-  import { useSearchFeature } from "@/lib/use-search-feature";
-  import { useShortcutFeature } from "@/lib/use-shortcut-feature";
-  import { useLangResolver } from "@/lib/use-translation";
+  import { createCustomElementScope } from "@/lib/custom-element-scoped-value";
+  import { useCustomElementEventDispatcher } from "@/lib/use-custom-element-event-dispatcher";
+  import { useCustomElementProperty } from "@/lib/use-custom-element-property.svelte";
   import EmojiStockbook from "./components/EmojiStockbook.svelte";
 
+  createCustomElementScope();
+
   const props = $props();
-  useCustomElementProperty.setup(props);
-
-  const dispatchComponentEvent: ComponentEventDispatcher = (
-    type: string,
-    detail?: unknown
-  ) => {
-    $host().dispatchEvent(
-      new CustomEvent(type, {
-        detail,
-      })
-    );
-  };
-
-  useCustomElementEventDispatcher.setup(dispatchComponentEvent);
-
-  useEmojiRepository.setup();
-  useSearchFeature.setup();
-  useContentRegion.setup();
-  useFoldables.setup();
-  useLangResolver.setup();
-  useShortcutFeature.setup();
-  usePreviewFeature.setup();
-
   const rootProps = useCustomElementProperty();
+  rootProps.initialize(props);
+
+  useCustomElementEventDispatcher().initialize(
+    (type: string, detail?: unknown) => {
+      $host().dispatchEvent(
+        new CustomEvent(type, {
+          detail,
+        })
+      );
+    }
+  );
 </script>
 
 <div style:--col={rootProps.col}>

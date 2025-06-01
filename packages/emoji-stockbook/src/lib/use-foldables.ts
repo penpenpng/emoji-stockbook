@@ -1,18 +1,12 @@
 import { UArray } from "@/lib/utils";
-
-export interface IFoldables {
-  openAll(): void;
-  closeAll(): void;
-  registerFoldable(operator: FoldableOperator): void;
-  unregisterFoldable(operator: FoldableOperator): void;
-}
+import { scoped, ScopedValue } from "./custom-element-scoped-value.js";
 
 interface FoldableOperator {
   open(): void;
   close(): void;
 }
 
-export class Foldables implements IFoldables {
+export class Foldables extends ScopedValue {
   private operators: FoldableOperator[] = [];
 
   openAll(): void {
@@ -35,3 +29,5 @@ export class Foldables implements IFoldables {
     UArray.remove(this.operators, operator);
   }
 }
+
+export const useFoldables = scoped(Foldables);

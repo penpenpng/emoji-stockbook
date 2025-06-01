@@ -1,6 +1,5 @@
 <script lang="ts">
-  import { useShortcutFeature } from "@/lib/use-shortcut-feature";
-  import { useTranslation } from "@/lib/use-translation";
+  import { useShortcutFeature, useTranslation } from "@/lib";
   import type { Emoji } from "@/types";
   import EmojiGrid from "./EmojiGrid.svelte";
   import FoldableSection from "./FoldableSection.svelte";

@@ -1,12 +1,6 @@
-import { useEmojiRepository } from "@/lib/use-emoji-repository";
+import { useEmojiRepository } from "@/lib/use-emoji-repository.svelte.js";
 import type { Emoji } from "@/types";
-
-export interface ISearchFeature {
-  readonly searching: boolean;
-  readonly result: Emoji[];
-  searchEmojis(query: string): void;
-  leaveSearchMode(): void;
-}
+import { scoped, ScopedValue } from "./custom-element-scoped-value.js";
 
 class State {
   searching = $state(false);
@@ -14,7 +8,7 @@ class State {
   lastQuery = "";
 }
 
-export class SearchFeature implements ISearchFeature {
+export class SearchFeature extends ScopedValue {
   private state = new State();
   private repo = useEmojiRepository();
 
@@ -61,3 +55,5 @@ function narrowResult(emojis: Emoji[], query: string): Emoji[] {
 
   return result;
 }
+
+export const useSearchFeature = scoped(SearchFeature);

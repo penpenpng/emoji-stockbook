@@ -1,10 +1,12 @@
 <script lang="ts">
-  import { Logger } from "@/lib/logger";
-  import { useContentRegion } from "@/lib/use-content-region";
-  import { useCustomElementProperty } from "@/lib/use-custom-element-property";
-  import { useSearchFeature } from "@/lib/use-search-feature";
-  import { useShortcutFeature } from "@/lib/use-shortcut-feature";
-  import { useTranslation } from "@/lib/use-translation";
+  import {
+    Logger,
+    useContentRegion,
+    useCustomElementProperty,
+    useSearchFeature,
+    useShortcutFeature,
+    useTranslation,
+  } from "@/lib";
   import ContentPlaceholder from "./ContentPlaceholder.svelte";
   import EmojiGrid from "./EmojiGrid.svelte";
   import FoldableSection from "./FoldableSection.svelte";

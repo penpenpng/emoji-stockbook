@@ -1,10 +1,7 @@
-import { useEmojiRepository } from "@/lib/use-emoji-repository/index";
-import { useSearchFeature } from "@/lib/use-search-feature/index";
+import { useEmojiRepository } from "@/lib/use-emoji-repository.svelte.js";
+import { useSearchFeature } from "@/lib/use-search-feature.svelte.js";
 import type { Emoji } from "@/types";
-
-export interface IContentRegion {
-  readonly sections: Promise<SectionContent[]>;
-}
+import { scoped, ScopedValue } from "./custom-element-scoped-value.js";
 
 interface SectionContent {
   id: string;
@@ -12,11 +9,11 @@ interface SectionContent {
   emojis: Emoji[];
 }
 
-export class ContentRegion implements IContentRegion {
+export class ContentRegion extends ScopedValue {
   private searchFeature = useSearchFeature();
   private repo = useEmojiRepository();
 
-  readonly sections = $derived.by(async () => {
+  readonly sections: Promise<SectionContent[]> = $derived.by(async () => {
     if (this.searchFeature.searching) {
       return [
         {
@@ -30,3 +27,5 @@ export class ContentRegion implements IContentRegion {
     }
   });
 }
+
+export const useContentRegion = scoped(ContentRegion);

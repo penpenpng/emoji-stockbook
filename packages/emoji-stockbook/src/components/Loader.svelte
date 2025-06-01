@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { useTranslation } from "@/lib/use-translation";
+  import { useTranslation } from "@/lib";
   import { onMount } from "svelte";
-  import IconLoader from "./icon/IconLoader.svelte";
+  import { IconLoader } from "./icon";
 
   const {
     wait = 500,

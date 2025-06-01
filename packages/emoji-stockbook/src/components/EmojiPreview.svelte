@@ -1,7 +1,7 @@
 <script lang="ts">
   import { useTranslation } from "@/lib/use-translation";
   import type { Emoji } from "@/types";
-  import AtomEmoji from "./atom/AtomEmoji.svelte";
+  import { AtomEmoji } from "./atom";
 
   const { emoji }: { emoji: Emoji } = $props();
 

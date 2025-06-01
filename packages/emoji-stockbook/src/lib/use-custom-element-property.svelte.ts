@@ -1,5 +1,6 @@
 import type { IHistoryManager } from "@/lib/history-manager";
 import type { I18nResource } from "@/lib/use-translation";
+import { scoped, ScopedValue } from "./custom-element-scoped-value.js";
 
 // Note that we should also edit `<svelte:options customElement>`
 export interface AcceptableEmojiStockbookProperty {
@@ -8,14 +9,6 @@ export interface AcceptableEmojiStockbookProperty {
   i18n?: I18nResource;
   lang?: string;
   shortcut?: ShortcutSectionConfig | boolean;
-}
-
-export interface IEmojiStockbookProperty {
-  readonly emojisets: string[];
-  readonly col: number;
-  readonly i18n: I18nResource;
-  readonly lang?: string;
-  readonly shortcut: ShortcutSectionConfig | null;
 }
 
 export type ShortcutSectionMode = "recently-used" | "frequently-used";
@@ -27,8 +20,12 @@ export interface ShortcutSectionConfig {
   title?: string;
 }
 
-export class EmojiStockbookProperty implements IEmojiStockbookProperty {
+export class EmojiStockbookProperty extends ScopedValue {
   private props = $state<AcceptableEmojiStockbookProperty>();
+
+  initialize(props: AcceptableEmojiStockbookProperty) {
+    this.props = props;
+  }
 
   readonly emojisets = $derived.by(() =>
     (this.props?.emojisets ?? "16").split(",")
@@ -49,8 +46,6 @@ export class EmojiStockbookProperty implements IEmojiStockbookProperty {
       return shortcut ?? null;
     }
   });
-
-  constructor(props: AcceptableEmojiStockbookProperty) {
-    this.props = props;
-  }
 }
+
+export const useCustomElementProperty = scoped(EmojiStockbookProperty);

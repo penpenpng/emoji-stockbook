@@ -1,9 +1,7 @@
 <script lang="ts">
-  import { useFoldables } from "@/lib/use-foldables";
-  import { useTranslation } from "@/lib/use-translation";
+  import { useFoldables, useTranslation } from "@/lib";
   import { type Snippet, onMount } from "svelte";
-  import IconChevronDown from "./icon/IconChevronDown.svelte";
-  import IconChevronRight from "./icon/IconChevronRight.svelte";
+  import { IconChevronDown, IconChevronRight } from "./icon";
 
   let {
     title = "",

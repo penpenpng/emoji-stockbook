@@ -1,22 +1,23 @@
-import { customElementScopedValue } from "@/lib/custom-element-scoped-value";
-import { useCustomElementProperty } from "@/lib/use-custom-element-property";
+import { scoped, ScopedValue } from "@/lib/custom-element-scoped-value";
+import { useCustomElementProperty } from "@/lib/use-custom-element-property.svelte";
 
 export interface ILangResolver {
   readonly lang: string;
   cleanup(): void;
 }
 
-export class LangResolver implements ILangResolver {
+export class LangResolver extends ScopedValue {
   private props = useCustomElementProperty();
   private defaultLang = $state<string | null>(null);
 
   lang = $derived.by(() => this.props.lang ?? this.defaultLang ?? "en");
 
   constructor() {
+    super();
     window.addEventListener("languagechange", this.updateLang);
   }
 
-  cleanup() {
+  [Symbol.dispose]() {
     window.removeEventListener("languagechange", this.updateLang);
   }
 
@@ -29,7 +30,4 @@ export class LangResolver implements ILangResolver {
   }
 }
 
-export const useLangResolver = customElementScopedValue(
-  (): ILangResolver => new LangResolver(),
-  (resolver: ILangResolver) => resolver.cleanup()
-);
+export const useLangResolver = scoped(LangResolver);

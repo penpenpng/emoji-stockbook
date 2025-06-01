@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { useTranslation } from "@/lib/use-translation";
+  import { useTranslation } from "@/lib";
   import RegionContent from "./RegionContent.svelte";
   import RegionControl from "./RegionControl.svelte";
   import RegionInfo from "./RegionInfo.svelte";

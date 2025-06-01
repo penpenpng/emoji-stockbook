@@ -1,12 +1,7 @@
 <script lang="ts">
-  import { useEmojiRepository } from "@/lib/use-emoji-repository/index.js";
-  import { useSearchFeature } from "@/lib/use-search-feature";
-  import { useTranslation } from "@/lib/use-translation";
-  import AtomIconLabel from "./atom/AtomIconLabel.svelte";
-  import AtomInput from "./atom/AtomInput.svelte";
-  import AtomSelect from "./atom/AtomSelect.svelte";
-  import IconFilter from "./icon/IconFilter.svelte";
-  import IconSearch from "./icon/IconSearch.svelte";
+  import { useEmojiRepository, useSearchFeature, useTranslation } from "@/lib";
+  import { AtomIconLabel, AtomInput, AtomSelect } from "./atom";
+  import { IconFilter, IconSearch } from "./icon";
 
   const searchFeature = useSearchFeature();
   const repo = useEmojiRepository();

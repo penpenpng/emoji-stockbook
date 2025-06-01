@@ -1,28 +1,22 @@
 import { getEmojisetRegistry } from "@/lib/emojiset-registry";
 import { Logger } from "@/lib/logger";
 import { includeVersions } from "@/lib/native-emoji-versions";
-import { useCustomElementProperty } from "@/lib/use-custom-element-property";
+import { useCustomElementProperty } from "@/lib/use-custom-element-property.svelte.js";
 import type { Emoji, EmojiCategory, EmojiPointer } from "@/types";
+import { scoped, ScopedValue } from "./custom-element-scoped-value.js";
 
-export interface IEmojiRepository {
-  readonly categories: Promise<EmojiCategory[]>;
-  readonly emojis: Promise<Emoji[]>;
-  readonly hasCustomEmojis: Promise<boolean>;
-  getEmojiByPointer(pointer: EmojiPointer): Promise<Emoji | undefined>;
-}
-
-export class EmojiRepository implements IEmojiRepository {
+export class EmojiRepository extends ScopedValue {
   private props = useCustomElementProperty();
 
-  readonly categories = $derived.by(() => {
+  readonly categories: Promise<EmojiCategory[]> = $derived.by(() => {
     const keys = this.props.emojisets;
     const reg = getEmojisetRegistry();
     return reg.getEmojiCategories(keys);
   });
-  readonly emojis = $derived.by(() =>
+  readonly emojis: Promise<Emoji[]> = $derived.by(() =>
     this.categories.then((cats) => cats.flatMap((c): Emoji[] => c.emojis))
   );
-  readonly hasCustomEmojis = $derived.by(() =>
+  readonly hasCustomEmojis: Promise<boolean> = $derived.by(() =>
     this.categories.then((cats) => cats.some((c) => c.kind === "custom"))
   );
 
@@ -64,3 +58,5 @@ export class EmojiRepository implements IEmojiRepository {
     return undefined;
   }
 }
+
+export const useEmojiRepository = scoped(EmojiRepository);

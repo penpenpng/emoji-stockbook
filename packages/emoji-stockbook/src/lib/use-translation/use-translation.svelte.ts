@@ -1,4 +1,4 @@
-import { useCustomElementProperty } from "@/lib/use-custom-element-property";
+import { useCustomElementProperty } from "@/lib/use-custom-element-property.svelte";
 import resourceEn from "@/locales/en.json";
 import { useLangResolver } from "./lang-resolver.svelte";
 

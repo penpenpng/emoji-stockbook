@@ -1,7 +1,5 @@
 <script lang="ts">
-  import { useCustomElementProperty } from "@/lib/use-custom-element-property";
-  import { usePreviewFeature } from "@/lib/use-preview-feature";
-  import { UArray } from "@/lib/utils";
+  import { UArray, useCustomElementProperty, usePreviewFeature } from "@/lib";
   import type { Emoji } from "@/types";
   import EmojiButton from "./EmojiButton.svelte";
 

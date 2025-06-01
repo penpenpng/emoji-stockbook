@@ -25,7 +25,7 @@
   });
 </script>
 
-<main>
+<div>
   <button onclick={() => (col = 4)}>col 4</button>
   <button onclick={() => (col = 6)}>col 6</button>
   <button onclick={() => (col = 8)}>col 8</button>
@@ -36,4 +36,4 @@
 
   <emoji-stockbook bind:this={stockbook} {col} {lang} {emojisets}
   ></emoji-stockbook>
-</main>
+</div>

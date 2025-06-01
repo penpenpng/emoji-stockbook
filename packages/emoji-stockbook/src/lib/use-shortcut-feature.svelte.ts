@@ -1,17 +1,10 @@
-import { useCustomElementProperty } from "@/lib/use-custom-element-property";
-import { useEmojiRepository } from "@/lib/use-emoji-repository";
-import type { Emoji, EmojiOutput } from "@/types";
-import { LocalStorageHistoryManager } from "../history-manager";
+import { useCustomElementProperty } from "@/lib/use-custom-element-property.svelte.js";
+import { useEmojiRepository } from "@/lib/use-emoji-repository.svelte.js";
+import type { EmojiOutput } from "@/types";
+import { scoped, ScopedValue } from "./custom-element-scoped-value.js";
+import { LocalStorageHistoryManager } from "./history-manager";
 
-export interface IShortcutFeature {
-  readonly title: string;
-  readonly emojis: Promise<Emoji[]>;
-  readonly maxRows: number;
-  updateHistory(output: EmojiOutput): void;
-  clearHistory(): void;
-}
-
-export class ShortcutFeature implements IShortcutFeature {
+export class ShortcutFeature extends ScopedValue {
   private rootProps = useCustomElementProperty();
   private repo = useEmojiRepository();
 
@@ -95,3 +88,5 @@ export class ShortcutFeature implements IShortcutFeature {
     this.key++;
   }
 }
+
+export const useShortcutFeature = scoped(ShortcutFeature);

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { useCustomElementProperty } from "@/lib/use-custom-element-property";
+  import { useCustomElementProperty } from "@/lib";
 
   const rootProps = useCustomElementProperty();
 
