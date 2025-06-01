@@ -2,7 +2,8 @@
   // Use `--icon-size` to adjust the size.
   const { alt }: { alt: string } = $props();
 
-  const id = `svg-${Math.floor(Math.random() * 10000)}`;
+  const uid = $props.id();
+  const id = `svg-${uid}`;
 </script>
 
 <svg

@@ -15,9 +15,9 @@
     disabled?: boolean;
   } = $props();
 
-  const getRandomId = () => `${Math.floor(Math.random() * 1000000000)}`;
-  const invokerId = getRandomId();
-  const contentId = getRandomId();
+  const uid = $props.id();
+  const invokerId = `invoker-${uid}`;
+  const contentId = `content-${uid}`;
 
   const ifEnabled = <T,>(v: T) => (disabled || !children ? undefined : v);
 
