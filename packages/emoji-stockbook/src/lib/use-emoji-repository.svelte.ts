@@ -1,0 +1,62 @@
+import { getEmojisetRegistry } from "@/lib/emojiset-registry";
+import { Logger } from "@/lib/logger";
+import { includeVersions } from "@/lib/native-emoji-versions";
+import { useCustomElementProperty } from "@/lib/use-custom-element-property.svelte.js";
+import type { Emoji, EmojiCategory, EmojiPointer } from "@/types";
+import { scoped, ScopedValue } from "./custom-element-scoped-value.js";
+
+export class EmojiRepository extends ScopedValue {
+  private props = useCustomElementProperty();
+
+  readonly categories: Promise<EmojiCategory[]> = $derived.by(() => {
+    const keys = this.props.emojisets;
+    const reg = getEmojisetRegistry();
+    return reg.getEmojiCategories(keys);
+  });
+  readonly emojis: Promise<Emoji[]> = $derived.by(() =>
+    this.categories.then((cats) => cats.flatMap((c): Emoji[] => c.emojis))
+  );
+  readonly hasCustomEmojis: Promise<boolean> = $derived.by(() =>
+    this.categories.then((cats) => cats.some((c) => c.kind === "custom"))
+  );
+
+  async getEmojiByPointer(pointer: EmojiPointer): Promise<Emoji | undefined> {
+    const reg = getEmojisetRegistry();
+    const emojisets = this.props.emojisets;
+
+    try {
+      if (pointer.kind === "native") {
+        const versions = includeVersions(pointer.version);
+
+        for (const version of versions) {
+          const emojiset = `${version}`;
+          if (!reg.hasEmojiset(emojiset)) {
+            continue;
+          }
+
+          if (pointer.original) {
+            // variant native emoji
+
+            // TODO: variant を pick できるようになったらここ直す
+            Logger.error("not implemented yet");
+            const original = await reg.getEmojiById(emojiset, pointer.original);
+          } else {
+            // naked native emoji
+            return await reg.getEmojiById(emojiset, pointer.char);
+          }
+        }
+      } else {
+        if (emojisets.includes(pointer.emojiset)) {
+          // custom emoji
+          return await reg.getEmojiById(pointer.emojiset, pointer.id);
+        }
+      }
+    } catch {
+      // noop
+    }
+
+    return undefined;
+  }
+}
+
+export const useEmojiRepository = scoped(EmojiRepository);
